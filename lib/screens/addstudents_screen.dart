@@ -21,8 +21,9 @@ class _AddStudentScreen extends State<AddStudentScreen> {
   late String studentCourse;
   late String studentSubjects;
   late int academicYear;
-  late int isInstallment;
+  //int? modeOfPayment;
   late double accountBalance;
+  late int isInstallment = 0;
 
   validated() {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
@@ -33,12 +34,6 @@ class _AddStudentScreen extends State<AddStudentScreen> {
       return;
     }
   }
-
-  setSelectedRadio(int val) {
-  setState(() {
-    isInstallment = val;
-  });
-}
 
   @override
   Widget build(BuildContext context) {
@@ -172,49 +167,38 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                   },
                 ),
 
-                // ButtonBar(
-                //   alignment: MainAxisAlignment.center,
-                //   children: <Widget>[
-                //     RadioListTile(
-                //       title: const Text('Installment'),
-                //       value: 0,
-                //       groupValue: isInstallment,
-                //       activeColor: Colors.green,
-                //       onChanged: (val) {
-                //         print("Radio $val");
-                //         setSelectedRadio(val as int);
-                //       },
-                //     ),
-                //     RadioListTile(
-                //       title: const Text('Full Payment'),
-                //       value: 1,
-                //       groupValue: isInstallment,
-                //       activeColor: Colors.blue,
-                //       onChanged: (val) {
-                //         print("Radio $val");
-                //         setSelectedRadio(val as int);
-                //       },
-                //     ),
-                //   ],
-                // ),
-                
-
-                TextFormField(
-                  initialValue: '',
-                  decoration: const InputDecoration(
-                    labelText: 'Payment Method',
-                  ),
+                Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              ListTile(
+                title: Text("Cash"),
+                leading: Radio<int>(
+                  value: 1,
+                  groupValue: isInstallment,
                   onChanged: (value) {
                     setState(() {
-                      isInstallment = int.parse(value);
+                      isInstallment = value??0;
+                      print(value);
                     });
                   },
-                  validator: (String? value) {
-                    if (value == null || value.trim().length == 0) {
-                      return "required";
-                    }
-                    return null;
+                  activeColor: Colors.green,
+                ),
+              ),
+              ListTile(
+                title: Text("Installment"),
+                leading: Radio<int>(
+                  value: 2,
+                  groupValue: isInstallment,
+                  onChanged: (value) {
+                    setState(() {
+                      isInstallment = value??0;
+                      print(value);
+                    });
                   },
+                  activeColor: Colors.green,
+                ),
+              ),
+            ],
                 ),
                 TextFormField(
                   initialValue: '',
