@@ -17,7 +17,8 @@ class EditStudentScreen extends StatefulWidget {
 
 class _EditStudentScreen extends State<EditStudentScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  late int studentIndex;
+
+  late int studentIndex = widget.index;
   late int studentID;
   late String firstName;
   late String middleName;
@@ -27,16 +28,6 @@ class _EditStudentScreen extends State<EditStudentScreen> {
   late int academicYear;
   late int isInstallment;
   late double accountBalance;
-
-  TextEditingController _studentIDController = TextEditingController();
-  TextEditingController _firstNameController = TextEditingController();
-  TextEditingController _middleNameController = TextEditingController();
-  TextEditingController _lastNameController = TextEditingController();
-  TextEditingController _studentCourseController = TextEditingController();
-  TextEditingController _studentSubjectsController = TextEditingController();
-  TextEditingController _academicYearController = TextEditingController();
-  TextEditingController _isInstallmentController = TextEditingController();
-  TextEditingController _accountBalanceController = TextEditingController();
 
   validated() {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
@@ -50,16 +41,24 @@ class _EditStudentScreen extends State<EditStudentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    studentIndex = widget.index;
-    studentID = widget.student.studentID;
-    firstName = widget.student.firstName;
-    middleName = widget.student.middleName;
-    lastName = widget.student.lastName;
-    studentCourse = widget.student.studentCourse;
-    studentSubjects = widget.student.studentSubjects;
-    academicYear = widget.student.academicYear;
-    isInstallment = widget.student.isInstallment;
-    accountBalance = widget.student.accountBalance;
+    TextEditingController _studentIDController = TextEditingController()
+      ..text = '${widget.student.studentID}';
+    TextEditingController _firstNameController = TextEditingController()
+      ..text = '${widget.student.firstName}';
+    TextEditingController _middleNameController = TextEditingController()
+      ..text = '${widget.student.middleName}';
+    TextEditingController _lastNameController = TextEditingController()
+      ..text = '${widget.student.lastName}';
+    TextEditingController _studentCourseController = TextEditingController()
+      ..text = '${widget.student.studentCourse}';
+    TextEditingController _studentSubjectsController = TextEditingController()
+      ..text = '${widget.student.studentSubjects}';
+    TextEditingController _academicYearController = TextEditingController()
+      ..text = '${widget.student.academicYear}';
+    TextEditingController _isInstallmentController = TextEditingController()
+      ..text = '${widget.student.isInstallment}';
+    TextEditingController _accountBalanceController = TextEditingController()
+      ..text = '${widget.student.accountBalance}';
 
     return Scaffold(
       appBar: AppBar(
@@ -76,12 +75,12 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                 TextFormField(
                   autofocus: true,
                   keyboardType: TextInputType.number,
-                  initialValue: studentID.toString(),
+                  controller: _studentIDController,
                   decoration: InputDecoration(labelText: 'Student ID'),
                   onChanged: (value) {
-                    setState(() {
+                    //setState(() {
                       studentID = int.parse(value);
-                    });
+                    //});
                   },
                   validator: (String? value) {
                     if (value == null || value.trim().length == 0) {
@@ -92,12 +91,12 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                 ),
                 TextFormField(
                   autofocus: true,
-                  initialValue: firstName,
+                  controller: _firstNameController,
                   decoration: InputDecoration(labelText: 'First Name'),
                   onChanged: (value) {
-                    setState(() {
+                    //setState(() {
                       firstName = value;
-                    });
+                    //});
                   },
                   validator: (String? value) {
                     if (value == null || value.trim().length == 0) {
@@ -108,12 +107,12 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                 ),
                 TextFormField(
                   autofocus: true,
-                  initialValue: middleName,
+                  controller: _middleNameController,
                   decoration: InputDecoration(labelText: 'Middle Name'),
                   onChanged: (value) {
-                    setState(() {
+                    //setState(() {
                       middleName = value;
-                    });
+                    //});
                   },
                   validator: (String? value) {
                     if (value == null || value.trim().length == 0) {
@@ -123,14 +122,14 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                   },
                 ),
                 TextFormField(
-                  initialValue: lastName,
+                  controller: _lastNameController,
                   decoration: const InputDecoration(
                     labelText: 'Last Name',
                   ),
                   onChanged: (value) {
-                    setState(() {
+                    //setState(() {
                       lastName = value;
-                    });
+                    //});
                   },
                   validator: (String? value) {
                     if (value == null || value.trim().length == 0) {
@@ -140,14 +139,14 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                   },
                 ),
                 TextFormField(
-                  initialValue: studentCourse,
+                  controller: _studentCourseController,
                   decoration: const InputDecoration(
                     labelText: 'Student Course',
                   ),
                   onChanged: (value) {
-                    setState(() {
+                    //setState(() {
                       studentCourse = value;
-                    });
+                    //});
                   },
                   validator: (String? value) {
                     if (value == null || value.trim().length == 0) {
@@ -157,14 +156,14 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                   },
                 ),
                 TextFormField(
-                  initialValue: studentSubjects,
+                  controller: _studentSubjectsController,
                   decoration: const InputDecoration(
                     labelText: 'Student Subjects',
                   ),
                   onChanged: (value) {
-                    setState(() {
+                    //setState(() {
                       studentSubjects = value;
-                    });
+                    //});
                   },
                   validator: (String? value) {
                     if (value == null || value.trim().length == 0) {
@@ -174,15 +173,15 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                   },
                 ),
                 TextFormField(
-                  initialValue: academicYear.toString(),
+                  controller: _academicYearController,
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                     labelText: 'Academic Year',
                   ),
                   onChanged: (value) {
-                    setState(() {
+                    //setState(() {
                       academicYear = int.parse(value);
-                    });
+                    //});
                   },
                   validator: (String? value) {
                     if (value == null || value.trim().length == 0) {
@@ -192,14 +191,14 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                   },
                 ),
                 TextFormField(
-                  initialValue: isInstallment.toString(),
+                  controller: _isInstallmentController,
                   decoration: const InputDecoration(
                     labelText: 'Payment Method',
                   ),
                   onChanged: (value) {
-                    setState(() {
+                    //setState(() {
                       isInstallment = int.parse(value);
-                    });
+                    //});
                   },
                   validator: (String? value) {
                     if (value == null || value.trim().length == 0) {
@@ -209,14 +208,14 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                   },
                 ),
                 TextFormField(
-                  initialValue: accountBalance.toString(),
+                  controller: _accountBalanceController,
                   decoration: const InputDecoration(
                     labelText: 'Account Balance',
                   ),
                   onChanged: (value) {
-                    setState(() {
+                    //setState(() {
                       accountBalance = double.parse(value);
-                    });
+                    //});
                   },
                   validator: (String? value) {
                     if (value == null || value.trim().length == 0) {
@@ -255,6 +254,12 @@ class _EditStudentScreen extends State<EditStudentScreen> {
             isInstallment: isInstallment,
             accountBalance: accountBalance));
     Navigator.of(context).pop();
+    print(
+      "Student Index: $studentIndex",
+    );
+    print(
+      "Student Info Update: $studentID, $firstName",
+    );
     print(studentBox);
   }
 }
