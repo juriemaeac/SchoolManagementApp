@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:smapp/authentication/login_screen.dart';
 import 'package:smapp/boxes/boxFaculty.dart';
 import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/models/faculty_model.dart';
@@ -26,9 +27,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: StudentScreen(
-        title: 'Student List',
-      ),
+      // home: StudentScreen(
+      //   title: 'Student List',
+      // ),
+      home: LoginScreen(),
     );
   }
 }
