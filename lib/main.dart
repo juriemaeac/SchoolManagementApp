@@ -5,7 +5,6 @@ import 'package:smapp/boxes/boxFaculty.dart';
 import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/models/faculty_model.dart';
 import 'package:smapp/models/student_model.dart';
-import 'package:smapp/screens/students_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 

@@ -4,7 +4,7 @@ part 'faculty_model.g.dart';
 @HiveType(typeId: 1)
 class Faculty {
   @HiveField(0)
-  late String? id;
+  late String? id; //need remove late
   @HiveField(1)
   late String username = '';
   @HiveField(2)
@@ -28,4 +28,6 @@ class Faculty {
       required this.lastName,
       required this.userFaculty,
       required this.isAdmin});
+
+  void delete() {}
 }
