@@ -70,90 +70,100 @@ class _LoginScreen extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: SafeArea(
-          child: Form(
+      child: SafeArea(
+        child: Form(
           key: _formKey,
           child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(120.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text("LoginRIGHT??", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),),
-                const SizedBox(height: 12,),
-                const Text("The safest app on the web for storing your data!", style: TextStyle(fontSize: 12),),
-                TextFormField(
-                  autofocus: true,
-                  controller: usernameText,
-                  decoration: InputDecoration(labelText: 'username'),
-                  onChanged: (value) {
-                    setState(() {
-                      username = value;
-                    });
-                  },
-                  validator: (String? value) {
-                    if (value == null || value.trim().length == 0) {
-                      return "required";
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  obscureText: _isObscure,
-                  decoration: InputDecoration(
-                      labelText: 'Enter Passowrd',
-                      suffixIcon: IconButton(
-                          icon: Icon(_isObscure
-                              ? Icons.visibility
-                              : Icons.visibility_off),
-                          onPressed: () {
-                            setState(() {
-                              _isObscure = !_isObscure;
-                            });
-                          })),
-                  autofocus: true,
-                  controller: passwordText,
-                  onChanged: (value) {
-                    setState(() {
-                      password = value;
-                    });
-                  },
-                  validator: (String? value) {
-                    if (value == null || value.trim().length == 0) {
-                      return "required";
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 24),
-
-                Align(
-                  alignment: Alignment.topRight,
-                  child: MaterialButton(child: const Text("Forget password?"), onPressed: (){},),
-                ),
-                const SizedBox(height: 24),
-
-                MaterialButton(onPressed: () {
-                    validated();
-                  },
-                  child: Text("Login"),
-                  minWidth: double.infinity,
-                  height: 52,
-                  elevation: 24,
-                  color: Colors.amber.shade700,
-                  textColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(32)
+            child: Padding(
+              padding: const EdgeInsets.all(120.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Login",
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
                   ),
-                )
-              ],
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  const Text(
+                    "The safest app on the web for storing your data!",
+                    style: TextStyle(fontSize: 12),
+                  ),
+                  TextFormField(
+                    autofocus: true,
+                    controller: usernameText,
+                    decoration: InputDecoration(labelText: 'username'),
+                    onChanged: (value) {
+                      setState(() {
+                        username = value;
+                      });
+                    },
+                    validator: (String? value) {
+                      if (value == null || value.trim().length == 0) {
+                        return "required";
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    obscureText: _isObscure,
+                    decoration: InputDecoration(
+                        labelText: 'Enter Passowrd',
+                        suffixIcon: IconButton(
+                            icon: Icon(_isObscure
+                                ? Icons.visibility
+                                : Icons.visibility_off),
+                            onPressed: () {
+                              setState(() {
+                                _isObscure = !_isObscure;
+                              });
+                            })),
+                    autofocus: true,
+                    controller: passwordText,
+                    onChanged: (value) {
+                      setState(() {
+                        password = value;
+                      });
+                    },
+                    validator: (String? value) {
+                      if (value == null || value.trim().length == 0) {
+                        return "required";
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 24),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: MaterialButton(
+                      child: const Text("Forget password?"),
+                      onPressed: () {},
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  MaterialButton(
+                    onPressed: () {
+                      validated();
+                    },
+                    child: Text("Login"),
+                    minWidth: double.infinity,
+                    height: 52,
+                    elevation: 24,
+                    color: Colors.amber.shade700,
+                    textColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(32)),
+                  )
+                ],
+              ),
             ),
           ),
         ),
-        ),),
-        );
+      ),
+    );
   }
 }
 
