@@ -22,6 +22,12 @@ class FacultyScreen extends StatefulWidget {
 
 class _FacultyScreenState extends State<FacultyScreen> {
   @override
+  void initState()  {
+    super.initState();
+    Hive.openBox<Faculty>(HiveBoxesFaculty.faculty);
+  }
+
+  @override
   void dispose() {
     Hive.close();
     super.dispose();

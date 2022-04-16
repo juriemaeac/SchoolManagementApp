@@ -19,6 +19,12 @@ class StudentScreen extends StatefulWidget {
 
 class _StudentScreenState extends State<StudentScreen> {
   @override
+  void initState() {
+    super.initState();
+    Hive.openBox<Student>(HiveBoxesStudent.student);
+  }
+
+  @override
   void dispose() {
     Hive.close();
     super.dispose();
