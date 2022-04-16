@@ -20,9 +20,9 @@ class _LoginScreen extends State<LoginScreen> {
   String? adminPassword = "password";
   late String username;
   late String password;
-
   final usernameText = TextEditingController();
   final passwordText = TextEditingController();
+  String? errorMessage = '';
 
   validated() {
     Box<Faculty> facultyBox = Hive.box<Faculty>(HiveBoxesFaculty.faculty);
@@ -35,7 +35,6 @@ class _LoginScreen extends State<LoginScreen> {
               builder: (context) => FacultyScreen(title: 'Faculty List'),
             ));
       } else if (username != adminUsername && password != adminPassword) {
-        // check if credential is in hive faculty
         // add username and password in global list
         facultyBox.values.forEach((faculty) {
           if (faculty.username == username && faculty.password == password) {
@@ -45,15 +44,14 @@ class _LoginScreen extends State<LoginScreen> {
                 MaterialPageRoute(
                   builder: (context) => StudentScreen(title: 'Student List'),
                 ));
-          } else {
-            print("Login Credentials not found");
+          } else if (faculty.username != username &&
+              faculty.password != password) {
+            errorMessage = 'Wrong Credentials. Please try again.';
             clearInputFields();
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => LoginScreen()));
           }
         });
+        print('Wrong Credentials');
       }
-      print("Form Validated");
     } else {
       print("Form Not Validated");
       return;
@@ -95,7 +93,7 @@ class _LoginScreen extends State<LoginScreen> {
                   TextFormField(
                     autofocus: true,
                     controller: usernameText,
-                    decoration: InputDecoration(labelText: 'username'),
+                    decoration: InputDecoration(labelText: 'Enter Username'),
                     onChanged: (value) {
                       setState(() {
                         username = value;
@@ -111,7 +109,7 @@ class _LoginScreen extends State<LoginScreen> {
                   TextFormField(
                     obscureText: _isObscure,
                     decoration: InputDecoration(
-                        labelText: 'Enter Passowrd',
+                        labelText: 'Enter Password',
                         suffixIcon: IconButton(
                             icon: Icon(_isObscure
                                 ? Icons.visibility
@@ -138,15 +136,16 @@ class _LoginScreen extends State<LoginScreen> {
                   const SizedBox(height: 24),
                   Align(
                     alignment: Alignment.topRight,
-                    child: MaterialButton(
-                      child: const Text("Forget password?"),
-                      onPressed: () {},
+                    child: Text(
+                      errorMessage ?? "",
+                      style: const TextStyle(fontSize: 12, color: Colors.red),
                     ),
                   ),
                   const SizedBox(height: 24),
                   MaterialButton(
                     onPressed: () {
                       validated();
+                      setState(() {});
                     },
                     child: Text("Login"),
                     minWidth: double.infinity,

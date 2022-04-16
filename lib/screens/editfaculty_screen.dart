@@ -122,12 +122,13 @@ class _EditFacultyScreen extends State<EditFacultyScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [  
                 TextFormField(
+                  //enabled: false,
                   autofocus: true,
                   controller: _usernameController,
                   decoration: InputDecoration(labelText: 'Faculty Username'),
                   onChanged: (value) {
                     //setState(() {
-                    firstName = _usernameController.value.text;
+                    username = _usernameController.value.text;
                     //});
                   },
                   validator: (String? value) {
@@ -143,7 +144,7 @@ class _EditFacultyScreen extends State<EditFacultyScreen> {
                   decoration: InputDecoration(labelText: 'Faculty Password'),
                   onChanged: (value) {
                     //setState(() {
-                    firstName = _passwordController.value.text;
+                    password = _passwordController.value.text;
                     //});
                   },
                   validator: (String? value) {

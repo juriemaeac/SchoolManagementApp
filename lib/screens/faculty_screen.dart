@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:smapp/authentication/right_login_screen.dart';
 import 'package:smapp/boxes/boxFaculty.dart';
 import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/screens/addstudents_screen.dart';
@@ -12,7 +13,6 @@ import 'addfaculty_screen.dart';
 import '../models/faculty_model.dart';
 import '../models/student_model.dart';
 import 'addstudents_screen.dart';
-import 'package:smapp/right_login_screen.dart';
 
 class FacultyScreen extends StatefulWidget {
   final String title;

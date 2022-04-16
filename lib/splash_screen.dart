@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:smapp/left_login_screen.dart';
-import 'package:smapp/right_login_screen.dart';
+import 'package:smapp/authentication/left_login_screen.dart';
+import 'package:smapp/authentication/right_login_screen.dart';
 import 'package:smapp/screens/students_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -31,8 +31,6 @@ class _SplashScreenState extends State<SplashScreen>
           setState(() {});
         });
       }
-
-
     });
   }
 
@@ -47,10 +45,11 @@ class _SplashScreenState extends State<SplashScreen>
     var screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
-      
       body: Stack(
         children: [
-          Visibility(visible: copAnimated, child: Row(
+          Visibility(
+            visible: copAnimated,
+            child: Row(
               children: [
                 LoginScreen(), //ung nasa left, lalabas kapag maliit
                 if (MediaQuery.of(context).size.width > 900)
@@ -60,56 +59,50 @@ class _SplashScreenState extends State<SplashScreen>
           ),
           // White Container top half
           if (MediaQuery.of(context).size.width > 900)
-          AnimatedContainer(
-            duration: const Duration(seconds: 1),
-            width: copAnimated ? screenWidth/2 : screenWidth,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(copAnimated ? 0.0 : 0.0),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                
-                Visibility(
-                  visible: !copAnimated,
-                  child: Lottie.asset(
-                    'assets/book.json',
-                    height: MediaQuery.of(context).size.height/2,
-                    controller: _coffeeController,
-                    onLoaded: (composition) {
-                      _coffeeController
-                        ..duration = composition.duration
-                        ..forward();
-                    },
+            AnimatedContainer(
+              duration: const Duration(seconds: 1),
+              width: copAnimated ? screenWidth / 2 : screenWidth,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(copAnimated ? 0.0 : 0.0),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Visibility(
+                    visible: !copAnimated,
+                    child: Lottie.asset(
+                      'assets/book.json',
+                      height: MediaQuery.of(context).size.height / 2,
+                      controller: _coffeeController,
+                      onLoaded: (composition) {
+                        _coffeeController
+                          ..duration = composition.duration
+                          ..forward();
+                      },
+                    ),
                   ),
-                ),
-                
-                Visibility(
-                  visible: copAnimated ,
-                  child: const LoginPageRightSide(),
-                ),
-                // Center(
-                //   child: AnimatedOpacity(
-                //     opacity: animateCafeText ? 1 : 0,
-                //     duration: const Duration(seconds: 1),
-                //     child: const Text(
-                //       'S M A P P',
-                //       style: TextStyle(fontSize: 50.0, color: Colors.black),
-                //     ),
-                //   ),
-                // ),
-              ],
-            ),
-          ),
 
-          
+                  Visibility(
+                    visible: copAnimated,
+                    child: const LoginPageRightSide(),
+                  ),
+                  // Center(
+                  //   child: AnimatedOpacity(
+                  //     opacity: animateCafeText ? 1 : 0,
+                  //     duration: const Duration(seconds: 1),
+                  //     child: const Text(
+                  //       'S M A P P',
+                  //       style: TextStyle(fontSize: 50.0, color: Colors.black),
+                  //     ),
+                  //   ),
+                  // ),
+                ],
+              ),
+            ),
         ],
       ),
     );
   }
 }
-
-
-

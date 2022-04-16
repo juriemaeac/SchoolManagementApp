@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:smapp/right_login_screen.dart';
+import 'package:smapp/authentication/right_login_screen.dart';
 import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/screens/addstudents_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -69,19 +69,18 @@ class _StudentScreenState extends State<StudentScreen> {
                     child: const Text('Faculty Screen')),
               ),
               ElevatedButton(
-              onPressed: () {
-                facultyCredential.username = '';
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SplashScreen(),
-                  ),
-                );
-              },
-              child: const Text('Logout')),
+                  onPressed: () {
+                    facultyCredential.username = '';
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SplashScreen(),
+                      ),
+                    );
+                  },
+                  child: const Text('Logout')),
             ],
           ),
-          
         ],
       ),
       body: ValueListenableBuilder(
@@ -138,7 +137,48 @@ class _StudentScreenState extends State<StudentScreen> {
                                 child: const Text('Edit')),
                             ElevatedButton(
                                 onPressed: () {
-                                  res.delete();
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: const Text(
+                                          'Confirmation',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.red),
+                                        ),
+                                        content: const Text(
+                                          'Are you sure you want to delete this student?',
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              color: Colors.black),
+                                          textAlign: TextAlign.justify,
+                                        ),
+                                        actions: <Widget>[
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  res.delete();
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const Text('Delete'),
+                                              ),
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const Text('Cancel'),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
                                 },
                                 child: const Text('Delete')),
                           ]),
