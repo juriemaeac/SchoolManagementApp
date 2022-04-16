@@ -12,9 +12,9 @@ class LoginPageRightSide extends StatelessWidget {
           color: Colors.orange,
           child: Container(
             decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/bg.jpg'),
-                  fit: BoxFit.cover),
+              // image: DecorationImage(
+              //     image: AssetImage('assets/bg.jpg'),
+              //     fit: BoxFit.cover),
             ),
             child: Center(
               child: SizedBox(

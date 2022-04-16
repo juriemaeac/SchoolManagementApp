@@ -52,7 +52,7 @@ class _SplashScreenState extends State<SplashScreen>
           // White Container top half
           AnimatedContainer(
             duration: const Duration(seconds: 1),
-            width: copAnimated ? screenWidth : screenWidth,
+            width: copAnimated ? screenWidth/2 : screenWidth,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(copAnimated ? 0.0 : 0.0),
@@ -101,11 +101,12 @@ class _SplashScreenState extends State<SplashScreen>
           // Text bottom part
           Visibility(visible: copAnimated, child: Row(
               children: [
-                const LoginPageLeftSide(),
+                LoginScreen(),
                 if (MediaQuery.of(context).size.width > 900)
                   const LoginPageRightSide(),
               ],
-            ),),
+            ),
+          ),
         ],
       ),
     );

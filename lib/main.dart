@@ -6,6 +6,7 @@ import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/models/faculty_model.dart';
 import 'package:smapp/models/student_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:smapp/splash_screen.dart';
 
 
 
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       // home: StudentScreen(
       //   title: 'Student List',
       // ),
-      home: LoginScreen(),
+      home: SplashScreen(),
     );
   }
 }

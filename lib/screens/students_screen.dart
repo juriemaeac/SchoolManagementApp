@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:smapp/authentication/login_screen.dart';
+import 'package:smapp/right_login_screen.dart';
 import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/screens/addstudents_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
