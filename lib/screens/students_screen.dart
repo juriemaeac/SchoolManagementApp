@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:smapp/authentication/login_screen.dart';
 import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/screens/addstudents_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -18,10 +19,15 @@ class StudentScreen extends StatefulWidget {
 }
 
 class _StudentScreenState extends State<StudentScreen> {
+  bool? isAdmin = false;
   @override
   void initState() {
     super.initState();
     Hive.openBox<Student>(HiveBoxesStudent.student);
+    var user = facultyCredential.getString();
+    if (user == 'admin') {
+      isAdmin = true;
+    }
   }
 
   @override
@@ -37,16 +43,19 @@ class _StudentScreenState extends State<StudentScreen> {
         title: Text(widget.title),
         centerTitle: true,
         actions: [
-           ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => FacultyScreen(title: 'Faculty List'),
-                    ),
-                  );
-                },
-                child: const Text('Faculty Screen')),
+           Visibility(
+             visible: isAdmin??false,
+             child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FacultyScreen(title: 'Faculty List'),
+                      ),
+                    );
+                  },
+                  child: const Text('Faculty Screen')),
+           ),
         ],
       ),
       body: ValueListenableBuilder(
