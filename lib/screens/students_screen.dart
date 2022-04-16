@@ -5,6 +5,7 @@ import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/screens/addstudents_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:smapp/screens/editstudents_screen.dart';
+import '../splash_screen.dart';
 import 'addfaculty_screen.dart';
 import '../models/student_model.dart';
 import 'addstudents_screen.dart';
@@ -27,6 +28,13 @@ class _StudentScreenState extends State<StudentScreen> {
     var user = facultyCredential.getString();
     if (user == 'admin') {
       isAdmin = true;
+    } else if (user == '') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginScreen(),
+        ),
+      );
     }
   }
 
@@ -43,19 +51,37 @@ class _StudentScreenState extends State<StudentScreen> {
         title: Text(widget.title),
         centerTitle: true,
         actions: [
-           Visibility(
-             visible: isAdmin??false,
-             child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => FacultyScreen(title: 'Faculty List'),
-                      ),
-                    );
-                  },
-                  child: const Text('Faculty Screen')),
-           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Visibility(
+                visible: isAdmin ?? false,
+                child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              FacultyScreen(title: 'Faculty List'),
+                        ),
+                      );
+                    },
+                    child: const Text('Faculty Screen')),
+              ),
+              ElevatedButton(
+              onPressed: () {
+                facultyCredential.username = '';
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SplashScreen(),
+                  ),
+                );
+              },
+              child: const Text('Logout')),
+            ],
+          ),
+          
         ],
       ),
       body: ValueListenableBuilder(
@@ -95,16 +121,14 @@ class _StudentScreenState extends State<StudentScreen> {
                                       middleName: res.middleName,
                                       lastName: res.lastName,
                                       studentCourse: res.studentCourse,
-                                      studentSubjects:
-                                          res.studentSubjects,
+                                      studentSubjects: res.studentSubjects,
                                       academicYear: res.academicYear,
                                       isInstallment: res.isInstallment,
                                       accountBalance: res.accountBalance);
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          EditStudentScreen(
+                                      builder: (context) => EditStudentScreen(
                                         student: student,
                                         index: index,
                                       ),

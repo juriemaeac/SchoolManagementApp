@@ -28,6 +28,7 @@ class _LoginScreen extends State<LoginScreen> {
     Box<Faculty> facultyBox = Hive.box<Faculty>(HiveBoxesFaculty.faculty);
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       if (username == adminUsername && password == adminPassword) {
+        facultyCredential.setString(username);
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -157,7 +158,7 @@ class _LoginScreen extends State<LoginScreen> {
 }
 
 class facultyCredential {
-  static String username = "admin";
+  static String username = "";
   static void setString(String newValue) {
     username = newValue;
   }
