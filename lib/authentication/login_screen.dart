@@ -4,7 +4,7 @@ import 'package:smapp/boxes/boxFaculty.dart';
 import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/models/student_model.dart';
 import 'package:smapp/screens/students_screen.dart';
-
+import 'package:smapp/models/faculty_model.dart';
 import '../screens/faculty_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -21,7 +21,11 @@ class _LoginScreen extends State<LoginScreen> {
   late String username;
   late String password;
 
+  final usernameText = TextEditingController();
+  final passwordText = TextEditingController();
+
   validated() {
+    Box<Faculty> facultyBox = Hive.box<Faculty>(HiveBoxesFaculty.faculty);
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       if (username == adminUsername && password == adminPassword) {
         Navigator.push(
@@ -29,20 +33,34 @@ class _LoginScreen extends State<LoginScreen> {
             MaterialPageRoute(
               builder: (context) => FacultyScreen(title: 'Faculty List'),
             ));
-      } else {
+      } else if (username != adminUsername && password != adminPassword) {
         // check if credential is in hive faculty
         // add username and password in global list
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => StudentScreen(title: 'Student List'),
-            ));
+        facultyBox.values.forEach((faculty) {
+          if (faculty.username == username && faculty.password == password) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => StudentScreen(title: 'Student List'),
+                ));
+          } else {
+            print("Login Credentials not found");
+            clearInputFields();
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => LoginScreen()));
+          }
+        });
       }
       print("Form Validated");
     } else {
       print("Form Not Validated");
       return;
     }
+  }
+
+  void clearInputFields() {
+    usernameText.clear();
+    passwordText.clear();
   }
 
   bool _isObscure = true;
@@ -63,7 +81,7 @@ class _LoginScreen extends State<LoginScreen> {
               children: [
                 TextFormField(
                   autofocus: true,
-                  initialValue: '',
+                  controller: usernameText,
                   decoration: InputDecoration(labelText: 'Enter Username'),
                   onChanged: (value) {
                     setState(() {
@@ -91,7 +109,7 @@ class _LoginScreen extends State<LoginScreen> {
                             });
                           })),
                   autofocus: true,
-                  initialValue: '',
+                  controller: passwordText,
                   onChanged: (value) {
                     setState(() {
                       password = value;
