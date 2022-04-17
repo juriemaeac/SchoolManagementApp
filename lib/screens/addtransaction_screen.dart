@@ -40,7 +40,6 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
     }
   }
 
-
   late int studentIndex = widget.index;
   int? studentID;
   String? firstName;
@@ -155,7 +154,8 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                   validator: (String? value) {
                     if (value == null || value.trim().length == 0) {
                       return "required";
-                    } else if (double.parse(value) <= 0) {
+                    } else if (double.parse(value) <= 0 ||
+                        double.parse(value) > oldBalance!) {
                       return "Payment amount error. Please try again.";
                     }
                     return null;
@@ -178,7 +178,7 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
   void _onFormSubmit(double oldBalance, double transactionAmount) {
     String? user = facultyCredential.getString();
 
-    if (transactionAmount > oldBalance && transactionAmount  >= 1.0) {
+    if (transactionAmount > oldBalance && transactionAmount >= 1.0) {
       print("Payment Error. Check transaction amount and try again.");
       return;
     } else {
@@ -208,8 +208,5 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
               accountBalance: newAccountBalance));
     }
     Navigator.of(context).pop();
-    
   }
-
-
 }

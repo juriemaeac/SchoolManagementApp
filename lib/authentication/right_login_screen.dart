@@ -5,6 +5,7 @@ import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/models/student_model.dart';
 import 'package:smapp/screens/students_screen.dart';
 import 'package:smapp/models/faculty_model.dart';
+import 'package:smapp/start.dart';
 import '../screens/faculty_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -32,7 +33,7 @@ class _LoginScreen extends State<LoginScreen> {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => FacultyScreen(title: 'Faculty List'),
+              builder: (context) => Start(),
             ));
       } else if (username != adminUsername && password != adminPassword) {
         // add username and password in global list
