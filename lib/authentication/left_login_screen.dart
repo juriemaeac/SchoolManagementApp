@@ -46,7 +46,10 @@ class LoginPageRightSide extends StatelessWidget {
                       alignment: Alignment.bottomRight,
                       child: Padding(
                         padding: const EdgeInsets.only(right: 60.0),
-                        child: Image.asset('assets/education.png', width: 300,),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.asset('assets/education.png', width: 300,),
+                        ),
                       ),
                     ),
                     Align(
