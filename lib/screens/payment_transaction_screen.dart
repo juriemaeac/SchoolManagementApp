@@ -98,29 +98,34 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               ],
                             ),
                             //Print to PDF
-                            ElevatedButton(
-                                onPressed: () {
-                                  // Student student = Student(
-                                  //     studentID: res.studentID,
-                                  //     firstName: res.firstName,
-                                  //     middleName: res.middleName,
-                                  //     lastName: res.lastName,
-                                  //     studentCourse: res.studentCourse,
-                                  //     studentSubjects: res.studentSubjects,
-                                  //     academicYear: res.academicYear,
-                                  //     isInstallment: res.isInstallment,
-                                  //     accountBalance: res.accountBalance);
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) => EditStudentScreen(
-                                  //       student: student,
-                                  //       index: index,
-                                  //     ),
-                                  //   ),
-                                  // );
-                                },
-                                child: const Text('View Record')),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                ElevatedButton(
+                                    onPressed: () {
+                                      // Student student = Student(
+                                      //     studentID: res.studentID,
+                                      //     firstName: res.firstName,
+                                      //     middleName: res.middleName,
+                                      //     lastName: res.lastName,
+                                      //     studentCourse: res.studentCourse,
+                                      //     studentSubjects: res.studentSubjects,
+                                      //     academicYear: res.academicYear,
+                                      //     isInstallment: res.isInstallment,
+                                      //     accountBalance: res.accountBalance);
+                                      // Navigator.push(
+                                      //   context,
+                                      //   MaterialPageRoute(
+                                      //     builder: (context) => EditStudentScreen(
+                                      //       student: student,
+                                      //       index: index,
+                                      //     ),
+                                      //   ),
+                                      // );
+                                    },
+                                    child: const Text('View Record')),
+                              ],
+                            ),
                             // ElevatedButton(
                             //     onPressed: () {
                             //       showDialog(

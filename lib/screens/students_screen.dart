@@ -111,38 +111,46 @@ class _StudentScreenState extends State<StudentScreen> {
                           children: <Widget>[
                             Row(
                               children: [
-                                Text(res!.lastName),
-                                const Text(", "),
-                                Text(res.firstName),
-                                const Text(" "),
-                                Text(res.middleName),
+                                Row(
+                                  children: [
+                                    Text(res!.lastName),
+                                    const Text(", "),
+                                    Text(res.firstName),
+                                    const Text(" "),
+                                    Text(res.middleName),
+                                  ],
+                                ),
                               ],
                             ),
-                            //
-                            ElevatedButton(
-                                onPressed: () {
-                                  Student student = Student(
-                                      studentID: res.studentID,
-                                      firstName: res.firstName,
-                                      middleName: res.middleName,
-                                      lastName: res.lastName,
-                                      studentCourse: res.studentCourse,
-                                      studentSubjects: res.studentSubjects,
-                                      academicYear: res.academicYear,
-                                      isInstallment: res.isInstallment,
-                                      accountBalance: res.accountBalance);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => EditStudentScreen(
-                                        student: student,
-                                        index: index,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                child: const Text('Edit')),
-                            ElevatedButton(
+                            Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,                                
+                              children: [
+                                ElevatedButton(
+                                    onPressed: () {
+                                      Student student = Student(
+                                          studentID: res.studentID,
+                                          firstName: res.firstName,
+                                          middleName: res.middleName,
+                                          lastName: res.lastName,
+                                          studentCourse: res.studentCourse,
+                                          studentSubjects: res.studentSubjects,
+                                          academicYear: res.academicYear,
+                                          isInstallment: res.isInstallment,
+                                          accountBalance: res.accountBalance);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => EditStudentScreen(
+                                            student: student,
+                                            index: index,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: const Text('Edit')
+                                ),
+                                SizedBox(width: 10),
+                                 ElevatedButton(
                                 onPressed: () {
                                   Student student = Student(
                                       studentID: res.studentID,
@@ -165,7 +173,8 @@ class _StudentScreenState extends State<StudentScreen> {
                                   );
                                 },
                                 child: const Text('Billing')),
-                            ElevatedButton(
+                                SizedBox(width: 10),
+                                ElevatedButton(
                                 onPressed: () {
                                   showDialog(
                                     context: context,
@@ -210,10 +219,17 @@ class _StudentScreenState extends State<StudentScreen> {
                                     },
                                   );
                                 },
-                                child: const Text('Delete')),
+                                child: const Text('Delete')
+                                ),
+                                 SizedBox(width: 10),
+                              ],
+                            ),
+                            
+                           
                           ]),
                     ),
                     subtitle: Text(res.studentID.toString()),
+                    
                     onTap: () {});
               },
             );

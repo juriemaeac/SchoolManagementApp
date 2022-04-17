@@ -14,12 +14,13 @@ class AddStudentScreen extends StatefulWidget {
 class _AddStudentScreen extends State<AddStudentScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-   @override
+  @override
   void initState() {
     super.initState();
-    Hive.openBox<Student>(HiveBoxesStudent.student);
     
+    Hive.openBox<Student>(HiveBoxesStudent.student);
   }
+  
 
   late int studentID;
   late String firstName;
@@ -32,9 +33,9 @@ class _AddStudentScreen extends State<AddStudentScreen> {
   late double accountBalance;
   late int isInstallment = 0;
 
-  validated() {
+  validated(String subjects) {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
-      _onFormSubmit();
+      _onFormSubmit(subjects);
       print("Form Validated");
     } else {
       print("Form Not Validated");
@@ -44,6 +45,10 @@ class _AddStudentScreen extends State<AddStudentScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    TextEditingController _studentSubjects = TextEditingController()
+      ..text = courseSubjects.getCourseSubjects();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Students'),
@@ -127,6 +132,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                     labelText: 'Student Course',
                   ),
                   onChanged: (value) {
+                    courseSubjects.setCourse(value);
                     setState(() {
                       studentCourse = value;
                     });
@@ -139,29 +145,12 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                   },
                 ),
                 TextFormField(
-                  initialValue: '',
-                  decoration: const InputDecoration(
-                    labelText: 'Student Subjects',
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      studentSubjects = value;
-                    });
-                  },
-                  validator: (String? value) {
-                    if (value == null || value.trim().length == 0) {
-                      return "required";
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  initialValue: '',
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                     labelText: 'Academic Year',
                   ),
                   onChanged: (value) {
+                    courseSubjects.setAcademicYear(int.parse(value));
                     setState(() {
                       academicYear = int.parse(value);
                     });
@@ -173,39 +162,55 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                     return null;
                   },
                 ),
-
+                TextFormField(
+                  controller: _studentSubjects,
+                  decoration: const InputDecoration(
+                    labelText: 'Student Subjects',
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      studentSubjects = _studentSubjects.text;
+                    });
+                  },
+                  validator: (String? value) {
+                    if (value == null || value.trim().length == 0) {
+                      return "required";
+                    }
+                    return null;
+                  },
+                ),
                 Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              ListTile(
-                title: Text("Cash"),
-                leading: Radio<int>(
-                  value: 1,
-                  groupValue: isInstallment,
-                  onChanged: (value) {
-                    setState(() {
-                      isInstallment = value??0;
-                      print(value);
-                    });
-                  },
-                  activeColor: Colors.green,
-                ),
-              ),
-              ListTile(
-                title: Text("Installment"),
-                leading: Radio<int>(
-                  value: 2,
-                  groupValue: isInstallment,
-                  onChanged: (value) {
-                    setState(() {
-                      isInstallment = value??0;
-                      print(value);
-                    });
-                  },
-                  activeColor: Colors.green,
-                ),
-              ),
-            ],
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    ListTile(
+                      title: Text("Cash"),
+                      leading: Radio<int>(
+                        value: 1,
+                        groupValue: isInstallment,
+                        onChanged: (value) {
+                          setState(() {
+                            isInstallment = value ?? 0;
+                            print(value);
+                          });
+                        },
+                        activeColor: Colors.green,
+                      ),
+                    ),
+                    ListTile(
+                      title: Text("Installment"),
+                      leading: Radio<int>(
+                        value: 2,
+                        groupValue: isInstallment,
+                        onChanged: (value) {
+                          setState(() {
+                            isInstallment = value ?? 0;
+                            print(value);
+                          });
+                        },
+                        activeColor: Colors.green,
+                      ),
+                    ),
+                  ],
                 ),
                 TextFormField(
                   initialValue: '',
@@ -226,10 +231,10 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    validated();
+                    validated(_studentSubjects.text);
                   },
                   child: Text('Add Student'),
-                )
+                ),
               ],
             ),
           ),
@@ -238,7 +243,8 @@ class _AddStudentScreen extends State<AddStudentScreen> {
     );
   }
 
-  void _onFormSubmit() {
+  void _onFormSubmit(subjects) {
+    var subs = subjects;
     Box<Student> studentBox = Hive.box<Student>(HiveBoxesStudent.student);
     studentBox.add(Student(
         studentID: studentID,
@@ -246,11 +252,76 @@ class _AddStudentScreen extends State<AddStudentScreen> {
         middleName: middleName,
         lastName: lastName,
         studentCourse: studentCourse,
-        studentSubjects: studentSubjects,
+        studentSubjects: subs,
         academicYear: academicYear,
         isInstallment: isInstallment,
-        accountBalance: accountBalance));
+        accountBalance: accountBalance));   
     Navigator.of(context).pop();
     print(studentBox);
+  }
+}
+
+class courseSubjects {
+  static String course = "";
+  static int academicYear = 0;
+
+  static void setCourse(String newValue) {
+    course = newValue;
+  }
+
+  static void setAcademicYear(int newValue) {
+    academicYear = newValue;
+  }
+
+  static String getCourseSubjects() {
+    if (course == "BSIT") {
+      if (academicYear == 11) {
+        String subjects =
+            "GERPH, GESTS, FIL 1, CC 101, CC 102, LIT, PE 101, NSTP 101";
+        return subjects;
+      } else if (academicYear == 12) {
+        String subjects =
+            "GEMCW, GEPC, FIL 2, CC 103, HCI 101, MS 101, PE 102, NSTP 2";
+        return subjects;
+      } else if (academicYear == 21) {
+        String subjects =
+            "GETCW, GEUS, CC 104, CC 105, IAS 101, IM 101, PE 103";
+        return subjects;
+      } else if (academicYear == 22) {
+        String subjects =
+            "GEAA, GEETH, IAS 2, IPT 101, CC 106, MS 102, ADMS, PE 4";
+        return subjects;
+      } else if (academicYear == 31) {
+        String subjects =
+            "WS 101, PHYS, NET 101, SA 101, SP 101, APT 102, OS 2";
+        return subjects;
+      } else if (academicYear == 32) {
+        String subjects = 
+            "RIZAL, NET 102, SIA 101, DC, PF 101, SIA 102, ITP 3";
+        return subjects;
+      } else if (academicYear == 41) {
+        String subjects = 
+            "CAP 101, ITP 4, ITP 5";
+        return subjects;
+      } else if (academicYear == 42) {
+        String subjects = 
+            "CAP 102, IT6, FTS 101";
+        return subjects;
+      } else if (academicYear == 0) {
+        String subjects =
+            " -- Select Academic Year -- ";
+        return subjects;
+      } else {
+        return "Subjects not found";
+      }
+    } else if (course == "BEED") {
+      return "Elementary Education Subjects - Not set -";
+    } else if (course == "BSED") {
+      return "Secondary Education Subjects  - Not set -";
+    } else if (course == "BSA") {
+      return "Accountancy Subjects  - Not set -";
+    } else {
+      return "--";
+    }
   }
 }

@@ -105,33 +105,40 @@ class _FacultyScreenState extends State<FacultyScreen> {
                               ],
                             ),
                             //
-                            ElevatedButton(
-                                onPressed: () {
-                                  Faculty faculty = Faculty(
-                                    username: res.username,
-                                    password: res.password,
-                                    firstName: res.firstName,
-                                    middleName: res.middleName,
-                                    lastName: res.lastName,
-                                    userFaculty: res.userFaculty,
-                                    isAdmin: res.isAdmin,
-                                  );
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => EditFacultyScreen(
-                                        faculty: faculty,
-                                        index: index,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                child: const Text('Edit')),
-                            ElevatedButton(
-                                onPressed: () {
-                                  res.delete();
-                                },
-                                child: const Text('Delete')),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                ElevatedButton(
+                                    onPressed: () {
+                                      Faculty faculty = Faculty(
+                                        username: res.username,
+                                        password: res.password,
+                                        firstName: res.firstName,
+                                        middleName: res.middleName,
+                                        lastName: res.lastName,
+                                        userFaculty: res.userFaculty,
+                                        isAdmin: res.isAdmin,
+                                      );
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => EditFacultyScreen(
+                                            faculty: faculty,
+                                            index: index,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: const Text('Edit')),
+                                SizedBox(width: 10),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    res.delete();
+                                  },
+                                  child: const Text('Delete')),
+                              ],
+                            ),
+                            
                           ]),
                     ),
                     subtitle: Text(res.userFaculty.toString()),
