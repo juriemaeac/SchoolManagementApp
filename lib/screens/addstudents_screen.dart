@@ -14,6 +14,13 @@ class AddStudentScreen extends StatefulWidget {
 class _AddStudentScreen extends State<AddStudentScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+   @override
+  void initState() {
+    super.initState();
+    Hive.openBox<Student>(HiveBoxesStudent.student);
+    
+  }
+
   late int studentID;
   late String firstName;
   late String middleName;

@@ -286,6 +286,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                   },
                 ),
                 TextFormField(
+                  enabled: false,
                   controller: _accountBalanceController,
                   decoration: const InputDecoration(
                     labelText: 'Account Balance',
