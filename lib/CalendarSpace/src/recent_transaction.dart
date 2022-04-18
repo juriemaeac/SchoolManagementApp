@@ -15,6 +15,7 @@ class MeetingsSection extends StatelessWidget {
 
     return Column(
       children: [
+        const SizedBox(height: 20),
         SizedBox(
           width: MediaQuery.of(context).size.width / 4.3,
           child: Row(

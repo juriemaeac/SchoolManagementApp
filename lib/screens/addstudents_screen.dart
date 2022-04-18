@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:smapp/boxes/boxFaculty.dart';
@@ -17,10 +19,9 @@ class _AddStudentScreen extends State<AddStudentScreen> {
   @override
   void initState() {
     super.initState();
-    
+
     Hive.openBox<Student>(HiveBoxesStudent.student);
   }
-  
 
   late int studentID;
   late String firstName;
@@ -45,197 +46,420 @@ class _AddStudentScreen extends State<AddStudentScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     TextEditingController _studentSubjects = TextEditingController()
       ..text = courseSubjects.getCourseSubjects();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Students'),
-      ),
       body: SafeArea(
         child: Form(
           key: _formKey,
-          child: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextFormField(
-                  autofocus: true,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(labelText: 'Student ID'),
-                  onChanged: (value) {
-                    setState(() {
-                      studentID = int.parse(value);
-                    });
-                  },
-                  validator: (String? value) {
-                    if (value == null || value.trim().length == 0) {
-                      return "required";
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  autofocus: true,
-                  initialValue: '',
-                  decoration: InputDecoration(labelText: 'First Name'),
-                  onChanged: (value) {
-                    setState(() {
-                      firstName = value;
-                    });
-                  },
-                  validator: (String? value) {
-                    if (value == null || value.trim().length == 0) {
-                      return "required";
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  autofocus: true,
-                  initialValue: '',
-                  decoration: InputDecoration(labelText: 'Middle Name'),
-                  onChanged: (value) {
-                    setState(() {
-                      middleName = value;
-                    });
-                  },
-                  validator: (String? value) {
-                    if (value == null || value.trim().length == 0) {
-                      return "required";
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  initialValue: '',
-                  decoration: const InputDecoration(
-                    labelText: 'Last Name',
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      lastName = value;
-                    });
-                  },
-                  validator: (String? value) {
-                    if (value == null || value.trim().length == 0) {
-                      return "required";
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  initialValue: '',
-                  decoration: const InputDecoration(
-                    labelText: 'Student Course',
-                  ),
-                  onChanged: (value) {
-                    courseSubjects.setCourse(value);
-                    setState(() {
-                      studentCourse = value;
-                    });
-                  },
-                  validator: (String? value) {
-                    if (value == null || value.trim().length == 0) {
-                      return "required";
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    labelText: 'Academic Year',
-                  ),
-                  onChanged: (value) {
-                    courseSubjects.setAcademicYear(int.parse(value));
-                    setState(() {
-                      academicYear = int.parse(value);
-                    });
-                  },
-                  validator: (String? value) {
-                    if (value == null || value.trim().length == 0) {
-                      return "required";
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  controller: _studentSubjects,
-                  decoration: const InputDecoration(
-                    labelText: 'Student Subjects',
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      studentSubjects = _studentSubjects.text;
-                    });
-                  },
-                  validator: (String? value) {
-                    if (value == null || value.trim().length == 0) {
-                      return "required";
-                    }
-                    return null;
-                  },
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    ListTile(
-                      title: Text("Cash"),
-                      leading: Radio<int>(
-                        value: 1,
-                        groupValue: isInstallment,
-                        onChanged: (value) {
-                          setState(() {
-                            isInstallment = value ?? 0;
-                            print(value);
-                          });
-                        },
-                        activeColor: Colors.green,
-                      ),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.all(5),
+                    //padding: const EdgeInsets.only(left: 25),
+                    decoration: BoxDecoration(
+                      color: const Color(0xfff3f5f9),
+                      borderRadius: BorderRadius.circular(15),
                     ),
-                    ListTile(
-                      title: Text("Installment"),
-                      leading: Radio<int>(
-                        value: 2,
-                        groupValue: isInstallment,
-                        onChanged: (value) {
-                          setState(() {
-                            isInstallment = value ?? 0;
-                            print(value);
-                          });
-                        },
-                        activeColor: Colors.green,
+                    child: TextFormField(
+                      autofocus: true,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        labelText: '     Student ID',
+                        border: InputBorder.none,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                          borderSide:
+                              BorderSide(color: Colors.orange, width: 2),
+                        ),
                       ),
+                      onChanged: (value) {
+                        setState(() {
+                          studentID = int.parse(value);
+                        });
+                      },
+                      validator: (String? value) {
+                        if (value == null || value.trim().length == 0) {
+                          return "required";
+                        }
+                        return null;
+                      },
                     ),
-                  ],
-                ),
-                TextFormField(
-                  initialValue: '',
-                  decoration: const InputDecoration(
-                    labelText: 'Account Balance',
                   ),
-                  onChanged: (value) {
-                    setState(() {
-                      accountBalance = double.parse(value);
-                    });
-                  },
-                  validator: (String? value) {
-                    if (value == null || value.trim().length == 0) {
-                      return "required";
-                    }
-                    return null;
-                  },
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    validated(_studentSubjects.text);
-                  },
-                  child: Text('Add Student'),
-                ),
-              ],
+                  Container(
+                    margin: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: const Color(0xfff3f5f9),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: TextFormField(
+                      autofocus: true,
+                      initialValue: '',
+                      decoration: const InputDecoration(
+                        labelText: '     First Name',
+                        border: InputBorder.none,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                          borderSide:
+                              BorderSide(color: Colors.orange, width: 2),
+                        ),
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          firstName = value;
+                        });
+                      },
+                      validator: (String? value) {
+                        if (value == null || value.trim().length == 0) {
+                          return "required";
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: const Color(0xfff3f5f9),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: TextFormField(
+                      autofocus: true,
+                      initialValue: '',
+                      decoration: const InputDecoration(
+                        labelText: '     Middle Name',
+                        border: InputBorder.none,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                          borderSide:
+                              BorderSide(color: Colors.orange, width: 2),
+                        ),
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          middleName = value;
+                        });
+                      },
+                      validator: (String? value) {
+                        if (value == null || value.trim().length == 0) {
+                          return "required";
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: const Color(0xfff3f5f9),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: TextFormField(
+                      initialValue: '',
+                      decoration: const InputDecoration(
+                        labelText: '     Last Name',
+                        border: InputBorder.none,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                          borderSide:
+                              BorderSide(color: Colors.orange, width: 2),
+                        ),
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          lastName = value;
+                        });
+                      },
+                      validator: (String? value) {
+                        if (value == null || value.trim().length == 0) {
+                          return "required";
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: (MediaQuery.of(context).size.width * 0.59) / 2,
+                        margin: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: const Color(0xfff3f5f9),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: TextFormField(
+                          initialValue: '',
+                          decoration: const InputDecoration(
+                            labelText: '     Student Course',
+                            border: InputBorder.none,
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0)),
+                              borderSide:
+                                  BorderSide(color: Colors.orange, width: 2),
+                            ),
+                          ),
+                          onChanged: (value) {
+                            courseSubjects.setCourse(value);
+                            setState(() {
+                              studentCourse = value;
+                            });
+                          },
+                          validator: (String? value) {
+                            if (value == null || value.trim().length == 0) {
+                              return "required";
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Container(
+                        width: (MediaQuery.of(context).size.width * 0.59) / 2.3,
+                        margin: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: const Color(0xfff3f5f9),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: TextFormField(
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(
+                            labelText: '     Academic Year',
+                            border: InputBorder.none,
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0)),
+                              borderSide:
+                                  BorderSide(color: Colors.orange, width: 2),
+                            ),
+                          ),
+                          onChanged: (value) {
+                            courseSubjects.setAcademicYear(int.parse(value));
+                            setState(() {
+                              academicYear = int.parse(value);
+                            });
+                          },
+                          validator: (String? value) {
+                            if (value == null || value.trim().length == 0) {
+                              return "required";
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: const Color(0xfff3f5f9),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: TextFormField(
+                      controller: _studentSubjects,
+                      decoration: const InputDecoration(
+                        labelText: '     Student Subjects',
+                        border: InputBorder.none,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                          borderSide:
+                              BorderSide(color: Colors.orange, width: 2),
+                        ),
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          studentSubjects = _studentSubjects.text;
+                        });
+                      },
+                      validator: (String? value) {
+                        if (value == null || value.trim().length == 0) {
+                          return "required";
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: (MediaQuery.of(context).size.width * 0.59) / 2,
+                        margin: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: const Color(0xfff3f5f9),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('     Payment Method:'),
+                            ListTile(
+                              title: const Text("Cash"),
+                              leading: Radio<int>(
+                                value: 1,
+                                groupValue: isInstallment,
+                                onChanged: (value) {
+                                  setState(() {
+                                    isInstallment = value ?? 0;
+                                    print(value);
+                                  });
+                                },
+                                activeColor: Colors.orange,
+                              ),
+                            ),
+                            ListTile(
+                              title: const Text("Installment"),
+                              leading: Radio<int>(
+                                value: 2,
+                                groupValue: isInstallment,
+                                onChanged: (value) {
+                                  setState(() {
+                                    isInstallment = value ?? 0;
+                                    print(value);
+                                  });
+                                },
+                                activeColor: Colors.orange,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: const Text(
+                              'Account Balance',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            width: (MediaQuery.of(context).size.width * 0.59) /
+                                2.3,
+                            margin: const EdgeInsets.all(5),
+                            padding: const EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                              color: const Color(0xfff3f5f9),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: TextFormField(
+                              textAlign: TextAlign.right,
+                              initialValue: '',
+                              decoration: const InputDecoration(
+                                hintText: '₱ 0.00',
+                                //labelText: '₱ 0.00',
+                                border: InputBorder.none,
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(15.0)),
+                                  borderSide: BorderSide(
+                                      color: Colors.orange, width: 2),
+                                ),
+                              ),
+                              onChanged: (value) {
+                                setState(() {
+                                  accountBalance = double.parse(value);
+                                });
+                              },
+                              validator: (String? value) {
+                                if (value == null || value.trim().length == 0) {
+                                  return "required";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.all(10),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      side: BorderSide(color: Colors.orange)))),
+                          onPressed: () {
+                            validated(_studentSubjects.text);
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: const <Widget>[
+                                Text(
+                                  'Save Student',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 20),
+                      Container(
+                        margin: EdgeInsets.all(10),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      side: BorderSide(color: Colors.orange)))),
+                          onPressed: () {},
+                          child: Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: const <Widget>[
+                                Text(
+                                  'Cancel',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -255,7 +479,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
         studentSubjects: subs,
         academicYear: academicYear,
         isInstallment: isInstallment,
-        accountBalance: accountBalance));   
+        accountBalance: accountBalance));
     Navigator.of(context).pop();
     print(studentBox);
   }
@@ -296,20 +520,16 @@ class courseSubjects {
             "WS 101, PHYS, NET 101, SA 101, SP 101, APT 102, OS 2";
         return subjects;
       } else if (academicYear == 32) {
-        String subjects = 
-            "RIZAL, NET 102, SIA 101, DC, PF 101, SIA 102, ITP 3";
+        String subjects = "RIZAL, NET 102, SIA 101, DC, PF 101, SIA 102, ITP 3";
         return subjects;
       } else if (academicYear == 41) {
-        String subjects = 
-            "CAP 101, ITP 4, ITP 5";
+        String subjects = "CAP 101, ITP 4, ITP 5";
         return subjects;
       } else if (academicYear == 42) {
-        String subjects = 
-            "CAP 102, IT6, FTS 101";
+        String subjects = "CAP 102, IT6, FTS 101";
         return subjects;
       } else if (academicYear == 0) {
-        String subjects =
-            " -- Select Academic Year -- ";
+        String subjects = " -- Select Academic Year -- ";
         return subjects;
       } else {
         return "Subjects not found";

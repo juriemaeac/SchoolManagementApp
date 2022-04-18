@@ -12,8 +12,8 @@ class _CalendarWeeklyState extends State<CalendarWeekly> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 90,
-      width: MediaQuery.of(context).size.width / 4.3,
+      height: MediaQuery.of(context).size.height * 0.1,
+      width: MediaQuery.of(context).size.width * 0.23,
       margin: EdgeInsets.symmetric(horizontal: 5.0),
       decoration: BoxDecoration(
         color: Colors.transparent,

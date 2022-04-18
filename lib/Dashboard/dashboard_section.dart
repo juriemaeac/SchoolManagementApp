@@ -90,7 +90,7 @@ class DashBoard extends StatelessWidget {
             SubHeader(
               title: 'Project Statistics',
             ),
-            ProjectStatisticsCards(),
+            //ProjectStatisticsCards(),
           ],
         ),
       ),

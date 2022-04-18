@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:smapp/NavigationBar/navbar_section.dart';
 import 'package:smapp/CalendarSpace/information_section.dart';
 import 'package:smapp/Dashboard/dashboard_section.dart';
+import 'package:smapp/screens/students_screen.dart';
 
 class Start extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,7 +14,7 @@ class Start extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         child: Stack(
           children: [
-            const Navibar(),
+            Navibar(),
             DashBoard(),
             CalendarSpace(),
           ],

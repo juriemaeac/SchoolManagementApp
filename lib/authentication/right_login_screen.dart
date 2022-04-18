@@ -5,7 +5,7 @@ import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/models/student_model.dart';
 import 'package:smapp/screens/students_screen.dart';
 import 'package:smapp/models/faculty_model.dart';
-import 'package:smapp/start.dart';
+import 'package:smapp/dashboard_page.dart';
 import '../screens/faculty_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -91,48 +91,77 @@ class _LoginScreen extends State<LoginScreen> {
                     "The safest app on the web for storing your data!",
                     style: TextStyle(fontSize: 12),
                   ),
-                  TextFormField(
-                    autofocus: true,
-                    controller: usernameText,
-                    decoration: InputDecoration(labelText: 'Enter Username'),
-                    onChanged: (value) {
-                      setState(() {
-                        username = value;
-                      });
-                    },
-                    validator: (String? value) {
-                      if (value == null || value.trim().length == 0) {
-                        return "required";
-                      }
-                      return null;
-                    },
+                  Container(
+                    margin: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: const Color(0xfff3f5f9),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextFormField(
+                      autofocus: true,
+                      controller: usernameText,
+                      decoration: const InputDecoration(
+                        labelText: 'Enter Username',
+                        border: InputBorder.none,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                          borderSide:
+                              BorderSide(color: Colors.orange, width: 2),
+                        ),
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          username = value;
+                        });
+                      },
+                      validator: (String? value) {
+                        if (value == null || value.trim().length == 0) {
+                          return "required";
+                        }
+                        return null;
+                      },
+                    ),
                   ),
-                  TextFormField(
-                    obscureText: _isObscure,
-                    decoration: InputDecoration(
-                        labelText: 'Enter Password',
-                        suffixIcon: IconButton(
-                            icon: Icon(_isObscure
-                                ? Icons.visibility
-                                : Icons.visibility_off),
-                            onPressed: () {
-                              setState(() {
-                                _isObscure = !_isObscure;
-                              });
-                            })),
-                    autofocus: true,
-                    controller: passwordText,
-                    onChanged: (value) {
-                      setState(() {
-                        password = value;
-                      });
-                    },
-                    validator: (String? value) {
-                      if (value == null || value.trim().length == 0) {
-                        return "required";
-                      }
-                      return null;
-                    },
+                  Container(
+                    margin: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: const Color(0xfff3f5f9),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextFormField(
+                      obscureText: _isObscure,
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          focusedBorder: const OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0)),
+                            borderSide:
+                                BorderSide(color: Colors.orange, width: 2),
+                          ),
+                          labelText: 'Enter Password',
+                          suffixIcon: IconButton(
+                              icon: Icon(_isObscure
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                              onPressed: () {
+                                setState(() {
+                                  _isObscure = !_isObscure;
+                                });
+                              })),
+                      autofocus: true,
+                      controller: passwordText,
+                      onChanged: (value) {
+                        setState(() {
+                          password = value;
+                        });
+                      },
+                      validator: (String? value) {
+                        if (value == null || value.trim().length == 0) {
+                          return "required";
+                        }
+                        return null;
+                      },
+                    ),
                   ),
                   const SizedBox(height: 24),
                   Align(

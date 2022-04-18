@@ -10,18 +10,10 @@ class CompanyName extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'P',
+              'NPCST',
               style: TextStyle(
                 fontWeight: FontWeight.w700,
                 color: Colors.white,
-                fontSize: 16.0,
-              ),
-            ),
-            Text(
-              'raum',
-              style: TextStyle(
-                fontWeight: FontWeight.w300,
-                color: Colors.white70,
                 fontSize: 16.0,
               ),
             ),

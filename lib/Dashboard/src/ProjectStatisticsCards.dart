@@ -7,21 +7,29 @@ class ProjectStatisticsCards extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        ProjectStatisticsCard(
-          count: '125',
-          name: 'All finished projects',
-          descriptions: '2 projects out of time',
-          progress: 0.75,
-          progressString: '75%',
-          color: const Color(0xffFAAA1E),
+        SizedBox(
+          height: MediaQuery.of(context).size.height/2.5,
+          width: MediaQuery.of(context).size.width/3.25,
+          child: ProjectStatisticsCard(
+            count: '125',
+            name: 'All finished projects',
+            descriptions: '2 projects out of time',
+            progress: 0.75,
+            progressString: '75%',
+            color: const Color(0xffFAAA1E),
+          ),
         ),
-        ProjectStatisticsCard(
-          color: const Color(0xff6C6CE5),
-          count: '1105',
-          name: 'Customer interest',
-          descriptions: '+ 576 new clients',
-          progress: 0.68,
-          progressString: '68%',
+        SizedBox(
+          height: MediaQuery.of(context).size.height/2.5,
+          width: MediaQuery.of(context).size.width/3.25,
+          child: ProjectStatisticsCard(
+            color: const Color(0xff6C6CE5),
+            count: '1105',
+            name: 'Customer interest',
+            descriptions: '+ 576 new clients',
+            progress: 0.68,
+            progressString: '68%',
+          ),
         ),
       ],
     );

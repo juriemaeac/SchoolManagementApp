@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:smapp/NavigationBar/src/navbar_item.dart';
-import 'package:smapp/screens/editfaculty_screen.dart';
-import 'package:smapp/screens/payment_transaction_screen.dart';
-import 'package:smapp/screens/students_screen.dart';
 import 'package:smapp/splash_screen.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
 import 'package:smapp/dashboard_page.dart';
 import 'package:smapp/student_page.dart';
 
-class NavBar extends StatefulWidget {
+class NavBarStudents extends StatefulWidget {
   @override
-  _NavBarState createState() => _NavBarState();
+  _NavBarStudentsState createState() => _NavBarStudentsState();
 }
 
-class _NavBarState extends State<NavBar> {
-  List<bool> selected = [true, false, false, false, false];
+class _NavBarStudentsState extends State<NavBarStudents> {
+  List<bool> selected = [false, true, false, false, false];
   void select(int n) {
     for (int i = 0; i < 5; i++) {
       if (i != n) {

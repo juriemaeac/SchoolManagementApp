@@ -18,6 +18,9 @@ class CalendarSpace extends StatelessWidget {
               height: 30.0,
             ),
             TopContainer(),
+            SizedBox(
+              height: 30.0,
+            ),
             CalendarSection(),
             MeetingsSection(),
           ],
