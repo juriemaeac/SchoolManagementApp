@@ -4,7 +4,7 @@ import 'package:smapp/CalendarSpace/src/calendar_section.dart';
 import 'package:smapp/CalendarSpace/src/profile_section.dart';
 import 'package:smapp/CalendarSpace/src/student_buttons.dart';
 
-class AddStudentInfo extends StatelessWidget {
+class AddPaymentInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -41,7 +41,7 @@ class AddStudentInfo extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Image.asset(
-                'assets/design1.png',
+                'assets/design2.png',
                 fit: BoxFit.fitHeight,
               ),
             ),

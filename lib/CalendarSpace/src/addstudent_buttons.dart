@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smapp/add_student_page.dart';
+import 'package:smapp/addstudent_page.dart';
 
 class AddStudentButtons extends StatelessWidget {
   const AddStudentButtons({Key? key}) : super(key: key);

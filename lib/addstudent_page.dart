@@ -22,7 +22,7 @@ class AddStudentPage extends StatelessWidget {
                   ),
                   Container(
                     height: MediaQuery.of(context).size.height * 0.04,
-                    margin: const EdgeInsets.only(left: 130),
+                    margin: const EdgeInsets.only(left: 130, bottom: 20),
                     width: MediaQuery.of(context).size.width * 0.63,
                     child: Text(
                       'Add Student',
@@ -37,9 +37,9 @@ class AddStudentPage extends StatelessWidget {
                     ),
                   ),
                   Container(
-                      height: MediaQuery.of(context).size.height - 70,
-                      margin: const EdgeInsets.only(left: 100),
-                      width: MediaQuery.of(context).size.width * 0.59,
+                      height: MediaQuery.of(context).size.height - 100,
+                      margin: const EdgeInsets.only(left: 70),
+                      width: MediaQuery.of(context).size.width * 0.6,
                       child: AddStudentScreen()),
                 ],
               ),

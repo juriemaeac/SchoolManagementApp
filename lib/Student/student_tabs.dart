@@ -9,24 +9,24 @@ class StudentTabs extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            'All',
+            'With',
             style: GoogleFonts.quicksand(
               fontSize: 12.0,
             ),
           ),
           const SizedBox(
-            width: 15.0,
+            width: 7.0,
           ),
           Container(
             height: 25.0,
-            width: 70.0,
+            width: 75.0,
             decoration: BoxDecoration(
               color: Colors.black,
               borderRadius: BorderRadius.circular(20.0),
             ),
             child: Center(
               child: Text(
-                'Current',
+                'Real-time',
                 style: GoogleFonts.quicksand(
                   fontSize: 12.0,
                   color: Colors.white,
@@ -35,19 +35,10 @@ class StudentTabs extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            width: 15.0,
+            width: 7.0,
           ),
           Text(
-            'Pending',
-            style: GoogleFonts.quicksand(
-              fontSize: 12.0,
-            ),
-          ),
-          const SizedBox(
-            width: 15.0,
-          ),
-          Text(
-            'Categorized',
+            'Database',
             style: GoogleFonts.quicksand(
               fontSize: 12.0,
             ),

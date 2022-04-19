@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive/hive.dart';
+import 'package:smapp/boxes/boxStudent.dart';
+import 'package:smapp/boxes/boxStudent.dart';
+
+import '../../boxes/boxStudent.dart';
 
 class ProjectStatisticsCards extends StatelessWidget {
+  //const Hive.openBox<Student>(HiveBoxesStudent.student);
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height/2.5,
-          width: MediaQuery.of(context).size.width/3.25,
+          height: MediaQuery.of(context).size.height / 2.5,
+          width: MediaQuery.of(context).size.width / 3.25,
           child: ProjectStatisticsCard(
             count: '125',
-            name: 'All finished projects',
+            name: 'All enrolled students',
             descriptions: '2 projects out of time',
             progress: 0.75,
             progressString: '75%',
@@ -20,8 +27,8 @@ class ProjectStatisticsCards extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height/2.5,
-          width: MediaQuery.of(context).size.width/3.25,
+          height: MediaQuery.of(context).size.height / 2.5,
+          width: MediaQuery.of(context).size.width / 3.25,
           child: ProjectStatisticsCard(
             color: const Color(0xff6C6CE5),
             count: '1105',
@@ -62,7 +69,7 @@ class ProjectStatisticsCard extends StatelessWidget {
         height: 85.0,
         decoration: BoxDecoration(
           color: color,
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(15.0),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

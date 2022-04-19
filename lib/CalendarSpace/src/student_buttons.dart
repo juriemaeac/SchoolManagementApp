@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:smapp/add_student_page.dart';
+import 'package:smapp/addstudent_page.dart';
 import 'package:smapp/screens/addstudents_screen.dart';
 
 class StudentButtons extends StatelessWidget {

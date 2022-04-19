@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginPageRightSide extends StatelessWidget {
   const LoginPageRightSide({Key? key}) : super(key: key);
@@ -9,79 +10,130 @@ class LoginPageRightSide extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
         child: Container(
-          color: Colors.orange,
-          child: Container(
-            decoration: const BoxDecoration(
-              // image: DecorationImage(
-              //     image: AssetImage('assets/bg.jpg'),
-              //     fit: BoxFit.cover),
-            ),
-            child: Center(
-              child: SizedBox(
-                height: 500,
-                child: Stack(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 60.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(24),
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaY: 12, sigmaX: 12),
-                          child: Container(
-                            alignment: Alignment.topLeft,
-                            color: Colors.white.withOpacity(.3),
-                            padding: const EdgeInsets.all(42),
-                            child: const Text("Very good works are\nwaiting for you 🤝\nLogin Now",
+      color: Colors.orange,
+      child: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/bg1.png'), fit: BoxFit.cover),
+        ),
+        child: Center(
+          child: SizedBox(
+            height: 550,
+            child: Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 60.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(30),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaY: 12, sigmaX: 12),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                        ),
+                        alignment: Alignment.topLeft,
+                        padding: const EdgeInsets.all(42),
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              'assets/logo.png',
+                              width: 120,
+                            ),
+                            SizedBox(width: 15),
+                            const Text(
+                              "National \nPolytechnic College \nScience and Technology",
                               style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 28.00,
-                                  fontWeight: FontWeight.bold
+                                color: Colors.white,
+                                fontSize: 24.00,
+                                fontWeight: FontWeight.bold,
                               ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(bottom: 0, right: 10.0, left: 80),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        const Flexible(
+                          child: Text(
+                            "COMPETITIVE KNOWLEDGE, SKILLS AND ATTITUDES IN A HIGHLY TECHNOLOGICALLY-ORIENTED SOCIETY",
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15.0,
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 60.0),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.asset('assets/education.png', width: 300,),
+                        Image.asset(
+                          'assets/design.png',
+                          width: 350,
                         ),
-                      ),
+                      ],
                     ),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: Container(
-                        height: 60,
-                        width: 60,
-                        alignment: Alignment.center,
-                        margin: const EdgeInsets.only(right: 30,top: 100),
-                        decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white
-                        ),
-                        child: const Text("🤞", style: TextStyle(fontSize: 24),),
-                      ),
-                    ),
-                    Container(
-                      height: 60,
-                      width: 60,
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.only(left: 30,top: 300),
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white
-                      ),
-                      child: const Text("🖐", style: TextStyle(fontSize: 24),),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    height: 60,
+                    width: 60,
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.only(right: 30, top: 100),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.orange.withOpacity(0.4),
+                          spreadRadius: 4,
+                          blurRadius: 9,
+                          // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: const Icon(
+                      Icons.edit,
+                      color: Colors.orange,
+                      size: 30,
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 60,
+                  width: 60,
+                  alignment: Alignment.center,
+                  margin: const EdgeInsets.only(left: 30, top: 300),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.orange.withOpacity(0.4),
+                        spreadRadius: 4,
+                        blurRadius: 9,
+                        // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: const Icon(
+                    Icons.folder,
+                    color: Colors.orange,
+                    size: 30,
+                  ),
+                ),
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    ));
   }
 }

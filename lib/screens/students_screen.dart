@@ -66,10 +66,10 @@ class _StudentScreenState extends State<StudentScreen> {
                   title: Container(
                     padding: const EdgeInsets.only(
                         left: 10, right: 10, top: 5, bottom: 5),
-                    margin: const EdgeInsets.only(bottom: 15),
+                    margin: const EdgeInsets.only(bottom: 5),
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(5.0),
+                      borderRadius: BorderRadius.circular(15.0),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

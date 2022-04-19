@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
+import 'package:smapp/CalendarSpace/addstudent_information.dart';
+import 'package:smapp/CalendarSpace/src/addpayment_information.dart';
+import 'package:smapp/NavigationBar/navbar_student_page.dart';
 import 'package:smapp/boxes/boxFaculty.dart';
 import 'package:smapp/boxes/boxPayment.dart';
 import 'package:smapp/boxes/boxStudent.dart';
@@ -109,64 +113,365 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Add Payment'),
-      ),
       body: SafeArea(
         child: Form(
           key: _formKey,
-          child: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Stack(
               children: [
-                TextFormField(
-                  enabled: false,
-                  autofocus: true,
-                  controller: _studentIDController,
-                  decoration: InputDecoration(labelText: 'Student ID'),
-                  onChanged: (value) {
-                    setState(() {
-                      studentID = int.parse(value);
-                    });
-                  },
-                  validator: (String? value) {
-                    if (value == null || value.trim().length == 0) {
-                      return "required";
-                    }
-                    return null;
-                  },
+                SingleChildScrollView(
+                  child: Container(
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 100,
+                          ),
+                          Column(
+                            children: [
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.04,
+                                margin:
+                                    const EdgeInsets.only(bottom: 20, left: 20),
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                child: Text(
+                                  'Add Payment',
+                                  textAlign: TextAlign.start,
+                                  style: GoogleFonts.quicksand(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20.0,
+                                    textStyle: const TextStyle(
+                                      color: Color.fromARGB(255, 51, 57, 81),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                margin:
+                                    const EdgeInsets.only(left: 20, bottom: 20),
+                                width:
+                                    (MediaQuery.of(context).size.width * 0.6),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              4,
+                                      width:
+                                          ((MediaQuery.of(context).size.width *
+                                                      0.6) /
+                                                  2) -
+                                              10,
+                                      decoration: BoxDecoration(
+                                        color: Colors.blue,
+                                        borderRadius: BorderRadius.circular(15),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.2),
+                                            spreadRadius: 2,
+                                            blurRadius: 9,
+                                            // changes position of shadow
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Container(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              4,
+                                      width:
+                                          ((MediaQuery.of(context).size.width *
+                                                      0.6) /
+                                                  2) -
+                                              10,
+                                      decoration: BoxDecoration(
+                                        color: Colors.orange,
+                                        borderRadius: BorderRadius.circular(15),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.2),
+                                            spreadRadius: 2,
+                                            blurRadius: 9,
+                                            // changes position of shadow
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.2),
+                                      spreadRadius: 2,
+                                      blurRadius: 9,
+                                      // changes position of shadow
+                                    ),
+                                  ],
+                                ),
+                                //height: MediaQuery.of(context).size.height,
+                                padding: EdgeInsets.only(
+                                    top: 20, bottom: 20, right: 10, left: 10),
+                                margin: EdgeInsets.only(left: 20),
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.only(
+                                          left: 25, right: 25),
+                                      margin: const EdgeInsets.only(
+                                          left: 15,
+                                          right: 15,
+                                          top: 5,
+                                          bottom: 5),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.2),
+                                            spreadRadius: 2,
+                                            blurRadius: 9,
+                                            //offset: Offset(2, 6),
+                                            // changes position of shadow
+                                          ),
+                                        ],
+                                      ),
+                                      child: TextFormField(
+                                        enabled: false,
+                                        autofocus: true,
+                                        controller: _studentIDController,
+                                        decoration: const InputDecoration(
+                                          labelText: 'Student ID',
+                                          border: InputBorder.none,
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(15.0)),
+                                            borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 2),
+                                          ),
+                                        ),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            studentID = int.parse(value);
+                                          });
+                                        },
+                                        validator: (String? value) {
+                                          if (value == null ||
+                                              value.trim().length == 0) {
+                                            return "required";
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.only(
+                                          left: 25, right: 25),
+                                      margin: const EdgeInsets.only(
+                                          left: 15,
+                                          right: 15,
+                                          top: 5,
+                                          bottom: 5),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.2),
+                                            spreadRadius: 2,
+                                            blurRadius: 9,
+                                            //offset: Offset(2, 6),
+                                            // changes position of shadow
+                                          ),
+                                        ],
+                                      ),
+                                      child: TextFormField(
+                                        enabled: false,
+                                        autofocus: false,
+                                        decoration: const InputDecoration(
+                                          labelText: 'Account Balance',
+                                          border: InputBorder.none,
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(15.0)),
+                                            borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 2),
+                                          ),
+                                        ),
+                                        controller: _accountBalanceController,
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.only(
+                                          left: 25, right: 25),
+                                      margin: const EdgeInsets.only(
+                                          left: 15,
+                                          right: 15,
+                                          top: 5,
+                                          bottom: 5),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.2),
+                                            spreadRadius: 2,
+                                            blurRadius: 9,
+                                            //offset: Offset(2, 6),
+                                            // changes position of shadow
+                                          ),
+                                        ],
+                                      ),
+                                      child: TextFormField(
+                                        autofocus: true,
+                                        decoration: const InputDecoration(
+                                          labelText: 'Payment Amount',
+                                          border: InputBorder.none,
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(15.0)),
+                                            borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 2),
+                                          ),
+                                        ),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            transactionAmount =
+                                                double.parse(value);
+                                          });
+                                        },
+                                        validator: (String? value) {
+                                          if (value == null ||
+                                              value.trim().length == 0) {
+                                            return "required";
+                                          } else if (double.parse(value) <= 0 ||
+                                              double.parse(value) >
+                                                  oldBalance!) {
+                                            return "Payment amount error. Please try again.";
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.all(10),
+                                          child: ElevatedButton(
+                                            style: ButtonStyle(
+                                                shape: MaterialStateProperty.all<
+                                                        RoundedRectangleBorder>(
+                                                    RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.0),
+                                                        side: BorderSide(
+                                                            color: Colors
+                                                                .orange)))),
+                                            onPressed: () {
+                                              validated(oldBalance!,
+                                                  transactionAmount!);
+                                            },
+                                            child: Padding(
+                                              padding: EdgeInsets.all(10),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: const <Widget>[
+                                                  Text(
+                                                    'Add Payment',
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 20),
+                                        Container(
+                                          margin: EdgeInsets.all(10),
+                                          child: ElevatedButton(
+                                            style: ButtonStyle(
+                                                shape: MaterialStateProperty.all<
+                                                        RoundedRectangleBorder>(
+                                                    RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.0),
+                                                        side: BorderSide(
+                                                            color: Colors
+                                                                .orange)))),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Padding(
+                                              padding: EdgeInsets.all(10),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: const <Widget>[
+                                                  Text(
+                                                    'Cancel',
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-                TextFormField(
-                  enabled: false,
-                  autofocus: false,
-                  decoration: InputDecoration(labelText: 'Account Balance'),
-                  controller: _accountBalanceController,
-                ),
-                TextFormField(
-                  autofocus: true,
-                  decoration: InputDecoration(labelText: 'Payment Amount'),
-                  onChanged: (value) {
-                    setState(() {
-                      transactionAmount = double.parse(value);
-                    });
-                  },
-                  validator: (String? value) {
-                    if (value == null || value.trim().length == 0) {
-                      return "required";
-                    } else if (double.parse(value) <= 0 ||
-                        double.parse(value) > oldBalance!) {
-                      return "Payment amount error. Please try again.";
-                    }
-                    return null;
-                  },
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    validated(oldBalance!, transactionAmount!);
-                  },
-                  child: Text('Add Payment'),
-                )
+                NavibarStudent(),
+                AddPaymentInfo(),
               ],
             ),
           ),

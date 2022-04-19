@@ -81,21 +81,40 @@ class _LoginScreen extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    "Login",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
+                    "Enrollment \nand Billing System",
+                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
-                    height: 12,
+                    height: 7,
+                  ),
+                  const SizedBox(
+                    height: 15,
                   ),
                   const Text(
-                    "The safest app on the web for storing your data!",
-                    style: TextStyle(fontSize: 12),
+                    "Let's build a better future with NPCSTians!",
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.orange),
+                  ),
+                  const SizedBox(
+                    height: 15,
                   ),
                   Container(
                     margin: const EdgeInsets.all(5),
+                    padding: const EdgeInsets.only(left: 25, right: 25),
                     decoration: BoxDecoration(
-                      color: const Color(0xfff3f5f9),
-                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(25),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          spreadRadius: 2,
+                          blurRadius: 9,
+                          offset: Offset(2, 6),
+                          // changes position of shadow
+                        ),
+                      ],
                     ),
                     child: TextFormField(
                       autofocus: true,
@@ -106,7 +125,7 @@ class _LoginScreen extends State<LoginScreen> {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(15.0)),
                           borderSide:
-                              BorderSide(color: Colors.orange, width: 2),
+                              BorderSide(color: Colors.transparent, width: 2),
                         ),
                       ),
                       onChanged: (value) {
@@ -116,17 +135,30 @@ class _LoginScreen extends State<LoginScreen> {
                       },
                       validator: (String? value) {
                         if (value == null || value.trim().length == 0) {
-                          return "required";
+                          return "Required!";
                         }
                         return null;
                       },
                     ),
                   ),
+                  const SizedBox(
+                    height: 8,
+                  ),
                   Container(
                     margin: const EdgeInsets.all(5),
+                    padding: const EdgeInsets.only(left: 25, right: 25),
                     decoration: BoxDecoration(
-                      color: const Color(0xfff3f5f9),
-                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(25),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          spreadRadius: 2,
+                          blurRadius: 9,
+                          offset: Offset(2, 6),
+                          // changes position of shadow
+                        ),
+                      ],
                     ),
                     child: TextFormField(
                       obscureText: _isObscure,
@@ -136,10 +168,12 @@ class _LoginScreen extends State<LoginScreen> {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(15.0)),
                             borderSide:
-                                BorderSide(color: Colors.orange, width: 2),
+                                BorderSide(color: Colors.transparent, width: 2),
                           ),
                           labelText: 'Enter Password',
                           suffixIcon: IconButton(
+                              splashColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
                               icon: Icon(_isObscure
                                   ? Icons.visibility
                                   : Icons.visibility_off),
@@ -157,13 +191,13 @@ class _LoginScreen extends State<LoginScreen> {
                       },
                       validator: (String? value) {
                         if (value == null || value.trim().length == 0) {
-                          return "required";
+                          return "Required!";
                         }
                         return null;
                       },
                     ),
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 14),
                   Align(
                     alignment: Alignment.topRight,
                     child: Text(
@@ -171,7 +205,7 @@ class _LoginScreen extends State<LoginScreen> {
                       style: const TextStyle(fontSize: 12, color: Colors.red),
                     ),
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 14),
                   MaterialButton(
                     onPressed: () {
                       validated();
@@ -184,8 +218,20 @@ class _LoginScreen extends State<LoginScreen> {
                     color: Colors.amber.shade700,
                     textColor: Colors.white,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(32)),
-                  )
+                        borderRadius: BorderRadius.circular(15)),
+                  ),
+                  const SizedBox(height: 24),
+                  const Align(
+                    alignment: Alignment.topRight,
+                    child: Text(
+                      "Don't have an account? Contact your Administrator.",
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w100,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
