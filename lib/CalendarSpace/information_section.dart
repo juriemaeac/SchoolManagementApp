@@ -9,7 +9,19 @@ class CalendarSpace extends StatelessWidget {
     return Align(
       alignment: Alignment.centerRight,
       child: Container(
-        color: Color(0xffF7F7FF),
+        decoration: BoxDecoration(
+          color: const Color(0xffF7F7FF),
+          //color: Colors.white,
+          //borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 2,
+              blurRadius: 9,
+              // changes position of shadow
+            ),
+          ],
+        ),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width * 0.28,
         child: Column(

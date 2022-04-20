@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:smapp/NavigationBar/navbar_section.dart';
 import 'package:smapp/CalendarSpace/information_section.dart';
 import 'package:smapp/Dashboard/dashboard_section.dart';
-import 'package:smapp/screens/students_screen.dart';
 
-class Start extends StatelessWidget {
 
+class DashboardPage extends StatefulWidget {
+  const DashboardPage({ Key? key }) : super(key: key);
+
+  @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,3 +30,4 @@ class Start extends StatelessWidget {
     );
   }
 }
+

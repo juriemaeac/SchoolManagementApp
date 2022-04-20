@@ -5,23 +5,18 @@ import 'package:smapp/NavigationBar/src/navbar_item.dart';
 import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/faculty_page.dart';
 import 'package:smapp/models/student_model.dart';
-import 'package:smapp/payment_transaction_page.dart';
-import 'package:smapp/screens/editfaculty_screen.dart';
-import 'package:smapp/screens/faculty_screen.dart';
-import 'package:smapp/screens/payment_transaction_screen.dart';
-import 'package:smapp/screens/students_screen.dart';
 import 'package:smapp/splash_screen.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
 import 'package:smapp/dashboard_page.dart';
 import 'package:smapp/student_page.dart';
 
-class NavBar extends StatefulWidget {
+class NavBarPayment extends StatefulWidget {
   @override
-  _NavBarState createState() => _NavBarState();
+  _NavBarPaymentState createState() => _NavBarPaymentState();
 }
 
-class _NavBarState extends State<NavBar> {
-  List<bool> selected = [true, false, false, false, false];
+class _NavBarPaymentState extends State<NavBarPayment> {
+  List<bool> selected = [false, false, false, true, false];
   void select(int n) {
     for (int i = 0; i < 5; i++) {
       if (i != n) {
@@ -91,7 +86,7 @@ class _NavBarState extends State<NavBar> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => FacultyPage(),
+                    builder: (context) => const FacultyPage(),
                   ),
                 );
               },
@@ -104,12 +99,6 @@ class _NavBarState extends State<NavBar> {
               setState(() {
                 select(3);
               });
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const PaymentPage(),
-                ),
-              );
             },
           ),
           NavBarItem(

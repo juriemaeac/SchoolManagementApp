@@ -1,27 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:smapp/CalendarSpace/src/addstudent_buttons.dart';
 import 'package:smapp/CalendarSpace/src/calendar_section.dart';
 import 'package:smapp/CalendarSpace/src/profile_section.dart';
 import 'package:smapp/CalendarSpace/src/student_buttons.dart';
 
-class StudentInfo extends StatelessWidget {
+class AddFacultyInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.centerRight,
       child: Container(
-        decoration: BoxDecoration(
-          color: Color(0xffF7F7FF),
-          //color: Colors.white,
-          //borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 2,
-              blurRadius: 9,
-              // changes position of shadow
-            ),
-          ],
-        ),
+        color: Color(0xffF7F7FF),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width * 0.28,
         child: Column(
@@ -30,8 +19,21 @@ class StudentInfo extends StatelessWidget {
               height: 30.0,
             ),
             TopContainer(), //profile
+            // Container(
+            //   height: MediaQuery.of(context).size.height * 0.35,
+            //   width: MediaQuery.of(context).size.width * 0.28,
+            //   margin: const EdgeInsets.all(20.0),
+            //   decoration: BoxDecoration(
+            //     color: Colors.orange,
+            //     borderRadius: BorderRadius.circular(10),
+            //   ),
+            // ),
+            const SizedBox(
+              height: 30.0,
+            ),
+            CalendarSection(), //Month Year
             Container(
-              height: MediaQuery.of(context).size.height * 0.55,
+              height: MediaQuery.of(context).size.height * 0.665,
               width: MediaQuery.of(context).size.width * 0.28,
               margin: const EdgeInsets.all(20.0),
               decoration: BoxDecoration(
@@ -39,12 +41,10 @@ class StudentInfo extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Image.asset(
-                'assets/girl_read.png',
+                'assets/design1.png',
                 fit: BoxFit.fitHeight,
               ),
             ),
-            CalendarSection(), //Month Year
-            const StudentButtons(),
           ],
         ),
       ),

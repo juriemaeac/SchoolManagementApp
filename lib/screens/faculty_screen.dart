@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
 import 'package:smapp/boxes/boxFaculty.dart';
-import 'package:smapp/boxes/boxStudent.dart';
-import 'package:smapp/screens/addstudents_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:smapp/screens/editfaculty_screen.dart';
-import 'package:smapp/screens/editstudents_screen.dart';
 import 'package:smapp/screens/students_screen.dart';
-import '../splash_screen.dart';
+import 'package:smapp/student_page.dart';
 import 'addfaculty_screen.dart';
 import '../models/faculty_model.dart';
-import '../models/student_model.dart';
-import 'addstudents_screen.dart';
 
 class FacultyScreen extends StatefulWidget {
   final String title;
@@ -43,39 +40,7 @@ class _FacultyScreenState extends State<FacultyScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        centerTitle: true,
-        actions: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => StudentScreen(title: 'Student List'),
-                      ),
-                    );
-                  },
-                  child: const Text('Student Screen')), 
-              ElevatedButton(
-                onPressed: () {
-                  facultyCredential.setString('');
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SplashScreen(),
-                    ),
-                  );
-                },
-                child: const Text('Logout')),
-            ],
-          ),
-         
-        ],
-      ),
+      backgroundColor: Colors.transparent,
       body: ValueListenableBuilder(
           valueListenable:
               Hive.box<Faculty>(HiveBoxesFaculty.faculty).listenable(),
@@ -86,75 +51,171 @@ class _FacultyScreenState extends State<FacultyScreen> {
               );
             }
             return ListView.builder(
+              scrollDirection: Axis.vertical,
               itemCount: box.values.length,
               itemBuilder: (context, index) {
                 Faculty? res = box.getAt(index);
                 return ListTile(
-                    //testing lang
                     title: Container(
-                      child: Wrap(
-                          alignment: WrapAlignment.spaceAround,
+                       padding: const EdgeInsets.only(
+                        left: 10, right: 10, top: 5, bottom: 5),
+                    margin: const EdgeInsets.only(bottom: 5),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                          //alignment: WrapAlignment.spaceAround,
                           children: <Widget>[
-                            Row(
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(res!.lastName),
-                                const Text(", "),
-                                Text(res.firstName),
-                                const Text(" "),
-                                Text(res.middleName),
+                                Row(
+                                  children: [
+                                    const SizedBox(width: 20),
+                                    Column(
+                                      children: [
+                                        Text(
+                                              res!.lastName +
+                                                  ', ' +
+                                                  res.firstName +
+                                                  ' ' +
+                                                  res.middleName,
+                                              style: GoogleFonts.quicksand(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    const SizedBox(width: 20),
+                                    Text(
+                                      res.userFaculty.toString(),
+                                      style: GoogleFonts.quicksand(
+                                                fontSize: 13,
+                                                color: const Color.fromARGB(
+                                                    255, 102, 101, 101)),
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
                             //
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                            Column(
                               children: [
-                                ElevatedButton(
-                                    onPressed: () {
-                                      Faculty faculty = Faculty(
-                                        username: res.username,
-                                        password: res.password,
-                                        firstName: res.firstName,
-                                        middleName: res.middleName,
-                                        lastName: res.lastName,
-                                        userFaculty: res.userFaculty,
-                                        isAdmin: res.isAdmin,
-                                      );
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => EditFacultyScreen(
-                                            faculty: faculty,
-                                            index: index,
-                                          ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    IconButton(
+                                      padding: new EdgeInsets.all(3.0),
+                                      splashColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      icon: Container(
+                                        height: 60,
+                                        width: 60,
+                                        child: SvgPicture.asset(
+                                          'assets/edit_svg.svg',
                                         ),
-                                      );
-                                    },
-                                    child: const Text('Edit')),
-                                SizedBox(width: 10),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    res.delete();
-                                  },
-                                  child: const Text('Delete')),
+                                      ),
+                                      onPressed: () {
+                                        Faculty faculty = Faculty(
+                                            username: res.username,
+                                            password: res.password,
+                                            firstName: res.firstName,
+                                            middleName: res.middleName,
+                                            lastName: res.lastName,
+                                            userFaculty: res.userFaculty,
+                                            isAdmin: res.isAdmin,
+                                          );
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => EditFacultyScreen(
+                                                faculty: faculty,
+                                                index: index,
+                                              ),
+                                            ),
+                                          );
+                                      },
+                                    ),
+                                    SizedBox(width: 10),
+                                    IconButton(
+                                      padding: new EdgeInsets.all(3.0),
+                                      splashColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      icon: Container(
+                                        height: 60,
+                                        width: 60,
+                                        child: SvgPicture.asset(
+                                          'assets/delete_svg.svg',
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: const Text(
+                                                'Confirmation',
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.red),
+                                              ),
+                                              content: const Text(
+                                                'Are you sure you want to delete this faculty?',
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.black),
+                                                textAlign: TextAlign.justify,
+                                              ),
+                                              actions: <Widget>[
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        res.delete();
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: const Text('Delete'),
+                                                    ),
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: const Text('Cancel'),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+                                    const SizedBox(width: 20),
+                                  ],
+                                ),
                               ],
                             ),
                             
                           ]),
                     ),
-                    subtitle: Text(res.userFaculty.toString()),
-                    onTap: () {});
+                    // subtitle: Text(res.userFaculty.toString()),
+                    // onTap: () {}
+                    );
               },
             );
-          }),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => AddFacultyScreen()),
-          );
-        },
-        child: Icon(Icons.add),
-      ),
+          }
+        ),
     );
   }
 }

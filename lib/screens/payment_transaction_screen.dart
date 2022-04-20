@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
 import 'package:smapp/boxes/boxStudent.dart';
@@ -36,39 +37,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        centerTitle: true,
-        actions: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const StudentScreen(title: 'Student List'),
-                      ),
-                    );
-                  },
-                  child: const Text('Student Screen')),
-              ElevatedButton(
-                  onPressed: () {
-                    facultyCredential.username = '';
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SplashScreen(),
-                      ),
-                    );
-                  },
-                  child: const Text('Logout')),
-            ],
-          ),
-        ],
-      ),
+      backgroundColor: Colors.transparent,
       body: ValueListenableBuilder(
           valueListenable:
               Hive.box<Payment>(HiveBoxesPayment.payment).listenable(),
@@ -79,108 +48,92 @@ class _PaymentScreenState extends State<PaymentScreen> {
               );
             }
             return ListView.builder(
+              scrollDirection: Axis.vertical,
               itemCount: box.values.length,
               itemBuilder: (context, index) {
                 Payment? res = box.getAt(index);
                 return ListTile(
-                    //testing lang
-                    title: Container(
-                      child: Wrap(
-                          alignment: WrapAlignment.spaceAround,
-                          children: <Widget>[
-                            Row(
-                              children: [
-                                Text("Student: ${res!.studentID.toString()}"),
-                                const Text(" : "),
-                                Text(
-                                    "Paid ${res.transactionAmount.toString()}"),
-                              ],
-                            ),
-                            //Print to PDF
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                ElevatedButton(
-                                    onPressed: () {
-                                      // Student student = Student(
-                                      //     studentID: res.studentID,
-                                      //     firstName: res.firstName,
-                                      //     middleName: res.middleName,
-                                      //     lastName: res.lastName,
-                                      //     studentCourse: res.studentCourse,
-                                      //     studentSubjects: res.studentSubjects,
-                                      //     academicYear: res.academicYear,
-                                      //     isInstallment: res.isInstallment,
-                                      //     accountBalance: res.accountBalance);
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //     builder: (context) => EditStudentScreen(
-                                      //       student: student,
-                                      //       index: index,
-                                      //     ),
-                                      //   ),
-                                      // );
-                                    },
-                                    child: const Text('View Record')),
-                              ],
-                            ),
-                            // ElevatedButton(
-                            //     onPressed: () {
-                            //       showDialog(
-                            //         context: context,
-                            //         builder: (context) {
-                            //           return AlertDialog(
-                            //             title: const Text(
-                            //               'Confirmation',
-                            //               style: TextStyle(
-                            //                   fontSize: 20,
-                            //                   fontWeight: FontWeight.bold,
-                            //                   color: Colors.red),
-                            //             ),
-                            //             content: const Text(
-                            //               'Are you sure you want to delete this student?',
-                            //               style: TextStyle(
-                            //                   fontSize: 15,
-                            //                   color: Colors.black),
-                            //               textAlign: TextAlign.justify,
-                            //             ),
-                            //             actions: <Widget>[
-                            //               Row(
-                            //                 mainAxisAlignment:
-                            //                     MainAxisAlignment.end,
-                            //                 children: [
-                            //                   TextButton(
-                            //                     onPressed: () {
-                            //                       res.delete();
-                            //                       Navigator.pop(context);
-                            //                     },
-                            //                     child: const Text('Delete'),
-                            //                   ),
-                            //                   TextButton(
-                            //                     onPressed: () {
-                            //                       Navigator.pop(context);
-                            //                     },
-                            //                     child: const Text('Cancel'),
-                            //                   ),
-                            //                 ],
-                            //               ),
-                            //             ],
-                            //           );
-                            //         },
-                            //       );
-                            //     },
-                            //     child: const Text('Delete')),
-                          ]),
+                  title: Container(
+                    padding: const EdgeInsets.only(
+                        left: 30, right: 30, top: 5, bottom: 5),
+                    margin: const EdgeInsets.only(bottom: 5),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15.0),
                     ),
-                    subtitle: Row(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Cashier: ${res.facultyUsername.toString()}"),
-                        const Text(" @ "),
-                        Text(res.transactionDate.toString()),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Student: ${res!.studentID.toString()}",
+                                  style: GoogleFonts.quicksand(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "Cashier: ${res.facultyUsername.toString()}",
+                                  style: GoogleFonts.quicksand(
+                                      fontSize: 13,
+                                      color: const Color.fromARGB(
+                                          255, 102, 101, 101)),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Paid ₱${res.transactionAmount.toString()}",
+                                  style: GoogleFonts.quicksand(
+                                      fontSize: 13,
+                                      color: const Color.fromARGB(
+                                          255, 102, 101, 101)),
+                                ),
+                                Text(
+                                  res.transactionDate.toString(),
+                                  style: GoogleFonts.quicksand(
+                                      fontSize: 13,
+                                      color: const Color.fromARGB(
+                                          255, 102, 101, 101)),
+                                ),
+                              ],
+                            ),
+                            ElevatedButton(
+                                onPressed: () {
+                                  // Student student = Student(
+                                  //     studentID: res.studentID,
+                                  //     firstName: res.firstName,
+                                  //     middleName: res.middleName,
+                                  //     lastName: res.lastName,
+                                  //     studentCourse: res.studentCourse,
+                                  //     studentSubjects: res.studentSubjects,
+                                  //     academicYear: res.academicYear,
+                                  //     isInstallment: res.isInstallment,
+                                  //     accountBalance: res.accountBalance);
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) => EditStudentScreen(
+                                  //       student: student,
+                                  //       index: index,
+                                  //     ),
+                                  //   ),
+                                  // );
+                                },
+                                child: const Text('View Record')),
+                          ],
+                        ),
                       ],
                     ),
-                    onTap: () {});
+                  ),
+                );
               },
             );
           }),

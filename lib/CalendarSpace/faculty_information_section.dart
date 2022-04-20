@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:smapp/CalendarSpace/src/calendar_section.dart';
+import 'package:smapp/CalendarSpace/src/faculty_buttons.dart';
 import 'package:smapp/CalendarSpace/src/profile_section.dart';
 import 'package:smapp/CalendarSpace/src/student_buttons.dart';
 
-class StudentInfo extends StatelessWidget {
+class FacultyInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.centerRight,
       child: Container(
         decoration: BoxDecoration(
-          color: Color(0xffF7F7FF),
+          color: const Color(0xffF7F7FF),
           //color: Colors.white,
           //borderRadius: BorderRadius.circular(15),
           boxShadow: [
@@ -39,12 +40,12 @@ class StudentInfo extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Image.asset(
-                'assets/girl_read.png',
+                'assets/boy_laptop.png',
                 fit: BoxFit.fitHeight,
               ),
             ),
             CalendarSection(), //Month Year
-            const StudentButtons(),
+            const FacultyButtons(),
           ],
         ),
       ),

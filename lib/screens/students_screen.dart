@@ -4,16 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
 import 'package:smapp/boxes/boxStudent.dart';
-import 'package:smapp/screens/addstudents_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:smapp/screens/editstudents_screen.dart';
-import 'package:smapp/screens/payment_transaction_screen.dart';
-import '../splash_screen.dart';
-import 'addfaculty_screen.dart';
 import '../models/student_model.dart';
-import 'addstudents_screen.dart';
 import 'addtransaction_screen.dart';
-import 'faculty_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class StudentScreen extends StatefulWidget {
@@ -268,7 +262,7 @@ class _StudentScreenState extends State<StudentScreen> {
                                     );
                                   },
                                 ),
-                                const SizedBox(width: 10),
+                                const SizedBox(width: 20),
                               ],
                             ),
                           ],
