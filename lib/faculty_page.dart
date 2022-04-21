@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 import 'package:smapp/CalendarSpace/faculty_information_section.dart';
 import 'package:smapp/CalendarSpace/student_information_section.dart';
 import 'package:smapp/Dashboard/src/ProjectStatisticsCards.dart';
@@ -10,10 +11,39 @@ import 'package:smapp/Student/student_tabs.dart';
 import 'package:smapp/screens/faculty_screen.dart';
 import 'package:smapp/screens/students_screen.dart';
 
-class FacultyPage extends StatelessWidget {
+import 'boxes/boxFaculty.dart';
+import 'models/faculty_model.dart';
+
+class FacultyPage extends StatefulWidget {
   const FacultyPage({Key? key}) : super(key: key);
+
+  @override
+  State<FacultyPage> createState() => _FacultyPageState();
+}
+
+class _FacultyPageState extends State<FacultyPage> {
+  @override
+  void initState() {
+    super.initState();
+    Hive.openBox<Faculty>(HiveBoxesFaculty.faculty);
+  }
+
+  countCashiers() {
+    final box = Hive.box<Faculty>(HiveBoxesFaculty.faculty);
+    int cashiers = 0;
+    for (final faculty in box.values) {
+      if (faculty.userFaculty == 'Cashier') {
+        cashiers += 1;
+      }
+    }
+    return cashiers;
+  }
+
   @override
   Widget build(BuildContext context) {
+    var facultyCount = Hive.box<Faculty>(HiveBoxesFaculty.faculty).length;
+    var activeCashiers = countCashiers();
+    var percentage = (activeCashiers / facultyCount).toStringAsFixed(2);
     return Scaffold(
       backgroundColor: Color(0xfff3f5f9),
       body: SizedBox(
@@ -55,10 +85,39 @@ class FacultyPage extends StatelessWidget {
                     const SizedBox(
                       height: 25,
                     ),
-                    SizedBox(
-                        height: MediaQuery.of(context).size.height / 5,
-                        width: MediaQuery.of(context).size.width * 0.63,
-                        child: ProjectStatisticsCards()),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          child: SizedBox(
+                            height: MediaQuery.of(context).size.height / 4.5,
+                            width: MediaQuery.of(context).size.width / 3.25,
+                            child: ProjectStatisticsCard(
+                              count: 'Faculty',
+                              name: 'Enlisted Now',
+                              descriptions: 'Database Analytics',
+                              progress: 1.0,
+                              progressString: '$facultyCount',
+                              color: const Color(0xffFAAA1E),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          child: SizedBox(
+                            height: MediaQuery.of(context).size.height / 4.5,
+                            width: MediaQuery.of(context).size.width / 3.25,
+                            child: ProjectStatisticsCard(
+                              count: 'Faculty',
+                              name: 'Active Cashiers',
+                              descriptions: 'Database Analytics',
+                              progress: double.parse(percentage),
+                              progressString: '$activeCashiers',
+                              color: const Color(0xff6C6CE5),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     const SizedBox(
                       height: 25,
                     ),

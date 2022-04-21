@@ -82,7 +82,7 @@ class ProjectStatisticsCard extends StatelessWidget {
                   Text(
                     count,
                     style: GoogleFonts.quicksand(
-                      fontSize: 20.0,
+                      fontSize: 25.0,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
@@ -116,7 +116,7 @@ class ProjectStatisticsCard extends StatelessWidget {
               center: Text(
                 progressString,
                 style: GoogleFonts.quicksand(
-                  fontSize: 13.0,
+                  fontSize: 30.0,
                   fontWeight: FontWeight.w700,
                   color: Colors.white,
                 ),
@@ -125,6 +125,75 @@ class ProjectStatisticsCard extends StatelessWidget {
               startAngle: 270,
               backgroundColor: Colors.white54,
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ProjectStatisticsCardNoGraph extends StatelessWidget {
+  final String count;
+  final String name;
+  final String descriptions;
+  final Color color;
+
+  ProjectStatisticsCardNoGraph({
+    required this.count,
+    required this.descriptions,
+    required this.name,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.only(left: 40.0, right: 20.0),
+        padding: EdgeInsets.symmetric(horizontal: 20.0),
+        height: 85.0,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    count,
+                    style: GoogleFonts.quicksand(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    name,
+                    style: GoogleFonts.quicksand(
+                      fontSize: 13.0,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8.0,
+                  ),
+                  Text(
+                    descriptions,
+                    style: GoogleFonts.quicksand(
+                      fontSize: 10.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
           ],
         ),
       ),

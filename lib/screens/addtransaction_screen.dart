@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
@@ -10,6 +12,7 @@ import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/models/student_model.dart';
 import 'package:intl/intl.dart';
 import 'package:smapp/screens/payment_transaction_screen.dart';
+import '../Dashboard/src/ProjectStatisticsCards.dart';
 import '../models/payment_model.dart';
 import '../authentication/right_login_screen.dart';
 
@@ -112,6 +115,9 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
       super.dispose();
     }
 
+    String? user = facultyCredential.getString();
+    String transacDate = DateFormat("MMMM, dd, yyyy").format(DateTime.now());
+    String payingStudent = ('$firstName $lastName');
     return Scaffold(
       body: SafeArea(
         child: Form(
@@ -153,66 +159,45 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                   ),
                                 ),
                               ),
-                              Container(
-                                margin:
-                                    const EdgeInsets.only(left: 20, bottom: 20),
-                                width:
-                                    (MediaQuery.of(context).size.width * 0.6),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                    child: SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height /
-                                              4,
-                                      width:
-                                          ((MediaQuery.of(context).size.width *
-                                                      0.6) /
-                                                  2) -
-                                              10,
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue,
-                                        borderRadius: BorderRadius.circular(15),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.2),
-                                            spreadRadius: 2,
-                                            blurRadius: 9,
-                                            // changes position of shadow
-                                          ),
-                                        ],
+                                              5,
+                                      width: MediaQuery.of(context).size.width /
+                                          3.25,
+                                      child: ProjectStatisticsCardNoGraph(
+                                        count:
+                                            'Cashier: ${user.substring(0, min(user.length, 15))}..',
+                                        name: '$transacDate',
+                                        descriptions: 'Authorized Faculty',
+                                        color: const Color(0xffFAAA1E),
                                       ),
                                     ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Container(
+                                  ),
+                                  SizedBox(
+                                    child: SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height /
-                                              4,
-                                      width:
-                                          ((MediaQuery.of(context).size.width *
-                                                      0.6) /
-                                                  2) -
-                                              10,
-                                      decoration: BoxDecoration(
-                                        color: Colors.orange,
-                                        borderRadius: BorderRadius.circular(15),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.2),
-                                            spreadRadius: 2,
-                                            blurRadius: 9,
-                                            // changes position of shadow
-                                          ),
-                                        ],
+                                              5,
+                                      width: MediaQuery.of(context).size.width /
+                                          3.25,
+                                      child: ProjectStatisticsCardNoGraph(
+                                        count:
+                                            'Payor: ${payingStudent.substring(0, min(payingStudent.length, 15))}..',
+                                        name: '$studentID $studentCourse',
+                                        descriptions: 'Student Payor',
+                                        color: const Color(0xff6C6CE5),
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
+                              SizedBox(height: 20),
                               Container(
                                 decoration: BoxDecoration(
                                   color: Colors.white,
@@ -284,6 +269,9 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                         },
                                       ),
                                     ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
                                     Container(
                                       padding: const EdgeInsets.only(
                                           left: 25, right: 25),
@@ -321,6 +309,9 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                         ),
                                         controller: _accountBalanceController,
                                       ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
                                     ),
                                     Container(
                                       padding: const EdgeInsets.only(
@@ -419,7 +410,7 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                             ),
                                           ),
                                         ),
-                                        const SizedBox(width: 20),
+                                        const SizedBox(width: 10),
                                         Container(
                                           margin: EdgeInsets.all(10),
                                           child: ElevatedButton(
