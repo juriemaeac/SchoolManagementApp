@@ -470,7 +470,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                                           print(value);
                                         });
                                       },
-                                      activeColor: Colors.transparent,
+                                      activeColor: Colors.orange,
                                     ),
                                   ),
                                 ],
