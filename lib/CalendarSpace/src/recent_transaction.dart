@@ -62,6 +62,8 @@ class MeetingsSection extends StatelessWidget {
             color: Colors.transparent,
           ),
           child: ListView.builder(
+            shrinkWrap: true,
+            reverse: true,
             scrollDirection: Axis.vertical,
             itemCount:
                 boxValues.values.length < 20 ? boxValues.values.length : 20,

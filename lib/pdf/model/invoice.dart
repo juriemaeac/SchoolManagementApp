@@ -1,5 +1,5 @@
-import 'package:smapp/model/studentPDF.dart';
-import 'package:smapp/model/supplier.dart';
+import 'package:smapp/pdf/model/studentPDF.dart';
+import 'package:smapp/pdf/model/supplier.dart';
 import 'package:smapp/models/faculty_model.dart';
 
 class Invoice {

@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
-import 'package:smapp/api/pdf_api.dart';
-import 'package:smapp/api/pdf_invoice_api.dart';
+import 'package:smapp/pdf/api/pdf_api.dart';
+import 'package:smapp/pdf/api/pdf_invoice_api.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
 import 'package:smapp/boxes/boxFaculty.dart';
 import 'package:smapp/boxes/boxStudent.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:smapp/model/studentPDF.dart';
-import 'package:smapp/model/invoice.dart';
-import 'package:smapp/model/supplier.dart';
+import 'package:smapp/pdf/model/studentPDF.dart';
+import 'package:smapp/pdf/model/invoice.dart';
+import 'package:smapp/pdf/model/supplier.dart';
 import 'package:smapp/models/faculty_model.dart';
 import 'package:smapp/screens/editstudents_screen.dart';
 import '../models/student_model.dart';
@@ -74,6 +74,8 @@ class _StudentScreenState extends State<StudentScreen> {
               );
             }
             return ListView.builder(
+              shrinkWrap: true,
+              reverse: true,
               scrollDirection: Axis.vertical,
               itemCount: box.values.length,
               itemBuilder: (context, index) {
@@ -193,39 +195,41 @@ class _StudentScreenState extends State<StudentScreen> {
                                   },
                                 ),
                                 const SizedBox(width: 10),
-                                IconButton(
-                                  padding: new EdgeInsets.all(3.0),
-                                  splashColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  icon: Container(
-                                    height: 60,
-                                    width: 60,
-                                    child: SvgPicture.asset(
-                                      'assets/billing_svg.svg',
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    Student student = Student(
-                                        studentID: res.studentID,
-                                        firstName: res.firstName,
-                                        middleName: res.middleName,
-                                        lastName: res.lastName,
-                                        studentCourse: res.studentCourse,
-                                        studentSubjects: res.studentSubjects,
-                                        academicYear: res.academicYear,
-                                        isInstallment: res.isInstallment,
-                                        accountBalance: res.accountBalance);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            AddTransactionScreen(
-                                          student: student,
-                                          index: index,
-                                        ),
+                                Visibility(
+                                  child: IconButton(
+                                    padding: new EdgeInsets.all(3.0),
+                                    splashColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    icon: Container(
+                                      height: 60,
+                                      width: 60,
+                                      child: SvgPicture.asset(
+                                        'assets/billing_svg.svg',
                                       ),
-                                    );
-                                  },
+                                    ),
+                                    onPressed: () {
+                                      Student student = Student(
+                                          studentID: res.studentID,
+                                          firstName: res.firstName,
+                                          middleName: res.middleName,
+                                          lastName: res.lastName,
+                                          studentCourse: res.studentCourse,
+                                          studentSubjects: res.studentSubjects,
+                                          academicYear: res.academicYear,
+                                          isInstallment: res.isInstallment,
+                                          accountBalance: res.accountBalance);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              AddTransactionScreen(
+                                            student: student,
+                                            index: index,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ),
                                 const SizedBox(width: 10),
                                 IconButton(

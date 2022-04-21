@@ -48,6 +48,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
               );
             }
             return ListView.builder(
+              shrinkWrap: true,
+              reverse: true,
               scrollDirection: Axis.vertical,
               itemCount: box.values.length,
               itemBuilder: (context, index) {

@@ -2,12 +2,13 @@ import 'dart:io';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
-import 'package:smapp/api/pdf_api.dart';
-import 'package:smapp/model/studentPDF.dart';
-import 'package:smapp/model/invoice.dart';
-import 'package:smapp/model/supplier.dart';
+import 'package:smapp/pdf/api/pdf_api.dart';
+import 'package:smapp/pdf/model/invoice.dart';
+import 'package:smapp/pdf/model/studentPDF.dart';
+import 'package:smapp/pdf/model/invoice.dart';
+import 'package:smapp/pdf/model/supplier.dart';
 import 'package:smapp/models/faculty_model.dart';
-import 'package:smapp/utils.dart';
+import 'package:smapp/pdf/utils.dart';
 
 class PdfInvoiceApi {
   static Future<File> generate(Invoice invoice) async {

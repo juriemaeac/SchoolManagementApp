@@ -51,6 +51,8 @@ class _FacultyScreenState extends State<FacultyScreen> {
               );
             }
             return ListView.builder(
+              shrinkWrap: true,
+              reverse: true,
               scrollDirection: Axis.vertical,
               itemCount: box.values.length,
               itemBuilder: (context, index) {
