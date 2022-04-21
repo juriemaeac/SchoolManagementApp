@@ -5,6 +5,7 @@ import 'package:smapp/NavigationBar/src/navbar_item.dart';
 import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/faculty_page.dart';
 import 'package:smapp/models/student_model.dart';
+import 'package:smapp/page/pdf_page.dart';
 import 'package:smapp/payment_transaction_page.dart';
 import 'package:smapp/screens/editfaculty_screen.dart';
 import 'package:smapp/screens/faculty_screen.dart';
@@ -119,6 +120,7 @@ class _NavBarState extends State<NavBar> {
               setState(() {
                 select(4);
               });
+              
             },
           ),
           NavBarItem(

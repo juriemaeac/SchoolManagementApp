@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
+import 'package:smapp/api/pdf_api.dart';
+import 'package:smapp/api/pdf_invoice_api.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
+import 'package:smapp/boxes/boxFaculty.dart';
 import 'package:smapp/boxes/boxStudent.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:smapp/model/studentPDF.dart';
+import 'package:smapp/model/invoice.dart';
+import 'package:smapp/model/supplier.dart';
+import 'package:smapp/models/faculty_model.dart';
 import 'package:smapp/screens/editstudents_screen.dart';
 import '../models/student_model.dart';
 import 'addtransaction_screen.dart';
@@ -25,6 +32,7 @@ class _StudentScreenState extends State<StudentScreen> {
   void initState() {
     super.initState();
     Hive.openBox<Student>(HiveBoxesStudent.student);
+    Hive.openBox<Faculty>(HiveBoxesFaculty.faculty);
     var user = facultyCredential.getString();
     if (user == 'admin') {
       isAdmin = true;
@@ -40,6 +48,20 @@ class _StudentScreenState extends State<StudentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    paymentMethod(int method) {
+      print('Method: $method');
+      String paymentMethod;
+      if (method == 1) {
+        paymentMethod = 'Cash';
+        print('Payment Method: ${paymentMethod}');
+        return paymentMethod;
+      } else if (method == 2) {
+        paymentMethod = 'Installment';
+        print('Payment Method: ${paymentMethod}');
+        return paymentMethod;
+      }
+    }
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: ValueListenableBuilder(
@@ -207,59 +229,107 @@ class _StudentScreenState extends State<StudentScreen> {
                                 ),
                                 const SizedBox(width: 10),
                                 IconButton(
-                                  padding: new EdgeInsets.all(3.0),
+                                  padding: const EdgeInsets.all(3.0),
                                   splashColor: Colors.transparent,
                                   hoverColor: Colors.transparent,
                                   icon: Container(
                                     height: 60,
                                     width: 60,
-                                    child: SvgPicture.asset(
-                                      'assets/delete_svg.svg',
+                                    child: Image.asset(
+                                      'assets/invoice.png',
                                     ),
                                   ),
-                                  onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: const Text(
-                                            'Confirmation',
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.red),
-                                          ),
-                                          content: const Text(
-                                            'Are you sure you want to delete this student?',
-                                            style: TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.black),
-                                            textAlign: TextAlign.justify,
-                                          ),
-                                          actions: <Widget>[
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                TextButton(
-                                                  onPressed: () {
-                                                    res.delete();
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: const Text('Delete'),
-                                                ),
-                                                TextButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: const Text('Cancel'),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        );
-                                      },
+                                  onPressed: () async {
+                                    final date = DateTime.now();
+                                    //final balance = res.accountBalance;
+                                    final invoice = Invoice(
+                                      // faculty: Faculty(
+                                      //   username: '',
+                                      //   password: '',
+                                      //   firstName: '${res.lastName}, ${res.firstName} ${res.middleName}',
+                                      //   middleName: '',
+                                      //   lastName: '',
+                                      //   userFaculty: '',
+                                      //   isAdmin: false,
+                                      // ),
+                                      // supplier: Supplier(
+                                      //   name: '${res.lastName}, ${res.firstName} ${res.middleName}',
+                                      //   address: 'Sarah Street 9, Beijing, China',
+                                      //   paymentInfo: 'https://paypal.me/sarahfieldzz',
+                                      // ),
+                                      studentPDF: StudentPDF(
+                                        studentId: res.studentID,
+                                        name:
+                                            '${res.lastName}, ${res.firstName} ${res.middleName}',
+                                        course:
+                                            '${res.studentCourse} ${res.academicYear}',
+                                        subjects: res.studentSubjects,
+                                      ),
+                                      info: InvoiceInfo(
+                                        date: date,
+                                        balance: res.accountBalance,
+                                        description:
+                                            'IMPORTANT: Keep this copy. You will be required to present this when you ask for your examination permits and in all you dealings with the school.',
+                                        number:
+                                            '${paymentMethod(res.isInstallment)}',
+                                      ),
+                                      items: [
+                                        InvoiceItem(
+                                          description: 'Coffee',
+                                          date: DateTime.now(),
+                                          quantity: 3,
+                                          vat: 0.19,
+                                          unitPrice: 5.99,
+                                        ),
+                                        InvoiceItem(
+                                          description: 'Water',
+                                          date: DateTime.now(),
+                                          quantity: 8,
+                                          vat: 0.19,
+                                          unitPrice: 0.99,
+                                        ),
+                                        InvoiceItem(
+                                          description: 'Orange',
+                                          date: DateTime.now(),
+                                          quantity: 3,
+                                          vat: 0.19,
+                                          unitPrice: 2.99,
+                                        ),
+                                        InvoiceItem(
+                                          description: 'Apple',
+                                          date: DateTime.now(),
+                                          quantity: 8,
+                                          vat: 0.19,
+                                          unitPrice: 3.99,
+                                        ),
+                                        InvoiceItem(
+                                          description: 'Mango',
+                                          date: DateTime.now(),
+                                          quantity: 1,
+                                          vat: 0.19,
+                                          unitPrice: 1.59,
+                                        ),
+                                        InvoiceItem(
+                                          description: 'Blue Berries',
+                                          date: DateTime.now(),
+                                          quantity: 5,
+                                          vat: 0.19,
+                                          unitPrice: 0.99,
+                                        ),
+                                        InvoiceItem(
+                                          description: 'Lemon',
+                                          date: DateTime.now(),
+                                          quantity: 4,
+                                          vat: 0.19,
+                                          unitPrice: 1.29,
+                                        ),
+                                      ],
                                     );
+
+                                    final pdfFile =
+                                        await PdfInvoiceApi.generate(invoice);
+
+                                    PdfApi.openFile(pdfFile);
                                   },
                                 ),
                                 const SizedBox(width: 20),
