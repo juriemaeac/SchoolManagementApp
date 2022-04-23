@@ -100,8 +100,8 @@ class _ProjectProgressCardState extends State<ProjectProgressCard> {
                       height: 16.0,
                       width: 13.0,                 
                       child: Icon(
-                        Feather.hash,
-                        size: 13.0,
+                        Feather.box,
+                        size: hovered? 18 : 13.0,
                         color: hovered ? Colors.white : Colors.black,
                       ),
                     ),
