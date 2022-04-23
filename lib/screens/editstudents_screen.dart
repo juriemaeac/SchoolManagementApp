@@ -139,6 +139,18 @@ class _EditStudentScreen extends State<EditStudentScreen> {
       super.dispose();
     }
 
+    paymentMethod(int met) {
+      String paymentMethod = '';
+      if (met == 1) {
+        paymentMethod = "Cash";
+        return paymentMethod;
+      }
+      else if (met == 2) {
+        paymentMethod = "Installment";
+        return paymentMethod;
+      }
+    }
+    String method = paymentMethod(isInstallment!) ?? "";
     return Scaffold(
       // appBar: AppBar(
       //   title: const Text('Edit Students'),
@@ -584,8 +596,8 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                           ),
                                           child: TextFormField(
                                             enabled: false,
-                                            controller:
-                                                _isInstallmentController,
+                                            //controller:_isInstallmentController,
+                                            initialValue: method,
                                             decoration: const InputDecoration(
                                               labelText: 'Payment Method',
                                               border: InputBorder.none,

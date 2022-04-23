@@ -62,6 +62,25 @@ class _StudentScreenState extends State<StudentScreen> {
       }
     }
 
+    isCashier() {
+      final box = Hive.box<Faculty>(HiveBoxesFaculty.faculty);
+      String username = facultyCredential.getString();
+      bool visible = false;
+      for (final faculty in box.values) {
+        if (username == 'admin') {
+          visible = true;
+        }
+        else if (faculty.username == username) {
+          if (faculty.userFaculty == 'Cashier') {
+            visible = true;
+          } else {
+            visible = false;
+          }
+        } 
+      }
+      return visible;
+    }
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: ValueListenableBuilder(
@@ -196,6 +215,7 @@ class _StudentScreenState extends State<StudentScreen> {
                                 ),
                                 const SizedBox(width: 10),
                                 Visibility(
+                                  visible: isCashier(),
                                   child: IconButton(
                                     padding: new EdgeInsets.all(3.0),
                                     splashColor: Colors.transparent,
