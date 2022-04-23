@@ -533,7 +533,7 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
     } else {
       print("Payment Successful");
       double? newAccountBalance = oldBalance - transactionAmount;
-      String transacDate = DateFormat("MMMM, dd, yyyy").format(DateTime.now());
+      String transacDate = DateFormat("MMMM dd, yyyy").format(DateTime.now());
       Box<Payment> paymentBox = Hive.box<Payment>(HiveBoxesPayment.payment);
       paymentBox.add(Payment(
         studentID: studentID ?? 0,

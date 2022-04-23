@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
@@ -111,7 +113,7 @@ class _MeetingsSectionState extends State<MeetingsSection> {
                                 ),
                               ),
                               Text(
-                                "Cashier: ${res.facultyUsername.toString()} @ ${res.transactionDate.toString()}",
+                                "${res.transactionDate.toString()}",
                                 style: const TextStyle(
                                   fontSize: 13.0,
                                   color: Colors.black,
