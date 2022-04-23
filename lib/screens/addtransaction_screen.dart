@@ -115,9 +115,22 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
       super.dispose();
     }
 
+    paymentMethod(int met) {
+      String paymentMethod = '';
+      if (met == 1) {
+        paymentMethod = "Cash";
+        return paymentMethod;
+      }
+      else if (met == 2) {
+        paymentMethod = "Installment";
+        return paymentMethod;
+      }
+    }
+
     String? user = facultyCredential.getString();
     String transacDate = DateFormat("MMMM, dd, yyyy").format(DateTime.now());
     String payingStudent = ('$firstName $lastName');
+
     return Scaffold(
       body: SafeArea(
         child: Form(
@@ -219,6 +232,28 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(
+                                          left: 15,
+                                          right: 15,
+                                          top: 5,
+                                          bottom: 5),
+                                      child: Text(
+                                        'Payment Method: ${paymentMethod(isInstallment!)}',
+                                        textAlign: TextAlign.start,
+                                        style: GoogleFonts.quicksand(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20.0,
+                                          textStyle: const TextStyle(
+                                            color:
+                                                Color.fromARGB(255, 51, 57, 81),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
                                     Container(
                                       padding: const EdgeInsets.only(
                                           left: 25, right: 25),
@@ -354,15 +389,33 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                           });
                                         },
                                         validator: (String? value) {
-                                          if (value == null ||
+                                          
+                                           if (isInstallment == 1) {
+                                            if (value == null ||
                                               value.trim().length == 0) {
                                             return "required";
-                                          } else if (double.parse(value) <= 0 ||
-                                              double.parse(value) >
-                                                  oldBalance!) {
-                                            return "Payment amount error. Please try again.";
+                                            } else if (double.parse(value) <= 0 ||
+                                                double.parse(value) >
+                                                    oldBalance!) {
+                                              return "Payment amount error. Please try again.";
+                                            } else if (double.parse(value) <
+                                                oldBalance!) {
+                                              return "Payment amount error. Student shall pay in full.";
+                                            }
+                                            return null;
                                           }
-                                          return null;
+                                          else if (isInstallment == 2) {
+                                            if (value == null ||
+                                              value.trim().length == 0) {
+                                            return "required";
+                                            } else if (double.parse(value) <= 0 ||
+                                                double.parse(value) >
+                                                    oldBalance!) {
+                                              return "Payment amount error. Please try again.";
+                                            }
+                                            return null;
+                                          } 
+                                          
                                         },
                                       ),
                                     ),

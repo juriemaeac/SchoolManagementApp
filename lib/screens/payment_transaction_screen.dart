@@ -129,7 +129,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   //   ),
                                   // );
                                 },
-                                child: const Text('View Record')),
+                                child: const Text('View Record', style: TextStyle(color: Colors.white),)),
                           ],
                         ),
                       ],
