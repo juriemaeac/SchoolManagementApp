@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
 import 'package:smapp/models/payment_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:smapp/payment_transaction_page.dart';
 import 'package:smapp/pdf_payment/api_payment/pdf_api_payment.dart';
 import 'package:smapp/pdf_payment/api_payment/pdf_invoice_api_payment.dart';
 import 'package:smapp/pdf_payment/model_payment/invoice_payment.dart';
@@ -28,6 +29,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     super.initState();
     Hive.openBox<Payment>(HiveBoxesPayment.payment);
     Hive.openBox<Student>(HiveBoxesStudent.student);
+    Hive.openBox<Faculty>(HiveBoxesFaculty.faculty);
     var user = facultyCredential.getString();
     if (user == '') {
       Navigator.push(
@@ -48,30 +50,43 @@ class _PaymentScreenState extends State<PaymentScreen> {
         return studentInfo;
       }
     }
-  } 
+  }
 
   getCashierInfo(String username) {
     final box = Hive.box<Faculty>(HiveBoxesFaculty.faculty);
     Faculty facultyInfo;
-    for (final faculty in box.values) {
-      if (faculty.username == username) {
-        facultyInfo = faculty;
-        return facultyInfo;
+    if (username != 'admin') {
+      for (final faculty in box.values) {
+        if (faculty.username == username) {
+          facultyInfo = faculty;
+          return facultyInfo;
+        }
       }
+    } else if (username == 'admin') {
+      Faculty facultyInfo = Faculty(
+        username: 'admin',
+        password: 'admin',
+        firstName: 'admin',
+        middleName: 'admin',
+        lastName: 'admin',
+        userFaculty: 'admin',
+        isAdmin: true,
+      );
+      return facultyInfo;
     }
+    ;
   }
 
-   paymentMethod(int met) {
-      String paymentMethod = '';
-      if (met == 1) {
-        paymentMethod = "Cash";
-        return paymentMethod;
-      }
-      else if (met == 2) {
-        paymentMethod = "Installment";
-        return paymentMethod;
-      }
+  paymentMethod(int met) {
+    String paymentMethod = '';
+    if (met == 1) {
+      paymentMethod = "Cash";
+      return paymentMethod;
+    } else if (met == 2) {
+      paymentMethod = "Installment";
+      return paymentMethod;
     }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +108,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               itemCount: box.values.length,
               itemBuilder: (context, index) {
                 Payment? res = box.getAt(index);
+
                 return ListTile(
                   title: Container(
                     padding: const EdgeInsets.only(
@@ -107,44 +123,50 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Student: ${res!.studentID.toString()}",
-                                  style: GoogleFonts.quicksand(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  "Cashier: ${res.facultyUsername.toString()}",
-                                  style: GoogleFonts.quicksand(
-                                      fontSize: 13,
-                                      color: const Color.fromARGB(
-                                          255, 102, 101, 101)),
-                                ),
-                              ],
+                            Container(
+                              width: MediaQuery.of(context).size.width / 4.3,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Student: ${res!.studentID.toString()}",
+                                    style: GoogleFonts.quicksand(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    "Cashier: ${res.facultyUsername.toString()}",
+                                    style: GoogleFonts.quicksand(
+                                        fontSize: 13,
+                                        color: const Color.fromARGB(
+                                            255, 102, 101, 101)),
+                                  ),
+                                ],
+                              ),
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Paid ₱${res.transactionAmount.toString()}",
-                                  style: GoogleFonts.quicksand(
-                                      fontSize: 13,
-                                      color: const Color.fromARGB(
-                                          255, 102, 101, 101)),
-                                ),
-                                Text(
-                                  res.transactionDate.toString(),
-                                  style: GoogleFonts.quicksand(
-                                      fontSize: 13,
-                                      color: const Color.fromARGB(
-                                          255, 102, 101, 101)),
-                                ),
-                              ],
+                            Container(
+                              width: MediaQuery.of(context).size.width / 4,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Paid ₱${res.transactionAmount.toString()}",
+                                    style: GoogleFonts.quicksand(
+                                        fontSize: 13,
+                                        color: const Color.fromARGB(
+                                            255, 102, 101, 101)),
+                                  ),
+                                  Text(
+                                    res.transactionDate.toString(),
+                                    style: GoogleFonts.quicksand(
+                                        fontSize: 13,
+                                        color: const Color.fromARGB(
+                                            255, 102, 101, 101)),
+                                  ),
+                                ],
+                              ),
                             ),
                             IconButton(
                               padding: const EdgeInsets.all(3.0),
@@ -159,21 +181,38 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               ),
                               onPressed: () async {
                                 final date = DateTime.now();
-                                Student payor = getStudent(res.studentID);
-                                Faculty cashier = getCashierInfo(res.facultyUsername);
+                                Student payor = getStudent(res.studentID) ??
+                                    Student(
+                                        studentID: 0,
+                                        firstName: 'null',
+                                        middleName: 'null',
+                                        lastName: 'null',
+                                        studentCourse: 'null',
+                                        studentSubjects: 'null',
+                                        academicYear: 0,
+                                        isInstallment: 1,
+                                        accountBalance: 0);
+
+                                Faculty cashier =
+                                    getCashierInfo(res.facultyUsername);
                                 final invoice = InvoicePayment(
                                   studentPDFPayment: StudentPDFPayment(
                                     studentId: res.studentID,
-                                    name: payor.firstName + ' ' + payor.lastName,
+                                    name: payor.firstName +
+                                        ' ' +
+                                        payor.lastName,
                                     course: payor.studentCourse,
                                     subjects: 'SUBJECTS',
                                   ),
                                   info: InvoiceInfoPayment(
                                     date: date,
-                                    facultyName: cashier.firstName + ' ' + cashier.lastName,
+                                    facultyName: cashier.firstName +
+                                        ' ' +
+                                        cashier.lastName,
                                     description:
                                         'IMPORTANT: Keep this copy. You will be required to present this when you ask for your examination permits and in all you dealings with the school.',
-                                    method: paymentMethod(payor.isInstallment),
+                                    method:
+                                        paymentMethod(payor.isInstallment),
                                   ),
                                   payment: Payment(
                                     studentID: res.studentID,
@@ -189,6 +228,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                         invoice);
 
                                 PdfApiPayment.openFile(pdfFile);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PaymentPage(),
+                                    ));
                               },
                             ),
                           ],
