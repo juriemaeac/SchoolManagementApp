@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:smapp/CalendarSpace/payment_information.dart';
-import 'package:smapp/CalendarSpace/student_information_section.dart';
 import 'package:smapp/Dashboard/src/ProjectStatisticsCards.dart';
 import 'package:smapp/NavigationBar/navbar_payment_page.dart';
-import 'package:smapp/NavigationBar/navbar_payment_states.dart';
 import 'package:smapp/Student/student_tabs.dart';
 import 'package:smapp/screens/payment_transaction_screen.dart';
-import 'package:smapp/screens/students_screen.dart';
 import 'package:intl/intl.dart';
 import 'boxes/boxPayment.dart';
 import 'models/payment_model.dart';
@@ -29,7 +26,7 @@ class _PaymentPageState extends State<PaymentPage> {
 
   countPayments() {
     final box = Hive.box<Payment>(HiveBoxesPayment.payment);
-    String transacDate = DateFormat("MMMM, dd, yyyy").format(DateTime.now());
+    String transacDate = DateFormat("MMMM dd, yyyy").format(DateTime.now());
     int paymentsNow = 0;
     for (final payment in box.values) {
       if (payment.transactionDate == transacDate) {
@@ -45,7 +42,7 @@ class _PaymentPageState extends State<PaymentPage> {
     var paymentsNow = countPayments();
     var percentage = (paymentsNow / paymentCount).toStringAsFixed(2);
     return Scaffold(
-      backgroundColor: Color(0xfff3f5f9),
+      backgroundColor: const Color(0xfff3f5f9),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -134,7 +131,7 @@ class _PaymentPageState extends State<PaymentPage> {
                     ),
                     Container(
                         height: MediaQuery.of(context).size.height / 1.9,
-                        margin: EdgeInsets.only(left: 25),
+                        margin: const EdgeInsets.only(left: 25),
                         width: MediaQuery.of(context).size.width * 0.59,
                         child: const PaymentScreen(
                           title: 'title',
