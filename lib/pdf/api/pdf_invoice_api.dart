@@ -253,7 +253,7 @@ class PdfInvoiceApi {
                 fontSize: 10,
               ),
             ),
-            pw.SizedBox(height: 20),
+            pw.SizedBox(height: 15),
             Text(
               '_____________________',
               textAlign: TextAlign.right,

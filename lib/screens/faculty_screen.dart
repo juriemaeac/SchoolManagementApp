@@ -146,63 +146,6 @@ class _FacultyScreenState extends State<FacultyScreen> {
                                           );
                                       },
                                     ),
-                                    SizedBox(width: 10),
-                                    IconButton(
-                                      padding: new EdgeInsets.all(3.0),
-                                      splashColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      icon: Container(
-                                        height: 60,
-                                        width: 60,
-                                        child: SvgPicture.asset(
-                                          'assets/delete_svg.svg',
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return AlertDialog(
-                                              title: const Text(
-                                                'Confirmation',
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.red),
-                                              ),
-                                              content: const Text(
-                                                'Are you sure you want to delete this faculty?',
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    color: Colors.black),
-                                                textAlign: TextAlign.justify,
-                                              ),
-                                              actions: <Widget>[
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  children: [
-                                                    TextButton(
-                                                      onPressed: () {
-                                                        res.delete();
-                                                        Navigator.pop(context);
-                                                      },
-                                                      child: const Text('Delete'),
-                                                    ),
-                                                    TextButton(
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                      child: const Text('Cancel'),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      },
-                                    ),
                                     const SizedBox(width: 20),
                                   ],
                                 ),
