@@ -60,7 +60,7 @@ class _NavBarPaymentState extends State<NavBarPayment> {
             },
           ),
           NavBarItem(
-            icon: Feather.list,
+            icon: Feather.users,
             active: selected[1],
             touched: () {
               setState(() {
@@ -77,7 +77,7 @@ class _NavBarPaymentState extends State<NavBarPayment> {
           Visibility(
             visible: isAdmin ?? false,
             child: NavBarItem(
-              icon: Feather.folder,
+              icon: Feather.briefcase,
               active: selected[2],
               touched: () {
                 setState(() {
@@ -93,7 +93,7 @@ class _NavBarPaymentState extends State<NavBarPayment> {
             ),
           ),
           NavBarItem(
-            icon: Feather.message_square,
+            icon: Feather.paperclip,
             active: selected[3],
             touched: () {
               setState(() {
@@ -101,15 +101,7 @@ class _NavBarPaymentState extends State<NavBarPayment> {
               });
             },
           ),
-          NavBarItem(
-            icon: Feather.settings,
-            active: selected[4],
-            touched: () {
-              setState(() {
-                select(4);
-              });
-            },
-          ),
+          SizedBox(height: 100),
           NavBarItem(
             icon: Feather.log_out,
             active: false,
