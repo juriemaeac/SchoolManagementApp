@@ -119,23 +119,27 @@ class _StudentScreenState extends State<StudentScreen> {
                             Row(
                               children: [
                                 const SizedBox(width: 20),
-                                Column(
-                                  children: [
-                                    Text(
-                                      res!.studentID.toString(),
-                                      style: GoogleFonts.quicksand(
-                                        fontSize: 13,
-                                        color: const Color.fromARGB(
-                                            255, 102, 101, 101),
-                                      ),
-                                    ),
-                                    Text(
-                                      " ",
-                                      style: GoogleFonts.quicksand(
+                                Container(
+                                  width: 100,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        res!.studentID.toString(),
+                                        style: GoogleFonts.quicksand(
                                           fontSize: 13,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
+                                          color: const Color.fromARGB(
+                                              255, 102, 101, 101),
+                                        ),
+                                      ),
+                                      Text(
+                                        " ",
+                                        style: GoogleFonts.quicksand(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 const SizedBox(width: 30),
                                 Column(
