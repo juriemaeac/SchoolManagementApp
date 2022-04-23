@@ -26,14 +26,14 @@ class SubHeader extends StatelessWidget {
               fontSize: 14.0,
             ),
           ),
-          Text(
-            'View All',
-            style: GoogleFonts.quicksand(
-              fontWeight: FontWeight.bold,
-              fontSize: 10.0,
-              color: Colors.black45,
-            ),
-          ),
+          // Text(
+          //   'View All',
+          //   style: GoogleFonts.quicksand(
+          //     fontWeight: FontWeight.bold,
+          //     fontSize: 10.0,
+          //     color: Colors.black45,
+          //   ),
+          // ),
         ],
       ),
     );

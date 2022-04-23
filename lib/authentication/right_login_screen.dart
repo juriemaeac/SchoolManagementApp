@@ -44,7 +44,7 @@ class _LoginScreen extends State<LoginScreen> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => StudentPage(),
+                  builder: (context) => DashboardPage(),
                 ));
           } else if (faculty.username != username &&
               faculty.password != password) {

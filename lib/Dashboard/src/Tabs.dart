@@ -19,14 +19,14 @@ class Tabs extends StatelessWidget {
           ),
           Container(
             height: 25.0,
-            width: 70.0,
+            width: 90.0,
             decoration: BoxDecoration(
               color: Colors.black,
               borderRadius: BorderRadius.circular(20.0),
             ),
             child: Center(
               child: Text(
-                'Current',
+                'Information',
                 style: GoogleFonts.quicksand(
                   fontSize: 12.0,
                   color: Colors.white,
@@ -38,7 +38,7 @@ class Tabs extends StatelessWidget {
             width: 15.0,
           ),
           Text(
-            'Pending',
+            'At',
             style: GoogleFonts.quicksand(
               fontSize: 12.0,
             ),
@@ -47,7 +47,7 @@ class Tabs extends StatelessWidget {
             width: 15.0,
           ),
           Text(
-            'Categorized',
+            'Glance',
             style: GoogleFonts.quicksand(
               fontSize: 12.0,
             ),

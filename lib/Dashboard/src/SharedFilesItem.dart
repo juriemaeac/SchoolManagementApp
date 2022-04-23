@@ -7,6 +7,7 @@ class SharedFilesItem extends StatefulWidget {
   final String members;
   final String et;
   final String fileSize;
+  final IconData icon;
 
   SharedFilesItem({
     required this.color,
@@ -14,6 +15,7 @@ class SharedFilesItem extends StatefulWidget {
     required this.fileSize,
     required this.members,
     required this.sharedFileName,
+    required this.icon,
   });
 
   @override
@@ -71,7 +73,7 @@ class _SharedFilesItemState extends State<SharedFilesItem> {
                         ),
                         child: Center(
                           child: Icon(
-                            Icons.folder,
+                            widget.icon,
                             color: widget.color,
                             size: 15.0,
                           ),
@@ -83,6 +85,7 @@ class _SharedFilesItemState extends State<SharedFilesItem> {
                       Text(
                         widget.sharedFileName,
                         style: GoogleFonts.quicksand(
+                          color: hovered? widget.color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 12.0,
                         ),
@@ -90,7 +93,7 @@ class _SharedFilesItemState extends State<SharedFilesItem> {
                     ],
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 30.0),

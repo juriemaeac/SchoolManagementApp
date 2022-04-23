@@ -6,14 +6,14 @@ class ProjectProgressCard extends StatefulWidget {
   final Color color;
   final Color progressIndicatorColor;
   final String projectName;
-  final String percentComplete;
   final IconData icon;
+  final int count;
   ProjectProgressCard({
     required this.color,
     required this.progressIndicatorColor,
-    required this.percentComplete,
     required this.projectName,
     required this.icon,
+    required this.count,
   });
   @override
   _ProjectProgressCardState createState() => _ProjectProgressCardState();
@@ -36,8 +36,8 @@ class _ProjectProgressCardState extends State<ProjectProgressCard> {
       },
       child: AnimatedContainer(
         duration: Duration(milliseconds: 275),
-        height: hovered ? 160.0 : 155.0,
-        width: hovered ? 200.0 : 195.0,
+        height: hovered ? 145.0 : 135.0,
+        width: hovered ? 230.0 : 210.0,
         decoration: BoxDecoration(
             color: hovered ? widget.color : Colors.white,
             borderRadius: BorderRadius.circular(15.0),
@@ -69,7 +69,7 @@ class _ProjectProgressCardState extends State<ProjectProgressCard> {
                     ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30.0),
-                      color: hovered ? Colors.white : Colors.black,
+                      color: hovered ? Colors.white : widget.color,
                     ),
                   ),
                   SizedBox(
@@ -90,83 +90,46 @@ class _ProjectProgressCardState extends State<ProjectProgressCard> {
               SizedBox(
                 height: 15.0,
               ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 18.0,
-                  ),
-                  Container(
-                    height: 13.0,
-                    width: 13.0,
-                    child: Icon(
-                      Feather.user,
-                      size: 13.0,
-                      color: hovered ? Colors.white : Colors.black,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 8.0,
-                  ),
-                  Container(
-                    child: Text(
-                      '5 members',
-                      style: GoogleFonts.quicksand(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 10.0,
+              Container(
+                margin: EdgeInsets.only(left: 20.0, right: 10.0),
+                child: Row(
+                  crossAxisAlignment: hovered ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+                  mainAxisAlignment: hovered? MainAxisAlignment.center : MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 16.0,
+                      width: 13.0,                 
+                      child: Icon(
+                        Feather.hash,
+                        size: 13.0,
                         color: hovered ? Colors.white : Colors.black,
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      width: 2.0,
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left:5),
+                      child: Text(
+                        '${widget.count} records',
+                        style: GoogleFonts.quicksand(                     
+                          fontWeight: FontWeight.w500,
+                          fontSize: hovered? 20.0 : 13.0,
+                          color: hovered ? Colors.white : Colors.black,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(
-                height: 5.0,
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 18.0,
-                  ),
-                  Container(
-                    height: 13.0,
-                    width: 13.0,
-                    child: Icon(
-                      Feather.clock,
-                      size: 13.0,
-                      color: hovered ? Colors.white : Colors.black,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 8.0,
-                  ),
-                  Container(
-                    child: Text(
-                      '15 Nov 2019',
-                      style: GoogleFonts.quicksand(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 10.0,
-                        color: hovered ? Colors.white : Colors.black,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 8.0, left: 135.0),
-                child: Text(
-                  widget.percentComplete,
-                  style: GoogleFonts.quicksand(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 12.5,
-                    color: hovered ? Colors.white : Colors.black,
-                  ),
-                ),
+                height: 15.0,
               ),
               AnimatedContainer(
                 duration: Duration(milliseconds: 275),
                 margin: EdgeInsets.only(top: 5.0),
                 height: 6.0,
-                width: 160.0,
+                width:hovered? 190 : 160,
                 decoration: BoxDecoration(
                   color: hovered
                       ? widget.progressIndicatorColor
@@ -178,10 +141,7 @@ class _ProjectProgressCardState extends State<ProjectProgressCard> {
                   child: AnimatedContainer(
                     duration: Duration(milliseconds: 275),
                     height: 6.0,
-                    width:
-                        (double.parse(widget.percentComplete.substring(0, 1)) /
-                                10) *
-                            160.0,
+                    width:hovered? 190 : 160,
                     decoration: BoxDecoration(
                       color: hovered ? Colors.white : widget.color,
                       borderRadius: BorderRadius.circular(20.0),
