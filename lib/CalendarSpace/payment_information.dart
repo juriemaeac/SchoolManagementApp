@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smapp/CalendarSpace/src/addstudent_buttons.dart';
 import 'package:smapp/CalendarSpace/src/calendar_section.dart';
 import 'package:smapp/CalendarSpace/src/profile_section.dart';
-import 'package:smapp/CalendarSpace/src/student_buttons.dart';
 
 class PaymentInfo extends StatelessWidget {
   @override
@@ -10,7 +8,7 @@ class PaymentInfo extends StatelessWidget {
     return Align(
       alignment: Alignment.centerRight,
       child: Container(
-        color: Color(0xffF7F7FF),
+        color: const Color(0xffF7F7FF),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width * 0.28,
         child: Column(

@@ -39,7 +39,7 @@ class LoginPageRightSide extends StatelessWidget {
                               'assets/logo.png',
                               width: 120,
                             ),
-                            SizedBox(width: 15),
+                            const SizedBox(width: 15),
                             const Text(
                               "National \nPolytechnic College \nScience and Technology",
                               style: TextStyle(

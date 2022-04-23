@@ -4,6 +4,8 @@ import 'package:smapp/CalendarSpace/src/recent_transaction.dart';
 import 'package:smapp/CalendarSpace/src/profile_section.dart';
 
 class CalendarSpace extends StatelessWidget {
+  const CalendarSpace({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -26,11 +28,11 @@ class CalendarSpace extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.28,
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 30.0,
             ),
             TopContainer(),
-            SizedBox(
+            const SizedBox(
               height: 30.0,
             ),
             CalendarSection(),

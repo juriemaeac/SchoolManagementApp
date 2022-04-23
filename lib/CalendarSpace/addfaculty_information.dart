@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smapp/CalendarSpace/src/addstudent_buttons.dart';
 import 'package:smapp/CalendarSpace/src/calendar_section.dart';
 import 'package:smapp/CalendarSpace/src/profile_section.dart';
-import 'package:smapp/CalendarSpace/src/student_buttons.dart';
 
 class AddFacultyInfo extends StatelessWidget {
   @override

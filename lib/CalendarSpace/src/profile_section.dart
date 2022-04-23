@@ -4,11 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
 
 class TopContainer extends StatelessWidget {
+  const TopContainer({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     String user = facultyCredential.getString();
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 30.0),
+      padding: const EdgeInsets.symmetric(horizontal: 30.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [          
@@ -32,14 +34,6 @@ class TopContainer extends StatelessWidget {
                   fontSize: 18.0,
                 ),
               ),
-          // Container(
-          //   height: 20.0,
-          //   width: 20.0,
-          //   decoration: BoxDecoration(
-          //     shape: BoxShape.circle,
-          //     color: Colors.orange,
-          //   ),
-          // )
         ],
       ),
     );

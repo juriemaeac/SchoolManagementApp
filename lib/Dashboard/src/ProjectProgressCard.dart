@@ -35,7 +35,7 @@ class _ProjectProgressCardState extends State<ProjectProgressCard> {
         });
       },
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 275),
+        duration: const Duration(milliseconds: 275),
         height: hovered ? 145.0 : 135.0,
         width: hovered ? 230.0 : 210.0,
         decoration: BoxDecoration(
@@ -51,12 +51,12 @@ class _ProjectProgressCardState extends State<ProjectProgressCard> {
         child: Center(
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 20.0,
               ),
               Row(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 18.0,
                   ),
                   Container(
@@ -72,7 +72,7 @@ class _ProjectProgressCardState extends State<ProjectProgressCard> {
                       color: hovered ? Colors.white : widget.color,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 13.0,
                   ),
                   Container(
@@ -87,7 +87,7 @@ class _ProjectProgressCardState extends State<ProjectProgressCard> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15.0,
               ),
               Container(
@@ -105,11 +105,11 @@ class _ProjectProgressCardState extends State<ProjectProgressCard> {
                         color: hovered ? Colors.white : Colors.black,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 2.0,
                     ),
                     Container(
-                      padding: EdgeInsets.only(left:5),
+                      padding: const EdgeInsets.only(left:5),
                       child: Text(
                         '${widget.count} records',
                         style: GoogleFonts.quicksand(                     

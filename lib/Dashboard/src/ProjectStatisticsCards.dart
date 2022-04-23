@@ -3,10 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
-import 'package:smapp/boxes/boxStudent.dart';
-import 'package:smapp/boxes/boxStudent.dart';
-
-import '../../boxes/boxStudent.dart';
 
 class ProjectStatisticsCards extends StatelessWidget {
   //const Hive.openBox<Student>(HiveBoxesStudent.student);
@@ -149,8 +145,8 @@ class ProjectStatisticsCardNoGraph extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        margin: EdgeInsets.only(left: 40.0, right: 20.0),
-        padding: EdgeInsets.symmetric(horizontal: 20.0),
+        margin: const EdgeInsets.only(left: 40.0, right: 20.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
         height: 85.0,
         decoration: BoxDecoration(
           color: color,
@@ -180,7 +176,7 @@ class ProjectStatisticsCardNoGraph extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8.0,
                   ),
                   Text(

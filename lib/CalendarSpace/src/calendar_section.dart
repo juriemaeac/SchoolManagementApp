@@ -11,7 +11,7 @@ class CalendarSection extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(left: 30.0, right: 30.0),
+            margin: const EdgeInsets.only(left: 30.0, right: 30.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -27,7 +27,7 @@ class CalendarSection extends StatelessWidget {
           ),
           Container(
             padding:
-                EdgeInsets.only(left: 25.0, top: 15.0, right: 25.0, bottom: 0),
+                const EdgeInsets.only(left: 25.0, top: 15.0, right: 25.0, bottom: 0),
             child: Row(
               children: const [
                 CalendarWeekly(),

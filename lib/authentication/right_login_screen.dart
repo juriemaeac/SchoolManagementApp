@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:smapp/boxes/boxFaculty.dart';
-import 'package:smapp/boxes/boxStudent.dart';
-import 'package:smapp/models/student_model.dart';
-import 'package:smapp/screens/students_screen.dart';
 import 'package:smapp/models/faculty_model.dart';
 import 'package:smapp/dashboard_page.dart';
-import 'package:smapp/student_page.dart';
-import '../screens/faculty_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   _LoginScreen createState() => _LoginScreen();
@@ -34,7 +29,7 @@ class _LoginScreen extends State<LoginScreen> {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => DashboardPage(),
+              builder: (context) => const DashboardPage(),
             ));
       } else if (username != adminUsername && password != adminPassword) {
         // add username and password in global list
@@ -44,7 +39,7 @@ class _LoginScreen extends State<LoginScreen> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DashboardPage(),
+                  builder: (context) => const DashboardPage(),
                 ));
           } else if (faculty.username != username &&
               faculty.password != password) {
@@ -112,7 +107,7 @@ class _LoginScreen extends State<LoginScreen> {
                           color: Colors.grey.withOpacity(0.2),
                           spreadRadius: 2,
                           blurRadius: 9,
-                          offset: Offset(2, 6),
+                          offset: const Offset(2, 6),
                           // changes position of shadow
                         ),
                       ],
@@ -156,7 +151,7 @@ class _LoginScreen extends State<LoginScreen> {
                           color: Colors.grey.withOpacity(0.2),
                           spreadRadius: 2,
                           blurRadius: 9,
-                          offset: Offset(2, 6),
+                          offset: const Offset(2, 6),
                           // changes position of shadow
                         ),
                       ],
@@ -212,7 +207,7 @@ class _LoginScreen extends State<LoginScreen> {
                       validated();
                       setState(() {});
                     },
-                    child: Text("Login"),
+                    child: const Text("Login"),
                     minWidth: double.infinity,
                     height: 52,
                     elevation: 24,

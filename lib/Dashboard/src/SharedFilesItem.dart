@@ -38,15 +38,15 @@ class _SharedFilesItemState extends State<SharedFilesItem> {
         });
       },
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 275),
-        margin: EdgeInsets.only(bottom: 10.0, left: 40.0, right: 15.0),
-        padding: EdgeInsets.all(10.0),
+        duration: const Duration(milliseconds: 275),
+        margin: const EdgeInsets.only(bottom: 10.0, left: 40.0, right: 15.0),
+        padding: const EdgeInsets.all(10.0),
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10.0),
             boxShadow: hovered
                 ? [
-                    BoxShadow(
+                    const BoxShadow(
                       color: Colors.black12,
                       blurRadius: 13.0,
                       spreadRadius: 0.0,
@@ -61,7 +61,7 @@ class _SharedFilesItemState extends State<SharedFilesItem> {
                 children: [
                   Row(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 15.0,
                       ),
                       Container(
@@ -79,7 +79,7 @@ class _SharedFilesItemState extends State<SharedFilesItem> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 15.0,
                       ),
                       Text(
@@ -96,7 +96,7 @@ class _SharedFilesItemState extends State<SharedFilesItem> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 30.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
                         child: Text(
                           widget.members,
                           style: GoogleFonts.quicksand(
@@ -107,7 +107,7 @@ class _SharedFilesItemState extends State<SharedFilesItem> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 30.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
                         child: Text(
                           widget.et,
                           style: GoogleFonts.quicksand(
@@ -118,7 +118,7 @@ class _SharedFilesItemState extends State<SharedFilesItem> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 30.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
                         child: Text(
                           widget.fileSize,
                           style: GoogleFonts.quicksand(

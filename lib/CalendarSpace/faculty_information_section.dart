@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:smapp/CalendarSpace/src/calendar_section.dart';
 import 'package:smapp/CalendarSpace/src/faculty_buttons.dart';
 import 'package:smapp/CalendarSpace/src/profile_section.dart';
-import 'package:smapp/CalendarSpace/src/student_buttons.dart';
 
 class FacultyInfo extends StatelessWidget {
+  const FacultyInfo({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Align(

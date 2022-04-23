@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:smapp/Dashboard/src/ProjectProgressCard.dart';
-import 'package:smapp/Dashboard/src/ProjectStatisticsCards.dart';
 import 'package:smapp/Dashboard/src/SharedFilesItem.dart';
 import 'package:smapp/Dashboard/src/SubHeader.dart';
 import 'package:smapp/Dashboard/src/Tabs.dart';
@@ -57,7 +56,7 @@ class _DashBoardState extends State<DashBoard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.only(left: 30.0, top: 25.0, bottom: 10.0),
+              margin: const EdgeInsets.only(left: 30.0, top: 25.0, bottom: 10.0),
               child: Text(
                 'Dashboard',
                 style: GoogleFonts.quicksand(
@@ -68,7 +67,7 @@ class _DashBoardState extends State<DashBoard> {
             ),
             Tabs(),
             Container(
-              margin: EdgeInsets.only(top: 15.0),
+              margin: const EdgeInsets.only(top: 15.0),
               height: 200.0,
               width: MediaQuery.of(context).size.width * 0.62,
               child: Column(
@@ -76,27 +75,27 @@ class _DashBoardState extends State<DashBoard> {
                   SubHeader(
                     title: 'Real-time Analytics',
                   ),
-                   SizedBox(height: 5),
+                   const SizedBox(height: 5),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       ProjectProgressCard(
-                        color: Color(0xffFF4C60),
+                        color: const Color(0xffFF4C60),
                         projectName: 'Students Enrolled',
                         progressIndicatorColor: Colors.redAccent[100]!,
                         icon: Feather.users,
                         count: studentCount,
                       ),
                       ProjectProgressCard(
-                        color: Color(0xff6C6CE5),
+                        color: const Color(0xff6C6CE5),
                         projectName: 'Faculties Enlisted',
                         progressIndicatorColor: Colors.blue[200]!,
                         icon: Feather.briefcase,
                         count: facultyCount,
                       ),
                       ProjectProgressCard(
-                        color: Color(0xffFAAA1E),
+                        color: const Color(0xffFAAA1E),
                         projectName: 'Payments Recorded',
                         progressIndicatorColor: Colors.amber[200]!,
                         icon: Feather.paperclip,
@@ -107,7 +106,7 @@ class _DashBoardState extends State<DashBoard> {
                 ],
               ),
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             SubHeader(
               title: 'University Profile',
             ),

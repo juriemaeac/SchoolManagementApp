@@ -4,21 +4,20 @@ import 'package:smapp/CalendarSpace/src/profile_section.dart';
 import 'package:smapp/CalendarSpace/src/student_buttons.dart';
 
 class StudentInfo extends StatelessWidget {
+  const StudentInfo({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.centerRight,
       child: Container(
         decoration: BoxDecoration(
-          color: Color(0xffF7F7FF),
-          //color: Colors.white,
-          //borderRadius: BorderRadius.circular(15),
+          color: const Color(0xffF7F7FF),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.2),
               spreadRadius: 2,
               blurRadius: 9,
-              // changes position of shadow
             ),
           ],
         ),

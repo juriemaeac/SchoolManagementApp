@@ -9,7 +9,7 @@ class SubHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         left: 30.0,
         right: 30.0,
         top: 5.0,
@@ -26,14 +26,6 @@ class SubHeader extends StatelessWidget {
               fontSize: 14.0,
             ),
           ),
-          // Text(
-          //   'View All',
-          //   style: GoogleFonts.quicksand(
-          //     fontWeight: FontWeight.bold,
-          //     fontSize: 10.0,
-          //     color: Colors.black45,
-          //   ),
-          // ),
         ],
       ),
     );

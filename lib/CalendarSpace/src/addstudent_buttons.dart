@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smapp/addstudent_page.dart';
 
 class AddStudentButtons extends StatelessWidget {
   const AddStudentButtons({Key? key}) : super(key: key);
@@ -21,11 +20,11 @@ class AddStudentButtons extends StatelessWidget {
               'assets/education.png',
               height: MediaQuery.of(context).size.height / 8,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Text(""),
-            SizedBox(
+            const Text(""),
+            const SizedBox(
               height: 10,
             ),
             Row(
@@ -37,10 +36,10 @@ class AddStudentButtons extends StatelessWidget {
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
-                              side: BorderSide(color: Colors.orange)))),
+                              side: const BorderSide(color: Colors.orange)))),
                   onPressed: () {},
                   child: Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -57,7 +56,7 @@ class AddStudentButtons extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 ElevatedButton(
@@ -65,10 +64,10 @@ class AddStudentButtons extends StatelessWidget {
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
-                              side: BorderSide(color: Colors.orange)))),
+                              side: const BorderSide(color: Colors.orange)))),
                   onPressed: () {},
                   child: Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,

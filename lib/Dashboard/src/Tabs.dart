@@ -5,7 +5,7 @@ class Tabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 32.0),
+      margin: const EdgeInsets.only(left: 32.0),
       child: Row(
         children: [
           Text(
@@ -14,7 +14,7 @@ class Tabs extends StatelessWidget {
               fontSize: 12.0,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 15.0,
           ),
           Container(
@@ -34,7 +34,7 @@ class Tabs extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 15.0,
           ),
           Text(
@@ -43,7 +43,7 @@ class Tabs extends StatelessWidget {
               fontSize: 12.0,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 15.0,
           ),
           Text(
