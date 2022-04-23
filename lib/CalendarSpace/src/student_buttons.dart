@@ -10,7 +10,7 @@ class StudentButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.28,
-      height: MediaQuery.of(context).size.height * 0.075,
+      height: MediaQuery.of(context).size.height * 0.09,
       margin: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -21,6 +21,8 @@ class StudentButtons extends StatelessWidget {
       //       fit: BoxFit.fitWidth,
       //     ),
       child: Column(
+        mainAxisAlignment:MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
             margin: EdgeInsets.all(10),

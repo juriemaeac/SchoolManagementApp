@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
+import 'package:smapp/CalendarSpace/payment_information.dart';
 import 'package:smapp/CalendarSpace/student_information_section.dart';
 import 'package:smapp/Dashboard/src/ProjectStatisticsCards.dart';
 import 'package:smapp/NavigationBar/navbar_payment_page.dart';
@@ -143,7 +144,7 @@ class _PaymentPageState extends State<PaymentPage> {
               ],
             ),
             NavibarPayment(),
-            StudentInfo(),
+            PaymentInfo(),
           ],
         ),
       ),

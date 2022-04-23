@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
-import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/models/payment_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:smapp/screens/students_screen.dart';
+import 'package:smapp/pdf_payment/api_payment/pdf_api_payment.dart';
+import 'package:smapp/pdf_payment/api_payment/pdf_invoice_api_payment.dart';
+import 'package:smapp/pdf_payment/model_payment/invoice_payment.dart';
+import 'package:smapp/pdf_payment/model_payment/studentPDF_payment.dart';
 import '../boxes/boxPayment.dart';
-import '../splash_screen.dart';
-import '../models/student_model.dart';
 
 class PaymentScreen extends StatefulWidget {
   final String title;
@@ -107,29 +107,55 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 ),
                               ],
                             ),
-                            ElevatedButton(
-                                onPressed: () {
-                                  // Student student = Student(
-                                  //     studentID: res.studentID,
-                                  //     firstName: res.firstName,
-                                  //     middleName: res.middleName,
-                                  //     lastName: res.lastName,
-                                  //     studentCourse: res.studentCourse,
-                                  //     studentSubjects: res.studentSubjects,
-                                  //     academicYear: res.academicYear,
-                                  //     isInstallment: res.isInstallment,
-                                  //     accountBalance: res.accountBalance);
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) => EditStudentScreen(
-                                  //       student: student,
-                                  //       index: index,
-                                  //     ),
-                                  //   ),
-                                  // );
-                                },
-                                child: const Text('View Record', style: TextStyle(color: Colors.white),)),
+                            IconButton(
+                                  padding: const EdgeInsets.all(3.0),
+                                  splashColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  icon: Container(
+                                    height: 60,
+                                    width: 60,
+                                    child: Image.asset(
+                                      'assets/invoice.png',
+                                    ),
+                                  ),
+                                  onPressed: () async {
+                                    final date = DateTime.now();
+                                    //final balance = res.accountBalance;
+                                    final invoice = InvoicePayment(
+                                      studentPDFPayment: StudentPDFPayment(
+                                        studentId: res.studentID,
+                                        name:
+                                            'NAMEE',
+                                        course:
+                                            'COURSEE',
+                                        subjects: 'SUBJECTS',
+                                      ),
+                                      info: InvoiceInfoPayment(
+                                        date: date,
+                                        facultyName: 'FACULTY NAME',
+                                        description:
+                                            'IMPORTANT: Keep this copy. You will be required to present this when you ask for your examination permits and in all you dealings with the school.',
+                                        method:
+                                            'PAYMENT METHOD',
+                                      ),
+                                      payment: Payment(
+                                        studentID: res.studentID,
+                                        facultyUsername:
+                                            res.facultyUsername,
+                                        transactionDate:
+                                            res.transactionDate,
+                                        transactionAmount: res.transactionAmount,
+                                        newAccountBalance: res.newAccountBalance,
+                                      ),
+                                      
+                                    );
+
+                                    final pdfFile =
+                                        await PdfInvoiceApiPayment.generate(invoice);
+
+                                    PdfApiPayment.openFile(pdfFile);
+                                  },
+                                ),
                           ],
                         ),
                       ],

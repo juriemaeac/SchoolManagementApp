@@ -3,13 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
-import 'package:smapp/pdf/api/pdf_api.dart';
-import 'package:smapp/pdf/model/invoice.dart';
-import 'package:smapp/pdf/model/studentPDF.dart';
-import 'package:smapp/pdf/utils.dart';
+import 'package:smapp/models/payment_model.dart';
+import 'package:smapp/pdf_payment/api_payment/pdf_api_payment.dart';
+import 'package:smapp/pdf_payment/model_payment/invoice_payment.dart';
+import 'package:smapp/pdf_payment/model_payment/studentPDF_payment.dart';
+import 'package:smapp/pdf_payment/utils_payment.dart';
 
-class PdfInvoiceApi {
-  static Future<File> generate(Invoice invoice) async {
+class PdfInvoiceApiPayment {
+  static Future<File> generate(InvoicePayment invoice) async {
     final pdf = Document();
     final imageSvg = await rootBundle.loadString('assets/logo.svg');
 
@@ -28,8 +29,6 @@ class PdfInvoiceApi {
           ]
         ),
         buildInfoSection(invoice),
-        SizedBox(height: 20),
-        buildSubjects(invoice.studentPDF),
         SizedBox(height: 10),
         buildFooter(invoice),
         SizedBox(height: 1 * PdfPageFormat.cm),
@@ -48,18 +47,16 @@ class PdfInvoiceApi {
           ]
         ),
         buildInfoSection(invoice),
-        SizedBox(height: 20),
-        buildSubjects(invoice.studentPDF),
         SizedBox(height: 10),
         buildFooterStudent(invoice),
       ],
       //footer: (context) => buildFooter(invoice),
     ));
 
-    return PdfApi.saveDocument(name: 'Matriculation_Certificate.pdf', pdf: pdf);
+    return PdfApiPayment.saveDocument(name: 'Payment_Receipt.pdf', pdf: pdf);
   }
 
-  static Widget buildHeader(Invoice invoice) => Column(
+  static Widget buildHeader(InvoicePayment invoice) => Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           pw.Text(
@@ -81,32 +78,35 @@ class PdfInvoiceApi {
               fontSize: 8.00,
             ),
           ),
-          
         ],
       );
 
-      static Widget buildInfoSection(Invoice invoice) => Column(
+      static Widget buildInfoSection(InvoicePayment invoice) => Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 0.7 * (PdfPageFormat.cm)),
+          SizedBox(height: 0.8 * (PdfPageFormat.cm)),
           pw.Text(
-            "CERTIFICATE OF MATRICULATION",
+            "PAYMENT RECEIPT",
             style: TextStyle(
               fontSize: 12.00,
               fontWeight: FontWeight.bold,
             ),
           ),
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            SizedBox(height: 0.7 * (PdfPageFormat.cm)),
+            SizedBox(height: 0.8 * (PdfPageFormat.cm)),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                buildStudentInfo(invoice.studentPDF),
+                buildStudentInfo(invoice.studentPDFPayment),
                 buildInvoiceInfo(invoice.info),
               ],
             ),
+            
           ]),
+            SizedBox(height: 0.9 * (PdfPageFormat.cm)),
+            buildFacultyInfo(invoice.payment),
+          
         ],
       );
 
@@ -132,7 +132,7 @@ class PdfInvoiceApi {
     );
   }
 
-  static Widget buildStudentInfo(StudentPDF studentPDF) => Column(
+  static Widget buildStudentInfo(StudentPDFPayment studentPDF) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
@@ -155,7 +155,54 @@ class PdfInvoiceApi {
         ],
       );
 
-  static Widget buildInvoiceInfo(InvoiceInfo info) => Column(
+  static Widget buildFacultyInfo(Payment payment) => 
+    Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: pw.EdgeInsets.all(0),
+          child: Row(children: [
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text('Transaction Details',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+            ]),
+          ]),),
+          Divider(),
+          
+
+          Row(
+            children: [
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text('Date: ',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+              Text('Amount: ',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                  pw.SizedBox(height: 10),
+            ]),
+            pw.SizedBox(width: 20),
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(payment.transactionDate, style: TextStyle(fontSize: 12)),
+              Text('Php ${payment.transactionAmount.toString()}', style: TextStyle(fontSize: 12)),
+              pw.SizedBox(height: 10),
+            ]),
+          ]),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text('New Balance: ',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+            ]),
+            pw.SizedBox(width: 20),
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text('Php ${payment.newAccountBalance.toString()}', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: PdfColors.red)),
+            ]),
+          ]),
+          Divider(),
+        ],
+      );
+
+  static Widget buildInvoiceInfo(InvoiceInfoPayment info) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
@@ -164,64 +211,23 @@ class PdfInvoiceApi {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
               Text('Payment Method: ',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-              Text('Account Balance: ',
+              Text('Cashier Name: ',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
             ]),
             pw.SizedBox(width: 10),
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(Utils.formatDate(info.date), style: TextStyle(fontSize: 12)),
-              Text(info.number, style: TextStyle(fontSize: 12)),
-              Text('Php ${info.balance.toString()}',
-                  style: TextStyle(fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: PdfColors.red)),
+              Text(UtilsPayment.formatDate(info.date), style: TextStyle(fontSize: 12)),
+              Text(info.method, style: TextStyle(fontSize: 12)),
+              Text(info.facultyName,
+                  style: TextStyle(fontSize: 12)),
             ]),
             // Row(children: [
           ]),
         ],
       );
-
-  static Widget buildSubjects(StudentPDF studentPDF) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Subjects Enrolled",
-            style: TextStyle(
-              fontSize: 12.00,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          pw.Divider(),
-          Text(
-            studentPDF.subjects,
-            style: TextStyle(
-              fontSize: 10.00,
-            ),
-          ),
-          Divider(),
-        ],
-      );
-  static Widget buildFooter(Invoice invoice) => Column(
+  static Widget buildFooter(InvoicePayment invoice) => Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-            Text(
-              'Approved by:',
-              textAlign: TextAlign.right,
-              style: TextStyle(
-                fontSize: 10,
-              ),
-            ),
-            pw.SizedBox(height: 10),
-            Text(
-              '_____________________',
-              textAlign: TextAlign.right,
-              style: TextStyle(
-                fontSize: 10,
-              ),
-            ),
-          ]),
-          SizedBox(height: 15),
           pw.Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
             Text(
               invoice.info.description,
@@ -242,27 +248,9 @@ class PdfInvoiceApi {
         ],
       );
 
-  static Widget buildFooterStudent(Invoice invoice) => Column(
+  static Widget buildFooterStudent(InvoicePayment invoice) => Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-            Text(
-              'Approved by:',
-              textAlign: TextAlign.right,
-              style: TextStyle(
-                fontSize: 10,
-              ),
-            ),
-            pw.SizedBox(height: 20),
-            Text(
-              '_____________________',
-              textAlign: TextAlign.right,
-              style: TextStyle(
-                fontSize: 10,
-              ),
-            ),
-          ]),
-          SizedBox(height: 10),
           pw.Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
             Text(
               invoice.info.description,
@@ -282,4 +270,6 @@ class PdfInvoiceApi {
           ]),
         ],
       );
+
+  
 }

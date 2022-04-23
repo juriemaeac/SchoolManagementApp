@@ -10,7 +10,6 @@ import 'package:smapp/boxes/boxStudent.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:smapp/pdf/model/studentPDF.dart';
 import 'package:smapp/pdf/model/invoice.dart';
-import 'package:smapp/pdf/model/supplier.dart';
 import 'package:smapp/models/faculty_model.dart';
 import 'package:smapp/screens/editstudents_screen.dart';
 import '../models/student_model.dart';
@@ -178,12 +177,6 @@ class _StudentScreenState extends State<StudentScreen> {
                           children: [
                             Row(
                               children: [
-                                // IconButton(
-                                //   icon: const Icon(
-                                //     Feather.edit,
-                                //     color: Colors.orange,
-                                //     size: 20,
-                                //   ),
                                 IconButton(
                                   padding: new EdgeInsets.all(3.0),
                                   splashColor: Colors.transparent,
@@ -269,22 +262,7 @@ class _StudentScreenState extends State<StudentScreen> {
                                   ),
                                   onPressed: () async {
                                     final date = DateTime.now();
-                                    //final balance = res.accountBalance;
                                     final invoice = Invoice(
-                                      // faculty: Faculty(
-                                      //   username: '',
-                                      //   password: '',
-                                      //   firstName: '${res.lastName}, ${res.firstName} ${res.middleName}',
-                                      //   middleName: '',
-                                      //   lastName: '',
-                                      //   userFaculty: '',
-                                      //   isAdmin: false,
-                                      // ),
-                                      // supplier: Supplier(
-                                      //   name: '${res.lastName}, ${res.firstName} ${res.middleName}',
-                                      //   address: 'Sarah Street 9, Beijing, China',
-                                      //   paymentInfo: 'https://paypal.me/sarahfieldzz',
-                                      // ),
                                       studentPDF: StudentPDF(
                                         studentId: res.studentID,
                                         name:
@@ -301,57 +279,6 @@ class _StudentScreenState extends State<StudentScreen> {
                                         number:
                                             '${paymentMethod(res.isInstallment)}',
                                       ),
-                                      items: [
-                                        InvoiceItem(
-                                          description: 'Coffee',
-                                          date: DateTime.now(),
-                                          quantity: 3,
-                                          vat: 0.19,
-                                          unitPrice: 5.99,
-                                        ),
-                                        InvoiceItem(
-                                          description: 'Water',
-                                          date: DateTime.now(),
-                                          quantity: 8,
-                                          vat: 0.19,
-                                          unitPrice: 0.99,
-                                        ),
-                                        InvoiceItem(
-                                          description: 'Orange',
-                                          date: DateTime.now(),
-                                          quantity: 3,
-                                          vat: 0.19,
-                                          unitPrice: 2.99,
-                                        ),
-                                        InvoiceItem(
-                                          description: 'Apple',
-                                          date: DateTime.now(),
-                                          quantity: 8,
-                                          vat: 0.19,
-                                          unitPrice: 3.99,
-                                        ),
-                                        InvoiceItem(
-                                          description: 'Mango',
-                                          date: DateTime.now(),
-                                          quantity: 1,
-                                          vat: 0.19,
-                                          unitPrice: 1.59,
-                                        ),
-                                        InvoiceItem(
-                                          description: 'Blue Berries',
-                                          date: DateTime.now(),
-                                          quantity: 5,
-                                          vat: 0.19,
-                                          unitPrice: 0.99,
-                                        ),
-                                        InvoiceItem(
-                                          description: 'Lemon',
-                                          date: DateTime.now(),
-                                          quantity: 4,
-                                          vat: 0.19,
-                                          unitPrice: 1.29,
-                                        ),
-                                      ],
                                     );
 
                                     final pdfFile =
@@ -368,8 +295,6 @@ class _StudentScreenState extends State<StudentScreen> {
                       ],
                     ),
                   ),
-
-                  //onTap: () {}
                 );
               },
             );
