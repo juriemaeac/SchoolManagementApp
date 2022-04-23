@@ -8,7 +8,11 @@ import 'package:smapp/pdf_payment/api_payment/pdf_api_payment.dart';
 import 'package:smapp/pdf_payment/api_payment/pdf_invoice_api_payment.dart';
 import 'package:smapp/pdf_payment/model_payment/invoice_payment.dart';
 import 'package:smapp/pdf_payment/model_payment/studentPDF_payment.dart';
+import '../boxes/boxFaculty.dart';
 import '../boxes/boxPayment.dart';
+import '../boxes/boxStudent.dart';
+import '../models/faculty_model.dart';
+import '../models/student_model.dart';
 
 class PaymentScreen extends StatefulWidget {
   final String title;
@@ -23,6 +27,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   void initState() {
     super.initState();
     Hive.openBox<Payment>(HiveBoxesPayment.payment);
+    Hive.openBox<Student>(HiveBoxesStudent.student);
     var user = facultyCredential.getString();
     if (user == '') {
       Navigator.push(
@@ -33,6 +38,40 @@ class _PaymentScreenState extends State<PaymentScreen> {
       );
     }
   }
+
+  getStudent(int id) {
+    final box = Hive.box<Student>(HiveBoxesStudent.student);
+    Student studentInfo;
+    for (final student in box.values) {
+      if (student.studentID == id) {
+        studentInfo = student;
+        return studentInfo;
+      }
+    }
+  } 
+
+  getCashierInfo(String username) {
+    final box = Hive.box<Faculty>(HiveBoxesFaculty.faculty);
+    Faculty facultyInfo;
+    for (final faculty in box.values) {
+      if (faculty.username == username) {
+        facultyInfo = faculty;
+        return facultyInfo;
+      }
+    }
+  }
+
+   paymentMethod(int met) {
+      String paymentMethod = '';
+      if (met == 1) {
+        paymentMethod = "Cash";
+        return paymentMethod;
+      }
+      else if (met == 2) {
+        paymentMethod = "Installment";
+        return paymentMethod;
+      }
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -108,54 +147,50 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               ],
                             ),
                             IconButton(
-                                  padding: const EdgeInsets.all(3.0),
-                                  splashColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  icon: Container(
-                                    height: 60,
-                                    width: 60,
-                                    child: Image.asset(
-                                      'assets/invoice.png',
-                                    ),
-                                  ),
-                                  onPressed: () async {
-                                    final date = DateTime.now();
-                                    //final balance = res.accountBalance;
-                                    final invoice = InvoicePayment(
-                                      studentPDFPayment: StudentPDFPayment(
-                                        studentId: res.studentID,
-                                        name:
-                                            'NAMEE',
-                                        course:
-                                            'COURSEE',
-                                        subjects: 'SUBJECTS',
-                                      ),
-                                      info: InvoiceInfoPayment(
-                                        date: date,
-                                        facultyName: 'FACULTY NAME',
-                                        description:
-                                            'IMPORTANT: Keep this copy. You will be required to present this when you ask for your examination permits and in all you dealings with the school.',
-                                        method:
-                                            'PAYMENT METHOD',
-                                      ),
-                                      payment: Payment(
-                                        studentID: res.studentID,
-                                        facultyUsername:
-                                            res.facultyUsername,
-                                        transactionDate:
-                                            res.transactionDate,
-                                        transactionAmount: res.transactionAmount,
-                                        newAccountBalance: res.newAccountBalance,
-                                      ),
-                                      
-                                    );
-
-                                    final pdfFile =
-                                        await PdfInvoiceApiPayment.generate(invoice);
-
-                                    PdfApiPayment.openFile(pdfFile);
-                                  },
+                              padding: const EdgeInsets.all(3.0),
+                              splashColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              icon: Container(
+                                height: 60,
+                                width: 60,
+                                child: Image.asset(
+                                  'assets/invoice.png',
                                 ),
+                              ),
+                              onPressed: () async {
+                                final date = DateTime.now();
+                                Student payor = getStudent(res.studentID);
+                                Faculty cashier = getCashierInfo(res.facultyUsername);
+                                final invoice = InvoicePayment(
+                                  studentPDFPayment: StudentPDFPayment(
+                                    studentId: res.studentID,
+                                    name: payor.firstName + ' ' + payor.lastName,
+                                    course: payor.studentCourse,
+                                    subjects: 'SUBJECTS',
+                                  ),
+                                  info: InvoiceInfoPayment(
+                                    date: date,
+                                    facultyName: cashier.firstName + ' ' + cashier.lastName,
+                                    description:
+                                        'IMPORTANT: Keep this copy. You will be required to present this when you ask for your examination permits and in all you dealings with the school.',
+                                    method: paymentMethod(payor.isInstallment),
+                                  ),
+                                  payment: Payment(
+                                    studentID: res.studentID,
+                                    facultyUsername: res.facultyUsername,
+                                    transactionDate: res.transactionDate,
+                                    transactionAmount: res.transactionAmount,
+                                    newAccountBalance: res.newAccountBalance,
+                                  ),
+                                );
+
+                                final pdfFile =
+                                    await PdfInvoiceApiPayment.generate(
+                                        invoice);
+
+                                PdfApiPayment.openFile(pdfFile);
+                              },
+                            ),
                           ],
                         ),
                       ],
