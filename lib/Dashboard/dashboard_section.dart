@@ -122,7 +122,7 @@ class _DashBoardState extends State<DashBoard> {
               color: Colors.amber,
               sharedFileName: 'Courses Offered',
               first: "4 Bachelor Programs",
-              second: '11 Certificate Programs',
+              second: '7 Certificate Programs',
               third: '11 crs.',
               icon: Feather.clipboard,
             ),
