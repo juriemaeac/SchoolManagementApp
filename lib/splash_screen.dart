@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:smapp/authentication/left_login_screen.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
-import 'package:smapp/screens/students_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -51,9 +50,9 @@ class _SplashScreenState extends State<SplashScreen>
             visible: copAnimated,
             child: Row(
               children: [
-                LoginScreen(), //ung nasa left, lalabas kapag maliit
+                const LoginScreen(), //ung nasa left, lalabas kapag maliit
                 if (MediaQuery.of(context).size.width > 900)
-                  LoginScreen(), //login mismo
+                  const LoginScreen(), //login mismo
               ],
             ),
           ),
@@ -83,21 +82,10 @@ class _SplashScreenState extends State<SplashScreen>
                       },
                     ),
                   ),
-
                   Visibility(
                     visible: copAnimated,
                     child: const LoginPageRightSide(),
                   ),
-                  // Center(
-                  //   child: AnimatedOpacity(
-                  //     opacity: animateCafeText ? 1 : 0,
-                  //     duration: const Duration(seconds: 1),
-                  //     child: const Text(
-                  //       'S M A P P',
-                  //       style: TextStyle(fontSize: 50.0, color: Colors.black),
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),

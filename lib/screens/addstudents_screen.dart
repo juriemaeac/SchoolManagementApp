@@ -2,12 +2,11 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:smapp/boxes/boxFaculty.dart';
 import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/models/student_model.dart';
 
 class AddStudentScreen extends StatefulWidget {
-  AddStudentScreen({Key? key}) : super(key: key);
+  const AddStudentScreen({Key? key}) : super(key: key);
 
   @override
   _AddStudentScreen createState() => _AddStudentScreen();
@@ -30,16 +29,13 @@ class _AddStudentScreen extends State<AddStudentScreen> {
   late String studentCourse;
   late String studentSubjects;
   late int academicYear;
-  //int? modeOfPayment;
   late double accountBalance;
   late int isInstallment = 0;
 
   validated(String subjects) {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       _onFormSubmit(subjects);
-      print("Form Validated");
     } else {
-      print("Form Not Validated");
       return;
     }
   }
@@ -453,7 +449,6 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                                       onChanged: (value) {
                                         setState(() {
                                           isInstallment = value ?? 0;
-                                          print(value);
                                         });
                                       },
                                       activeColor: Colors.orange,
@@ -467,7 +462,6 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                                       onChanged: (value) {
                                         setState(() {
                                           isInstallment = value ?? 0;
-                                          print(value);
                                         });
                                       },
                                       activeColor: Colors.orange,
@@ -492,7 +486,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Container(
@@ -553,7 +547,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Container(
-                          margin: EdgeInsets.all(10),
+                          margin: const EdgeInsets.all(10),
                           child: ElevatedButton(
                             style: ButtonStyle(
                                 shape: MaterialStateProperty.all<
@@ -561,13 +555,13 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                                     RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10.0),
-                                        side:
-                                            BorderSide(color: Colors.orange)))),
+                                        side: const BorderSide(
+                                            color: Colors.orange)))),
                             onPressed: () {
                               validated(_studentSubjects.text);
                             },
                             child: Padding(
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -587,7 +581,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                         ),
                         const SizedBox(width: 20),
                         Container(
-                          margin: EdgeInsets.all(10),
+                          margin: const EdgeInsets.all(10),
                           child: ElevatedButton(
                             style: ButtonStyle(
                                 shape: MaterialStateProperty.all<
@@ -595,13 +589,13 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                                     RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10.0),
-                                        side:
-                                            BorderSide(color: Colors.orange)))),
+                                        side: const BorderSide(
+                                            color: Colors.orange)))),
                             onPressed: () {
                               Navigator.pop(context);
                             },
                             child: Padding(
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -645,7 +639,6 @@ class _AddStudentScreen extends State<AddStudentScreen> {
         isInstallment: isInstallment,
         accountBalance: accountBalance));
     Navigator.of(context).pop();
-    print(studentBox);
   }
 }
 

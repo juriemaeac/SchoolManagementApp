@@ -16,36 +16,26 @@ class PdfInvoiceApiPayment {
 
     pdf.addPage(MultiPage(
       build: (context) => [
-        pw.Column(
-          children: [
-            pw.Row(
-              children: [
-                SvgImage(svg: imageSvg, width: 50, height: 50),
-                pw.SizedBox(width: 10),
-                buildHeader(invoice),
-
-              ]
-            ),
-          ]
-        ),
+        pw.Column(children: [
+          pw.Row(children: [
+            SvgImage(svg: imageSvg, width: 50, height: 50),
+            pw.SizedBox(width: 10),
+            buildHeader(invoice),
+          ]),
+        ]),
         buildInfoSection(invoice),
         SizedBox(height: 10),
         buildFooter(invoice),
         SizedBox(height: 1 * PdfPageFormat.cm),
         dashedHorizontalLine(),
         SizedBox(height: 1 * PdfPageFormat.cm),
-        pw.Column(
-          children: [
-            pw.Row(
-              children: [
-                SvgImage(svg: imageSvg, width: 50, height: 50),
-                pw.SizedBox(width: 10),
-                buildHeader(invoice),
-
-              ]
-            ),
-          ]
-        ),
+        pw.Column(children: [
+          pw.Row(children: [
+            SvgImage(svg: imageSvg, width: 50, height: 50),
+            pw.SizedBox(width: 10),
+            buildHeader(invoice),
+          ]),
+        ]),
         buildInfoSection(invoice),
         SizedBox(height: 10),
         buildFooterStudent(invoice),
@@ -68,20 +58,20 @@ class PdfInvoiceApiPayment {
           ),
           pw.Text(
             "Main: Blk 125, Lot 22, Quirino Highway, Lagro, Quezon City",
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 8.00,
             ),
           ),
           pw.Text(
             "Annex: 892 Alfina Bldg., 2nd Floor, Gulod, Novaliches, Quezon City",
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 8.00,
             ),
           ),
         ],
       );
 
-      static Widget buildInfoSection(InvoicePayment invoice) => Column(
+  static Widget buildInfoSection(InvoicePayment invoice) => Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: 0.8 * (PdfPageFormat.cm)),
@@ -102,11 +92,9 @@ class PdfInvoiceApiPayment {
                 buildInvoiceInfo(invoice.info),
               ],
             ),
-            
           ]),
-            SizedBox(height: 0.9 * (PdfPageFormat.cm)),
-            buildFacultyInfo(invoice.payment),
-          
+          SizedBox(height: 0.9 * (PdfPageFormat.cm)),
+          buildFacultyInfo(invoice.payment),
         ],
       );
 
@@ -147,55 +135,57 @@ class PdfInvoiceApiPayment {
             pw.SizedBox(width: 10),
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(studentPDF.studentId.toString(),
-                  style: TextStyle(fontSize: 12)),
-              Text(studentPDF.name, style: TextStyle(fontSize: 12)),
-              Text(studentPDF.course, style: TextStyle(fontSize: 12)),
+                  style: const TextStyle(fontSize: 12)),
+              Text(studentPDF.name, style: const TextStyle(fontSize: 12)),
+              Text(studentPDF.course, style: const TextStyle(fontSize: 12)),
             ]),
           ]),
         ],
       );
 
-  static Widget buildFacultyInfo(Payment payment) => 
-    Column(
+  static Widget buildFacultyInfo(Payment payment) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: pw.EdgeInsets.all(0),
-          child: Row(children: [
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text('Transaction Details',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+            padding: const pw.EdgeInsets.all(0),
+            child: Row(children: [
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text('Transaction Details',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+              ]),
             ]),
-          ]),),
+          ),
           Divider(),
-          
-
-          Row(
-            children: [
+          Row(children: [
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text('Date: ',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
               Text('Amount: ',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-                  pw.SizedBox(height: 10),
+              pw.SizedBox(height: 10),
             ]),
             pw.SizedBox(width: 20),
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(payment.transactionDate, style: TextStyle(fontSize: 12)),
-              Text('Php ${payment.transactionAmount.toString()}', style: TextStyle(fontSize: 12)),
+              Text(payment.transactionDate,
+                  style: const TextStyle(fontSize: 12)),
+              Text('Php ${payment.transactionAmount.toString()}',
+                  style: const TextStyle(fontSize: 12)),
               pw.SizedBox(height: 10),
             ]),
           ]),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
+          Row(mainAxisAlignment: MainAxisAlignment.end, children: [
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text('New Balance: ',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
             ]),
             pw.SizedBox(width: 20),
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text('Php ${payment.newAccountBalance.toString()}', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: PdfColors.red)),
+              Text('Php ${payment.newAccountBalance.toString()}',
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: PdfColors.red)),
             ]),
           ]),
           Divider(),
@@ -216,10 +206,10 @@ class PdfInvoiceApiPayment {
             ]),
             pw.SizedBox(width: 10),
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(UtilsPayment.formatDate(info.date), style: TextStyle(fontSize: 12)),
-              Text(info.method, style: TextStyle(fontSize: 12)),
-              Text(info.facultyName,
-                  style: TextStyle(fontSize: 12)),
+              Text(UtilsPayment.formatDate(info.date),
+                  style: const TextStyle(fontSize: 12)),
+              Text(info.method, style: const TextStyle(fontSize: 12)),
+              Text(info.facultyName, style: const TextStyle(fontSize: 12)),
             ]),
             // Row(children: [
           ]),
@@ -231,7 +221,7 @@ class PdfInvoiceApiPayment {
           pw.Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
             Text(
               invoice.info.description,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 8,
                 color: PdfColors.red,
               ),
@@ -254,7 +244,7 @@ class PdfInvoiceApiPayment {
           pw.Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
             Text(
               invoice.info.description,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 8,
                 color: PdfColors.red,
               ),
@@ -270,6 +260,4 @@ class PdfInvoiceApiPayment {
           ]),
         ],
       );
-
-  
 }

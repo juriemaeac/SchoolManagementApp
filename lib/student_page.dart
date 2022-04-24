@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:smapp/CalendarSpace/student_information_section.dart';
 import 'package:smapp/Dashboard/src/ProjectStatisticsCards.dart';
-import 'package:smapp/NavigationBar/navbar_section.dart';
 import 'package:smapp/NavigationBar/navbar_student_page.dart';
 import 'package:smapp/Student/student_tabs.dart';
 import 'package:smapp/boxes/boxStudent.dart';
@@ -42,7 +41,7 @@ class _StudentPageState extends State<StudentPage> {
     var unpaidStudents = countUnpaid();
     var percentage = (unpaidStudents / studentCount).toStringAsFixed(2);
     return Scaffold(
-      backgroundColor: Color(0xfff3f5f9),
+      backgroundColor: const Color(0xfff3f5f9),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -78,7 +77,7 @@ class _StudentPageState extends State<StudentPage> {
                     SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
                         width: MediaQuery.of(context).size.width * 0.63,
-                        child: StudentTabs()),
+                        child: const StudentTabs()),
                     const SizedBox(
                       height: 25,
                     ),
@@ -131,7 +130,7 @@ class _StudentPageState extends State<StudentPage> {
                     ),
                     Container(
                         height: MediaQuery.of(context).size.height / 1.9,
-                        margin: EdgeInsets.only(left: 25),
+                        margin: const EdgeInsets.only(left: 25),
                         width: MediaQuery.of(context).size.width * 0.59,
                         child: const StudentScreen(
                           title: 'title',
@@ -140,8 +139,8 @@ class _StudentPageState extends State<StudentPage> {
                 ),
               ],
             ),
-            NavibarStudent(),
-            StudentInfo(),
+            const NavibarStudent(),
+            const StudentInfo(),
           ],
         ),
       ),

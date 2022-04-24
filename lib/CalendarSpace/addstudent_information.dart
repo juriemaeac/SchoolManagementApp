@@ -3,6 +3,8 @@ import 'package:smapp/CalendarSpace/src/calendar_section.dart';
 import 'package:smapp/CalendarSpace/src/profile_section.dart';
 
 class AddStudentInfo extends StatelessWidget {
+  const AddStudentInfo({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -16,20 +18,11 @@ class AddStudentInfo extends StatelessWidget {
             const SizedBox(
               height: 30.0,
             ),
-            TopContainer(), //profile
-            // Container(
-            //   height: MediaQuery.of(context).size.height * 0.35,
-            //   width: MediaQuery.of(context).size.width * 0.28,
-            //   margin: const EdgeInsets.all(20.0),
-            //   decoration: BoxDecoration(
-            //     color: Colors.orange,
-            //     borderRadius: BorderRadius.circular(10),
-            //   ),
-            // ),
+            const TopContainer(), //profile
             const SizedBox(
               height: 30.0,
             ),
-            CalendarSection(), //Month Year
+            const CalendarSection(), //Month Year
             Container(
               height: MediaQuery.of(context).size.height * 0.665,
               width: MediaQuery.of(context).size.width * 0.28,

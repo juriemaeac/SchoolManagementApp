@@ -57,16 +57,16 @@ class _SharedFilesItemState extends State<SharedFilesItem> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width * 0.63,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
+                  SizedBox(
                     width: 180,
                     child: Row(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           width: 15.0,
                         ),
                         Container(
@@ -84,13 +84,13 @@ class _SharedFilesItemState extends State<SharedFilesItem> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 15.0,
                         ),
                         Text(
                           widget.sharedFileName,
                           style: GoogleFonts.quicksand(
-                            color: hovered? widget.color: Colors.black,
+                            color: hovered ? widget.color : Colors.black,
                             fontWeight: FontWeight.bold,
                             fontSize: 12.0,
                           ),
@@ -98,20 +98,21 @@ class _SharedFilesItemState extends State<SharedFilesItem> {
                       ],
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width * 0.4,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
+                            SizedBox(
                               width: 130,
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal:8.0),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
                                 child: Text(
                                   widget.first,
                                   textAlign: TextAlign.left,
@@ -123,10 +124,11 @@ class _SharedFilesItemState extends State<SharedFilesItem> {
                                 ),
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               width: 235,
                               child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
                                 child: Text(
                                   widget.second,
                                   textAlign: TextAlign.left,
@@ -138,17 +140,16 @@ class _SharedFilesItemState extends State<SharedFilesItem> {
                                 ),
                               ),
                             ),
-                            Container(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 30.0),
-                                child: Text(
-                                  widget.third,
-                                  textAlign: TextAlign.left,
-                                  style: GoogleFonts.quicksand(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 11.0,
-                                    color: Colors.black87,
-                                  ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30.0),
+                              child: Text(
+                                widget.third,
+                                textAlign: TextAlign.left,
+                                style: GoogleFonts.quicksand(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11.0,
+                                  color: Colors.black87,
                                 ),
                               ),
                             ),

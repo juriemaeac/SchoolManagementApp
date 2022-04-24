@@ -36,7 +36,7 @@ class _CalendarWeeklyState extends State<CalendarWeekly> {
           defaultDecoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20.0),
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   blurRadius: 7.5,
                   spreadRadius: 1.0,
@@ -46,7 +46,7 @@ class _CalendarWeeklyState extends State<CalendarWeekly> {
           weekendDecoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20.0),
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   blurRadius: 7.5,
                   spreadRadius: 1.0,

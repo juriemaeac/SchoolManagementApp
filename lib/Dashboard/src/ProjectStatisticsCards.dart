@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:hive/hive.dart';
 
 class ProjectStatisticsCards extends StatelessWidget {
+  const ProjectStatisticsCards({Key? key}) : super(key: key);
+
   //const Hive.openBox<Student>(HiveBoxesStudent.student);
   @override
   Widget build(BuildContext context) {
@@ -60,8 +60,8 @@ class ProjectStatisticsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.only(left: 40.0, right: 20.0),
-      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      margin: const EdgeInsets.only(left: 40.0, right: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
       height: 85.0,
       decoration: BoxDecoration(
         color: color,
@@ -70,39 +70,37 @@ class ProjectStatisticsCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  count,
-                  style: GoogleFonts.quicksand(
-                    fontSize: 25.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                count,
+                style: GoogleFonts.quicksand(
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
-                Text(
-                  name,
-                  style: GoogleFonts.quicksand(
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                  ),
+              ),
+              Text(
+                name,
+                style: GoogleFonts.quicksand(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
                 ),
-                SizedBox(
-                  height: 8.0,
+              ),
+              const SizedBox(
+                height: 8.0,
+              ),
+              Text(
+                descriptions,
+                style: GoogleFonts.quicksand(
+                  fontSize: 10.0,
+                  color: Colors.white,
                 ),
-                Text(
-                  descriptions,
-                  style: GoogleFonts.quicksand(
-                    fontSize: 10.0,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
           CircularPercentIndicator(
             radius: 55.0,
@@ -134,11 +132,12 @@ class ProjectStatisticsCardNoGraph extends StatelessWidget {
   final Color color;
 
   ProjectStatisticsCardNoGraph({
+    Key? key,
     required this.count,
     required this.descriptions,
     required this.name,
     required this.color,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -154,41 +153,38 @@ class ProjectStatisticsCardNoGraph extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    count,
-                    style: GoogleFonts.quicksand(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  count,
+                  style: GoogleFonts.quicksand(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                  Text(
-                    name,
-                    style: GoogleFonts.quicksand(
-                      fontSize: 13.0,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white,
-                    ),
+                ),
+                Text(
+                  name,
+                  style: GoogleFonts.quicksand(
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
                   ),
-                  const SizedBox(
-                    height: 8.0,
+                ),
+                const SizedBox(
+                  height: 8.0,
+                ),
+                Text(
+                  descriptions,
+                  style: GoogleFonts.quicksand(
+                    fontSize: 10.0,
+                    color: Colors.white,
                   ),
-                  Text(
-                    descriptions,
-                    style: GoogleFonts.quicksand(
-                      fontSize: 10.0,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-
           ],
         ),
       ),

@@ -12,6 +12,8 @@ import 'package:smapp/dashboard_page.dart';
 import 'package:smapp/student_page.dart';
 
 class NavBarFaculty extends StatefulWidget {
+  const NavBarFaculty({Key? key}) : super(key: key);
+
   @override
   _NavBarFacultyState createState() => _NavBarFacultyState();
 }
@@ -41,7 +43,7 @@ class _NavBarFacultyState extends State<NavBarFaculty> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 450.0,
       child: Column(
         children: [
@@ -55,7 +57,7 @@ class _NavBarFacultyState extends State<NavBarFaculty> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DashboardPage(),
+                  builder: (context) => const DashboardPage(),
                 ),
               );
             },
@@ -108,7 +110,7 @@ class _NavBarFacultyState extends State<NavBarFaculty> {
               );
             },
           ),
-          SizedBox(height: 100),
+          const SizedBox(height: 100),
           NavBarItem(
             icon: Feather.log_out,
             active: false,

@@ -47,10 +47,8 @@ class _LoginScreen extends State<LoginScreen> {
             clearInputFields();
           }
         });
-        print('Wrong Credentials');
       }
     } else {
-      print("Form Not Validated");
       return;
     }
   }

@@ -41,7 +41,7 @@ class _ProjectProgressCardState extends State<ProjectProgressCard> {
         decoration: BoxDecoration(
             color: hovered ? widget.color : Colors.white,
             borderRadius: BorderRadius.circular(15.0),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 color: Colors.black12,
                 blurRadius: 20.0,
@@ -75,14 +75,12 @@ class _ProjectProgressCardState extends State<ProjectProgressCard> {
                   const SizedBox(
                     width: 13.0,
                   ),
-                  Container(
-                    child: Text(
-                      widget.projectName,
-                      style: GoogleFonts.quicksand(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.0,
-                        color: hovered ? Colors.white : Colors.black,
-                      ),
+                  Text(
+                    widget.projectName,
+                    style: GoogleFonts.quicksand(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14.0,
+                      color: hovered ? Colors.white : Colors.black,
                     ),
                   ),
                 ],
@@ -91,17 +89,21 @@ class _ProjectProgressCardState extends State<ProjectProgressCard> {
                 height: 15.0,
               ),
               Container(
-                margin: EdgeInsets.only(left: 20.0, right: 10.0),
+                margin: const EdgeInsets.only(left: 20.0, right: 10.0),
                 child: Row(
-                  crossAxisAlignment: hovered ? CrossAxisAlignment.center : CrossAxisAlignment.start,
-                  mainAxisAlignment: hovered? MainAxisAlignment.center : MainAxisAlignment.start,
+                  crossAxisAlignment: hovered
+                      ? CrossAxisAlignment.center
+                      : CrossAxisAlignment.start,
+                  mainAxisAlignment: hovered
+                      ? MainAxisAlignment.center
+                      : MainAxisAlignment.start,
                   children: [
-                    Container(
+                    SizedBox(
                       height: 16.0,
-                      width: 13.0,                 
+                      width: 13.0,
                       child: Icon(
                         Feather.box,
-                        size: hovered? 18 : 13.0,
+                        size: hovered ? 18 : 13.0,
                         color: hovered ? Colors.white : Colors.black,
                       ),
                     ),
@@ -109,12 +111,12 @@ class _ProjectProgressCardState extends State<ProjectProgressCard> {
                       width: 2.0,
                     ),
                     Container(
-                      padding: const EdgeInsets.only(left:5),
+                      padding: const EdgeInsets.only(left: 5),
                       child: Text(
                         '${widget.count} records',
-                        style: GoogleFonts.quicksand(                     
+                        style: GoogleFonts.quicksand(
                           fontWeight: FontWeight.w500,
-                          fontSize: hovered? 20.0 : 13.0,
+                          fontSize: hovered ? 20.0 : 13.0,
                           color: hovered ? Colors.white : Colors.black,
                         ),
                       ),
@@ -122,26 +124,26 @@ class _ProjectProgressCardState extends State<ProjectProgressCard> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15.0,
               ),
               AnimatedContainer(
-                duration: Duration(milliseconds: 275),
-                margin: EdgeInsets.only(top: 5.0),
+                duration: const Duration(milliseconds: 275),
+                margin: const EdgeInsets.only(top: 5.0),
                 height: 6.0,
-                width:hovered? 190 : 160,
+                width: hovered ? 190 : 160,
                 decoration: BoxDecoration(
                   color: hovered
                       ? widget.progressIndicatorColor
-                      : Color(0xffF5F6FA),
+                      : const Color(0xffF5F6FA),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: AnimatedContainer(
-                    duration: Duration(milliseconds: 275),
+                    duration: const Duration(milliseconds: 275),
                     height: 6.0,
-                    width:hovered? 190 : 160,
+                    width: hovered ? 190 : 160,
                     decoration: BoxDecoration(
                       color: hovered ? Colors.white : widget.color,
                       borderRadius: BorderRadius.circular(20.0),

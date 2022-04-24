@@ -3,6 +3,8 @@ import 'package:smapp/NavigationBar/navbar_student_states.dart';
 import 'package:smapp/NavigationBar/src/app_title.dart';
 
 class NavibarStudent extends StatelessWidget {
+  const NavibarStudent({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -12,7 +14,7 @@ class NavibarStudent extends StatelessWidget {
         width: 100.0,
         color: Colors.orange,
         child: Stack(
-          children: [
+          children: const [
             CompanyName(),
             Align(
               alignment: Alignment.center,

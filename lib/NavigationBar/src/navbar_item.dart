@@ -20,22 +20,21 @@ class _NavBarItemState extends State<NavBarItem> {
       color: Colors.transparent,
       child: InkWell(
         onTap: () {
-          print(widget.icon);
           widget.touched();
         },
         splashColor: Colors.white,
         hoverColor: Colors.white12,
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 3.0),
+          padding: const EdgeInsets.symmetric(vertical: 3.0),
           child: Row(
             children: [
-              Container(
+              SizedBox(
                 height: 60.0,
                 width: 80.0,
                 child: Row(
                   children: [
                     AnimatedContainer(
-                      duration: Duration(milliseconds: 475),
+                      duration: const Duration(milliseconds: 475),
                       height: 35.0,
                       width: 5.0,
                       decoration: BoxDecoration(
@@ -48,7 +47,7 @@ class _NavBarItemState extends State<NavBarItem> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 30.0),
+                      padding: const EdgeInsets.only(left: 30.0),
                       child: Icon(
                         widget.icon,
                         color: widget.active ? Colors.white : Colors.white54,

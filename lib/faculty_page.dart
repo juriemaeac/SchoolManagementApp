@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:smapp/CalendarSpace/faculty_information_section.dart';
-import 'package:smapp/CalendarSpace/student_information_section.dart';
 import 'package:smapp/Dashboard/src/ProjectStatisticsCards.dart';
 import 'package:smapp/NavigationBar/navbar_faculty_page.dart';
-import 'package:smapp/NavigationBar/navbar_section.dart';
-import 'package:smapp/NavigationBar/navbar_student_page.dart';
 import 'package:smapp/Student/student_tabs.dart';
 import 'package:smapp/screens/faculty_screen.dart';
-import 'package:smapp/screens/students_screen.dart';
 
 import 'boxes/boxFaculty.dart';
 import 'models/faculty_model.dart';
@@ -45,7 +41,7 @@ class _FacultyPageState extends State<FacultyPage> {
     var activeCashiers = countCashiers();
     var percentage = (activeCashiers / facultyCount).toStringAsFixed(2);
     return Scaffold(
-      backgroundColor: Color(0xfff3f5f9),
+      backgroundColor: const Color(0xfff3f5f9),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -81,7 +77,7 @@ class _FacultyPageState extends State<FacultyPage> {
                     SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
                         width: MediaQuery.of(context).size.width * 0.63,
-                        child: StudentTabs()),
+                        child: const StudentTabs()),
                     const SizedBox(
                       height: 25,
                     ),
@@ -134,7 +130,7 @@ class _FacultyPageState extends State<FacultyPage> {
                     ),
                     Container(
                         height: MediaQuery.of(context).size.height / 1.9,
-                        margin: EdgeInsets.only(left: 25),
+                        margin: const EdgeInsets.only(left: 25),
                         width: MediaQuery.of(context).size.width * 0.59,
                         child: const FacultyScreen(
                           title: 'title',
@@ -143,8 +139,8 @@ class _FacultyPageState extends State<FacultyPage> {
                 ),
               ],
             ),
-            NavibarFaculty(),
-            FacultyInfo(),
+            const NavibarFaculty(),
+            const FacultyInfo(),
           ],
         ),
       ),

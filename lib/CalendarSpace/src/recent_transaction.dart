@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
@@ -8,18 +6,16 @@ import 'package:smapp/payment_transaction_page.dart';
 import '../../boxes/boxPayment.dart';
 import '../../models/payment_model.dart';
 
-
-
 class MeetingsSection extends StatefulWidget {
-  const MeetingsSection({ Key? key }) : super(key: key);
+  const MeetingsSection({Key? key}) : super(key: key);
 
   @override
   State<MeetingsSection> createState() => _MeetingsSectionState();
 }
 
 class _MeetingsSectionState extends State<MeetingsSection> {
-    @override
-    Widget build(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     Hive.openBox<Payment>(HiveBoxesPayment.payment);
     var boxValues = Hive.box<Payment>(HiveBoxesPayment.payment);
 
@@ -83,7 +79,7 @@ class _MeetingsSectionState extends State<MeetingsSection> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       blurRadius: 7.5,
                       spreadRadius: 1.0,
@@ -99,7 +95,8 @@ class _MeetingsSectionState extends State<MeetingsSection> {
                     children: <Widget>[
                       Row(
                         children: [
-                          const Icon(Icons.paid, color: Colors.orange, size: 30),
+                          const Icon(Icons.paid,
+                              color: Colors.orange, size: 30),
                           const SizedBox(width: 10),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,7 +110,7 @@ class _MeetingsSectionState extends State<MeetingsSection> {
                                 ),
                               ),
                               Text(
-                                "${res.transactionDate.toString()}",
+                                res.transactionDate.toString(),
                                 style: const TextStyle(
                                   fontSize: 13.0,
                                   color: Colors.black,
@@ -130,7 +127,5 @@ class _MeetingsSectionState extends State<MeetingsSection> {
         ),
       ],
     );
-   
   }
 }
-

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:smapp/Dashboard/src/ProjectProgressCard.dart';
 import 'package:smapp/Dashboard/src/SharedFilesItem.dart';
 import 'package:smapp/Dashboard/src/SubHeader.dart';
@@ -14,6 +13,7 @@ import '../boxes/boxStudent.dart';
 import '../models/faculty_model.dart';
 import '../models/payment_model.dart';
 import '../models/student_model.dart';
+
 class DashBoard extends StatefulWidget {
   const DashBoard({Key? key}) : super(key: key);
 
@@ -22,7 +22,6 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
-  
   @override
   void initState() {
     super.initState();
@@ -34,12 +33,11 @@ class _DashBoardState extends State<DashBoard> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => LoginScreen(),
+          builder: (context) => const LoginScreen(),
         ),
       );
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +54,8 @@ class _DashBoardState extends State<DashBoard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: const EdgeInsets.only(left: 30.0, top: 25.0, bottom: 10.0),
+              margin:
+                  const EdgeInsets.only(left: 30.0, top: 25.0, bottom: 10.0),
               child: Text(
                 'Dashboard',
                 style: GoogleFonts.quicksand(
@@ -75,7 +74,7 @@ class _DashBoardState extends State<DashBoard> {
                   SubHeader(
                     title: 'Real-time Analytics',
                   ),
-                   const SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,

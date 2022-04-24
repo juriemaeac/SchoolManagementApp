@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:smapp/CalendarSpace/addstudent_information.dart';
-import 'package:smapp/CalendarSpace/student_information_section.dart';
 import 'package:smapp/NavigationBar/navbar_student_page.dart';
-import 'package:smapp/boxes/boxFaculty.dart';
 import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/models/student_model.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
@@ -48,9 +45,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
   validated() {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       _onFormSubmit();
-      print("Form Validated");
     } else {
-      print("Form Not Validated");
       return;
     }
   }
@@ -179,10 +174,10 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                 SingleChildScrollView(
                   child: Container(
                     child: Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Row(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 100,
                           ),
                           Column(
@@ -222,9 +217,9 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                   ],
                                 ),
                                 //height: MediaQuery.of(context).size.height,
-                                padding: EdgeInsets.only(
+                                padding: const EdgeInsets.only(
                                     top: 20, bottom: 20, right: 10, left: 10),
-                                margin: EdgeInsets.only(left: 20),
+                                margin: const EdgeInsets.only(left: 20),
                                 width: MediaQuery.of(context).size.width * 0.6,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -707,7 +702,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                           CrossAxisAlignment.end,
                                       children: [
                                         Container(
-                                          margin: EdgeInsets.all(10),
+                                          margin: const EdgeInsets.all(10),
                                           child: ElevatedButton(
                                             style: ButtonStyle(
                                                 shape: MaterialStateProperty.all<
@@ -716,14 +711,14 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(10.0),
-                                                        side: BorderSide(
+                                                        side: const BorderSide(
                                                             color: Colors
                                                                 .orange)))),
                                             onPressed: () {
                                               validated();
                                             },
                                             child: Padding(
-                                              padding: EdgeInsets.all(10),
+                                              padding: const EdgeInsets.all(10),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
@@ -746,7 +741,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                         ),
                                         const SizedBox(width: 20),
                                         Container(
-                                          margin: EdgeInsets.all(10),
+                                          margin: const EdgeInsets.all(10),
                                           child: ElevatedButton(
                                             style: ButtonStyle(
                                                 shape: MaterialStateProperty.all<
@@ -755,14 +750,14 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(10.0),
-                                                        side: BorderSide(
+                                                        side: const BorderSide(
                                                             color: Colors
                                                                 .orange)))),
                                             onPressed: () {
                                               Navigator.pop(context);
                                             },
                                             child: Padding(
-                                              padding: EdgeInsets.all(10),
+                                              padding: const EdgeInsets.all(10),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
@@ -795,8 +790,8 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                     ),
                   ),
                 ),
-                NavibarStudent(),
-                AddStudentInfo(),
+                const NavibarStudent(),
+                const AddStudentInfo(),
               ],
             ),
           ),
@@ -821,12 +816,5 @@ class _EditStudentScreen extends State<EditStudentScreen> {
             isInstallment: isInstallment ?? 0,
             accountBalance: accountBalance ?? 0.0));
     Navigator.of(context).pop();
-    print(
-      "Student Index: $studentIndex",
-    );
-    print(
-      "Student Info Update: $studentID, $firstName",
-    );
-    print(studentBox);
   }
 }

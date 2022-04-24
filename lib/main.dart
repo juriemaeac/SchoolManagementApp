@@ -1,14 +1,12 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hive/hive.dart';
 import 'package:smapp/boxes/boxFaculty.dart';
 import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/models/faculty_model.dart';
 import 'package:smapp/models/student_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:smapp/splash_screen.dart';
-import 'package:smapp/dashboard_page.dart';
 
 import 'boxes/boxPayment.dart';
 import 'models/payment_model.dart';
@@ -26,10 +24,10 @@ void main() async {
   await Hive.openBox<Student>(HiveBoxesStudent.student);
   await Hive.openBox<Faculty>(HiveBoxesFaculty.faculty);
   await Hive.openBox<Payment>(HiveBoxesPayment.payment);
-  runApp(MyApp());
+  runApp(const MyApp());
   doWhenWindowReady(() {
     final win = appWindow;
-    final initialSize = Size(1260, 750); //width, height
+    const initialSize = Size(1260, 750); //width, height
     win.minSize = initialSize;
     win.size = initialSize;
     win.alignment = Alignment.center;

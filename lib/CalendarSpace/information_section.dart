@@ -27,12 +27,12 @@ class CalendarSpace extends StatelessWidget {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width * 0.28,
         child: Column(
-          children: [
-            const SizedBox(
+          children: const [
+            SizedBox(
               height: 30.0,
             ),
             TopContainer(),
-            const SizedBox(
+            SizedBox(
               height: 30.0,
             ),
             CalendarSection(),

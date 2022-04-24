@@ -78,7 +78,7 @@ class _PaymentPageState extends State<PaymentPage> {
                     SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
                         width: MediaQuery.of(context).size.width * 0.63,
-                        child: StudentTabs()),
+                        child: const StudentTabs()),
                     const SizedBox(
                       height: 25,
                     ),
@@ -140,8 +140,8 @@ class _PaymentPageState extends State<PaymentPage> {
                 ),
               ],
             ),
-            NavibarPayment(),
-            PaymentInfo(),
+            const NavibarPayment(),
+            const PaymentInfo(),
           ],
         ),
       ),

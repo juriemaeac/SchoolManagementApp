@@ -31,7 +31,7 @@ class FacultyInfo extends StatelessWidget {
             const SizedBox(
               height: 30.0,
             ),
-            TopContainer(), //profile
+            const TopContainer(), //profile
             Container(
               height: MediaQuery.of(context).size.height * 0.55,
               width: MediaQuery.of(context).size.width * 0.28,
@@ -45,7 +45,7 @@ class FacultyInfo extends StatelessWidget {
                 fit: BoxFit.fitHeight,
               ),
             ),
-            CalendarSection(), //Month Year
+            const CalendarSection(), //Month Year
             const FacultyButtons(),
           ],
         ),
