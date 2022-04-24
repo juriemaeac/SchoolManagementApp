@@ -8,6 +8,7 @@ import 'package:smapp/NavigationBar/navbar_student_page.dart';
 import 'package:smapp/boxes/boxFaculty.dart';
 import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/models/student_model.dart';
+import 'package:smapp/authentication/right_login_screen.dart';
 
 class EditStudentScreen extends StatefulWidget {
   final Student student;
@@ -34,6 +35,16 @@ class _EditStudentScreen extends State<EditStudentScreen> {
   int? isInstallment;
   double? accountBalance;
 
+  @override
+  void initState() {
+    super.initState();
+    Hive.openBox<Student>(HiveBoxesStudent.student);
+    var user = facultyCredential.getString();
+    if (user == 'admin') {
+      isAdmin = true;
+    }
+  }
+
   validated() {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       _onFormSubmit();
@@ -43,6 +54,8 @@ class _EditStudentScreen extends State<EditStudentScreen> {
       return;
     }
   }
+
+  bool? isAdmin = false;
 
   @override
   Widget build(BuildContext context) {
@@ -144,12 +157,12 @@ class _EditStudentScreen extends State<EditStudentScreen> {
       if (met == 1) {
         paymentMethod = "Cash";
         return paymentMethod;
-      }
-      else if (met == 2) {
+      } else if (met == 2) {
         paymentMethod = "Installment";
         return paymentMethod;
       }
     }
+
     String method = paymentMethod(isInstallment!) ?? "";
     return Scaffold(
       // appBar: AppBar(
@@ -656,7 +669,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                           ),
                                           child: TextFormField(
                                             textAlign: TextAlign.right,
-                                            enabled: false,
+                                            enabled: isAdmin,
                                             controller:
                                                 _accountBalanceController,
                                             decoration: const InputDecoration(
