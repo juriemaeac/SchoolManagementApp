@@ -201,7 +201,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     name: payor.firstName +
                                         ' ' +
                                         payor.lastName,
-                                    course: payor.studentCourse,
+                                    course: payor.studentCourse + ' ' + payor.academicYear.toString(),
                                     subjects: 'SUBJECTS',
                                   ),
                                   info: InvoiceInfoPayment(
