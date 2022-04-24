@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 part 'faculty_model.g.dart';
 
 @HiveType(typeId: 1)
-class Faculty {
+class Faculty extends HiveObject {
   @HiveField(0)
   String? id;
   @HiveField(1)
@@ -28,6 +28,4 @@ class Faculty {
       required this.lastName,
       required this.userFaculty,
       required this.isAdmin});
-
-  void delete() {}
 }

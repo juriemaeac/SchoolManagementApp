@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:smapp/pdf/api/pdf_api.dart';
@@ -39,7 +38,7 @@ class _StudentScreenState extends State<StudentScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => LoginScreen(),
+          builder: (context) => const LoginScreen(),
         ),
       );
     }
@@ -48,15 +47,12 @@ class _StudentScreenState extends State<StudentScreen> {
   @override
   Widget build(BuildContext context) {
     paymentMethod(int method) {
-      print('Method: $method');
       String paymentMethod;
       if (method == 1) {
         paymentMethod = 'Cash';
-        print('Payment Method: ${paymentMethod}');
         return paymentMethod;
       } else if (method == 2) {
         paymentMethod = 'Installment';
-        print('Payment Method: ${paymentMethod}');
         return paymentMethod;
       }
     }
@@ -68,14 +64,13 @@ class _StudentScreenState extends State<StudentScreen> {
       for (final faculty in box.values) {
         if (username == 'admin') {
           visible = true;
-        }
-        else if (faculty.username == username) {
+        } else if (faculty.username == username) {
           if (faculty.userFaculty == 'Cashier') {
             visible = true;
           } else {
             visible = false;
           }
-        } 
+        }
       }
       return visible;
     }
@@ -118,10 +113,11 @@ class _StudentScreenState extends State<StudentScreen> {
                             Row(
                               children: [
                                 const SizedBox(width: 20),
-                                Container(
+                                SizedBox(
                                   width: 100,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         res!.studentID.toString(),
@@ -178,10 +174,10 @@ class _StudentScreenState extends State<StudentScreen> {
                             Row(
                               children: [
                                 IconButton(
-                                  padding: new EdgeInsets.all(3.0),
+                                  padding: const EdgeInsets.all(3.0),
                                   splashColor: Colors.transparent,
                                   hoverColor: Colors.transparent,
-                                  icon: Container(
+                                  icon: SizedBox(
                                     height: 60,
                                     width: 60,
                                     child: SvgPicture.asset(
@@ -214,10 +210,10 @@ class _StudentScreenState extends State<StudentScreen> {
                                 Visibility(
                                   visible: isCashier(),
                                   child: IconButton(
-                                    padding: new EdgeInsets.all(3.0),
+                                    padding: const EdgeInsets.all(3.0),
                                     splashColor: Colors.transparent,
                                     hoverColor: Colors.transparent,
-                                    icon: Container(
+                                    icon: SizedBox(
                                       height: 60,
                                       width: 60,
                                       child: SvgPicture.asset(
@@ -253,7 +249,7 @@ class _StudentScreenState extends State<StudentScreen> {
                                   padding: const EdgeInsets.all(3.0),
                                   splashColor: Colors.transparent,
                                   hoverColor: Colors.transparent,
-                                  icon: Container(
+                                  icon: SizedBox(
                                     height: 60,
                                     width: 60,
                                     child: Image.asset(
@@ -287,6 +283,21 @@ class _StudentScreenState extends State<StudentScreen> {
                                     PdfApi.openFile(pdfFile);
                                   },
                                 ),
+                                // IconButton(
+                                //   padding: const EdgeInsets.all(3.0),
+                                //   splashColor: Colors.transparent,
+                                //   hoverColor: Colors.transparent,
+                                //   icon: SizedBox(
+                                //     height: 60,
+                                //     width: 60,
+                                //     child: SvgPicture.asset(
+                                //       'assets/delete_svg.svg',
+                                //     ),
+                                //   ),
+                                //   onPressed: () {
+                                //     res.delete();
+                                //   },
+                                // ),
                                 const SizedBox(width: 20),
                               ],
                             ),

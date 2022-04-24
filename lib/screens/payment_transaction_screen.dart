@@ -35,7 +35,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => LoginScreen(),
+          builder: (context) => const LoginScreen(),
         ),
       );
     }
@@ -74,7 +74,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
       );
       return facultyInfo;
     }
-    ;
   }
 
   paymentMethod(int met) {
@@ -125,7 +124,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         Row(
                           //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
+                            SizedBox(
                               width: MediaQuery.of(context).size.width / 4.3,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,7 +145,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 ],
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               width: MediaQuery.of(context).size.width / 4,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -172,7 +171,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               padding: const EdgeInsets.all(3.0),
                               splashColor: Colors.transparent,
                               hoverColor: Colors.transparent,
-                              icon: Container(
+                              icon: SizedBox(
                                 height: 60,
                                 width: 60,
                                 child: Image.asset(
@@ -198,10 +197,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 final invoice = InvoicePayment(
                                   studentPDFPayment: StudentPDFPayment(
                                     studentId: res.studentID,
-                                    name: payor.firstName +
+                                    name:
+                                        payor.firstName + ' ' + payor.lastName,
+                                    course: payor.studentCourse +
                                         ' ' +
-                                        payor.lastName,
-                                    course: payor.studentCourse + ' ' + payor.academicYear.toString(),
+                                        payor.academicYear.toString(),
                                     subjects: 'SUBJECTS',
                                   ),
                                   info: InvoiceInfoPayment(
@@ -211,8 +211,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                         cashier.lastName,
                                     description:
                                         'IMPORTANT: Keep this copy. You will be required to present this when you ask for your examination permits and in all you dealings with the school.',
-                                    method:
-                                        paymentMethod(payor.isInstallment),
+                                    method: paymentMethod(payor.isInstallment),
                                   ),
                                   payment: Payment(
                                     studentID: res.studentID,
@@ -231,10 +230,25 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => PaymentPage(),
+                                      builder: (context) => const PaymentPage(),
                                     ));
                               },
                             ),
+                            // IconButton(
+                            //   padding: const EdgeInsets.all(3.0),
+                            //   splashColor: Colors.transparent,
+                            //   hoverColor: Colors.transparent,
+                            //   icon: SizedBox(
+                            //     height: 60,
+                            //     width: 60,
+                            //     child: SvgPicture.asset(
+                            //       'assets/delete_svg.svg',
+                            //     ),
+                            //   ),
+                            //   onPressed: () {
+                            //     res.delete();
+                            //   },
+                            // ),
                           ],
                         ),
                       ],
