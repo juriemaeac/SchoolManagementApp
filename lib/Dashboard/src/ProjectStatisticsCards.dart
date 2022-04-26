@@ -141,52 +141,51 @@ class ProjectStatisticsCardNoGraph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        margin: const EdgeInsets.only(left: 40.0, right: 20.0),
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        height: 85.0,
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  count,
-                  style: GoogleFonts.quicksand(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.only(left: 40.0, right: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      height: 85.0,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                count,
+                style: GoogleFonts.quicksand(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
-                Text(
-                  name,
-                  style: GoogleFonts.quicksand(
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                  ),
+              ),
+              Text(
+                name,
+                style: GoogleFonts.quicksand(
+                  fontSize: 17.0,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
                 ),
-                const SizedBox(
-                  height: 8.0,
+              ),
+              const SizedBox(
+                height: 8.0,
+              ),
+              Text(
+                descriptions,
+                style: GoogleFonts.quicksand(
+                  fontSize: 13.0,
+                  color: Colors.white,
                 ),
-                Text(
-                  descriptions,
-                  style: GoogleFonts.quicksand(
-                    fontSize: 10.0,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
