@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
 import 'package:smapp/boxes/boxFaculty.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:smapp/faculty_page.dart';
 import 'package:smapp/screens/editfaculty_screen.dart';
 import '../models/faculty_model.dart';
 
@@ -87,7 +88,8 @@ class _FacultyScreenState extends State<FacultyScreen> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Container(
-                              padding: const EdgeInsets.only(left: 25, right: 25),
+                              padding:
+                                  const EdgeInsets.only(left: 25, right: 25),
                               height: 30,
                               width: 220,
                               decoration: BoxDecoration(
@@ -108,14 +110,17 @@ class _FacultyScreenState extends State<FacultyScreen> {
                                 controller: facultyController,
                                 keyboardType: TextInputType.number,
                                 decoration: const InputDecoration(
-                                  contentPadding: EdgeInsets.symmetric(vertical: 11),
-                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 11),
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.never,
                                   labelText: '    Search by Username',
                                   border: InputBorder.none,
                                   focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                                    borderSide:
-                                        BorderSide(color: Colors.transparent, width: 2),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(15.0)),
+                                    borderSide: BorderSide(
+                                        color: Colors.transparent, width: 2),
                                   ),
                                 ),
                                 onChanged: (value) {},
@@ -124,10 +129,14 @@ class _FacultyScreenState extends State<FacultyScreen> {
                             const SizedBox(width: 10),
                             ElevatedButton(
                               style: ButtonStyle(
-                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  elevation: MaterialStateProperty.all(3),
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(15.0),
-                                          side: const BorderSide(color: Colors.orange)))),
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                          side: const BorderSide(
+                                              color: Colors.orange)))),
                               onPressed: () {
                                 String usernameVal = facultyController.text;
                                 validator(usernameVal);
@@ -136,7 +145,7 @@ class _FacultyScreenState extends State<FacultyScreen> {
                                 });
                               },
                               child: Padding(
-                                padding: const EdgeInsets.all(2),
+                                padding: const EdgeInsets.all(7),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -149,6 +158,35 @@ class _FacultyScreenState extends State<FacultyScreen> {
                                   ],
                                 ),
                               ),
+                            ),
+                            const SizedBox(width: 10),
+                            MouseRegion(
+                              cursor: SystemMouseCursors.click,
+                              child: GestureDetector(
+                                  child: Material(
+                                    elevation: 3,
+                                    borderRadius: BorderRadius.circular(15.0),
+                                    child: Container(
+                                        height: 30,
+                                        width: 30,
+                                        padding: const EdgeInsets.all(7),
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xff6C6CE5),
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                        ),
+                                        child: const Icon(Icons.refresh_rounded,
+                                            color: Colors.white, size: 15)),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const FacultyPage(),
+                                      ),
+                                    );
+                                  }),
                             ),
                           ],
                         ),
@@ -167,8 +205,8 @@ class _FacultyScreenState extends State<FacultyScreen> {
                 if (box.values.isEmpty) {
                   return Center(
                     child: Container(
-                      padding: const EdgeInsets.only(top: 120),
-                      child: const Text("Faculty list is empty")),
+                        padding: const EdgeInsets.only(top: 120),
+                        child: const Text("Faculty list is empty")),
                   );
                 }
                 return SingleChildScrollView(
@@ -180,12 +218,13 @@ class _FacultyScreenState extends State<FacultyScreen> {
                       scrollDirection: Axis.vertical,
                       itemCount: isSearching ? 1 : box.values.length,
                       itemBuilder: (context, index) {
-                        //int reverseIndex = box.length - 1 - index;
+                        int reverseIndex = box.length - 1 - index;
                         final Faculty? res = isSearching
                             ? box.values
-                                .where((faculty) => faculty.username == searchUsername)
+                                .where((faculty) =>
+                                    faculty.username == searchUsername)
                                 .toList()[index]
-                            : box.getAt(index);
+                            : box.getAt(reverseIndex);
                         return ListTile(
                           title: Container(
                             padding: const EdgeInsets.only(
@@ -196,13 +235,15 @@ class _FacultyScreenState extends State<FacultyScreen> {
                               borderRadius: BorderRadius.circular(15.0),
                             ),
                             child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 //alignment: WrapAlignment.spaceAround,
                                 children: <Widget>[
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: [
@@ -217,7 +258,8 @@ class _FacultyScreenState extends State<FacultyScreen> {
                                                     res.middleName,
                                                 style: GoogleFonts.quicksand(
                                                     fontSize: 14,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                             ],
                                           ),
@@ -241,7 +283,8 @@ class _FacultyScreenState extends State<FacultyScreen> {
                                   Column(
                                     children: [
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
                                         children: [
                                           IconButton(
                                             padding: const EdgeInsets.all(3.0),
@@ -270,7 +313,7 @@ class _FacultyScreenState extends State<FacultyScreen> {
                                                   builder: (context) =>
                                                       EditFacultyScreen(
                                                     faculty: faculty,
-                                                    index: index,
+                                                    index: reverseIndex,
                                                   ),
                                                 ),
                                               );

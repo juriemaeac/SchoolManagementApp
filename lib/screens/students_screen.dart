@@ -157,7 +157,8 @@ class _StudentScreenState extends State<StudentScreen> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Container(
-                              padding: const EdgeInsets.only(left: 25, right: 25),
+                              padding:
+                                  const EdgeInsets.only(left: 25, right: 25),
                               height: 30,
                               width: 220,
                               decoration: BoxDecoration(
@@ -178,14 +179,17 @@ class _StudentScreenState extends State<StudentScreen> {
                                 controller: studentIDController,
                                 keyboardType: TextInputType.number,
                                 decoration: const InputDecoration(
-                                  contentPadding: EdgeInsets.symmetric(vertical: 11),
-                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 11),
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.never,
                                   labelText: '    Search by ID',
                                   border: InputBorder.none,
                                   focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                                    borderSide:
-                                        BorderSide(color: Colors.transparent, width: 2),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(15.0)),
+                                    borderSide: BorderSide(
+                                        color: Colors.transparent, width: 2),
                                   ),
                                 ),
                                 onChanged: (value) {},
@@ -194,22 +198,25 @@ class _StudentScreenState extends State<StudentScreen> {
                             const SizedBox(width: 10),
                             ElevatedButton(
                               style: ButtonStyle(
+                                  elevation: MaterialStateProperty.all(3),
                                   shape: MaterialStateProperty.all<
                                           RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(15.0),
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
                                           side: const BorderSide(
                                               color: Colors.orange)))),
                               onPressed: () {
                                 int idVal = int.parse(studentIDController.text);
                                 validator(idVal);
                                 setState(() {
-                                  searchID = int.parse(studentIDController.text);
+                                  searchID =
+                                      int.parse(studentIDController.text);
                                   //studentIDController.clear();
                                 });
                               },
                               child: Padding(
-                                padding: const EdgeInsets.all(2),
+                                padding: const EdgeInsets.all(7),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -223,11 +230,39 @@ class _StudentScreenState extends State<StudentScreen> {
                                 ),
                               ),
                             ),
+                            const SizedBox(width: 10),
+                            MouseRegion(
+                              cursor: SystemMouseCursors.click,
+                              child: GestureDetector(
+                                  child: Material(
+                                    elevation: 3,
+                                    borderRadius: BorderRadius.circular(15.0),
+                                    child: Container(
+                                        height: 30,
+                                        width: 30,
+                                        padding: const EdgeInsets.all(7),
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xff6C6CE5),
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                        ),
+                                        child: const Icon(Icons.refresh_rounded,
+                                            color: Colors.white, size: 15)),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const StudentPage(),
+                                      ),
+                                    );
+                                  }),
+                            ),
                           ],
                         ),
                       ],
                     ),
-                    
                   ],
                 ),
               ],
@@ -256,12 +291,13 @@ class _StudentScreenState extends State<StudentScreen> {
                       //itemCount: box.values.length,
                       itemCount: isSearching ? 1 : box.values.length,
                       itemBuilder: (context, index) {
-                        //int reverseIndex = box.length - 1 - index;
+                        int reverseIndex = box.length - 1 - index;
                         final Student? res = isSearching
                             ? box.values
-                                .where((student) => student.studentID == searchID)
+                                .where(
+                                    (student) => student.studentID == searchID)
                                 .toList()[index]
-                            : box.getAt(index);
+                            : box.getAt(reverseIndex);
                         //Student? res = box.getAt(index);
                         return ListTile(
                           title: Container(
@@ -301,7 +337,8 @@ class _StudentScreenState extends State<StudentScreen> {
                                                 " ",
                                                 style: GoogleFonts.quicksand(
                                                     fontSize: 13,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                             ],
                                           ),
@@ -363,13 +400,17 @@ class _StudentScreenState extends State<StudentScreen> {
                                                   firstName: res.firstName,
                                                   middleName: res.middleName,
                                                   lastName: res.lastName,
-                                                  studentCourse: res.studentCourse,
+                                                  studentCourse:
+                                                      res.studentCourse,
                                                   studentSubjects:
                                                       res.studentSubjects,
-                                                  academicYear: res.academicYear,
-                                                  isInstallment: res.isInstallment,
-                                                  accountBalance: res.accountBalance);
-                                                  studentIDController.clear();
+                                                  academicYear:
+                                                      res.academicYear,
+                                                  isInstallment:
+                                                      res.isInstallment,
+                                                  accountBalance:
+                                                      res.accountBalance);
+                                              studentIDController.clear();
                                               isSearching = false;
                                               isEnabled = true;
                                               Navigator.push(
@@ -378,7 +419,7 @@ class _StudentScreenState extends State<StudentScreen> {
                                                   builder: (context) =>
                                                       EditStudentScreen(
                                                     student: student,
-                                                    index: index,
+                                                    index: reverseIndex,
                                                   ),
                                                 ),
                                               );
@@ -405,11 +446,14 @@ class _StudentScreenState extends State<StudentScreen> {
                                                   firstName: res.firstName,
                                                   middleName: res.middleName,
                                                   lastName: res.lastName,
-                                                  studentCourse: res.studentCourse,
+                                                  studentCourse:
+                                                      res.studentCourse,
                                                   studentSubjects:
                                                       res.studentSubjects,
-                                                  academicYear: res.academicYear,
-                                                  isInstallment: res.isInstallment,
+                                                  academicYear:
+                                                      res.academicYear,
+                                                  isInstallment:
+                                                      res.isInstallment,
                                                   accountBalance:
                                                       res.accountBalance);
                                               Navigator.push(
@@ -418,7 +462,7 @@ class _StudentScreenState extends State<StudentScreen> {
                                                   builder: (context) =>
                                                       AddTransactionScreen(
                                                     student: student,
-                                                    index: index,
+                                                    index: reverseIndex,
                                                   ),
                                                 ),
                                               );
@@ -457,11 +501,11 @@ class _StudentScreenState extends State<StudentScreen> {
                                                     '${paymentMethod(res.isInstallment)}',
                                               ),
                                             );
-                
+
                                             final pdfFile =
                                                 await PdfInvoiceApi.generate(
                                                     invoice);
-                
+
                                             PdfApi.openFile(pdfFile);
                                             Navigator.push(
                                               context,
