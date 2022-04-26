@@ -105,6 +105,24 @@ class _StudentScreenState extends State<StudentScreen> {
       return visible;
     }
 
+    isRegistrar() {
+      final box = Hive.box<Faculty>(HiveBoxesFaculty.faculty);
+      String username = facultyCredential.getString();
+      bool visible = false;
+      for (final faculty in box.values) {
+        if (username == 'admin') {
+          visible = true;
+        } else if (faculty.username == username) {
+          if (faculty.userFaculty == 'Registrar') {
+            visible = true;
+          } else {
+            visible = false;
+          }
+        }
+      }
+      return visible;
+    }
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Column(
@@ -326,43 +344,46 @@ class _StudentScreenState extends State<StudentScreen> {
                                   children: [
                                     Row(
                                       children: [
-                                        IconButton(
-                                          padding: const EdgeInsets.all(3.0),
-                                          splashColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          icon: SizedBox(
-                                            height: 60,
-                                            width: 60,
-                                            child: SvgPicture.asset(
-                                              'assets/edit_svg.svg',
-                                            ),
-                                          ),
-                                          onPressed: () {
-                                            Student student = Student(
-                                                studentID: res.studentID,
-                                                firstName: res.firstName,
-                                                middleName: res.middleName,
-                                                lastName: res.lastName,
-                                                studentCourse: res.studentCourse,
-                                                studentSubjects:
-                                                    res.studentSubjects,
-                                                academicYear: res.academicYear,
-                                                isInstallment: res.isInstallment,
-                                                accountBalance: res.accountBalance);
-                                                studentIDController.clear();
-                                            isSearching = false;
-                                            isEnabled = true;
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    EditStudentScreen(
-                                                  student: student,
-                                                  index: index,
-                                                ),
+                                        Visibility(
+                                          visible: isRegistrar(),
+                                          child: IconButton(
+                                            padding: const EdgeInsets.all(3.0),
+                                            splashColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            icon: SizedBox(
+                                              height: 60,
+                                              width: 60,
+                                              child: SvgPicture.asset(
+                                                'assets/edit_svg.svg',
                                               ),
-                                            );
-                                          },
+                                            ),
+                                            onPressed: () {
+                                              Student student = Student(
+                                                  studentID: res.studentID,
+                                                  firstName: res.firstName,
+                                                  middleName: res.middleName,
+                                                  lastName: res.lastName,
+                                                  studentCourse: res.studentCourse,
+                                                  studentSubjects:
+                                                      res.studentSubjects,
+                                                  academicYear: res.academicYear,
+                                                  isInstallment: res.isInstallment,
+                                                  accountBalance: res.accountBalance);
+                                                  studentIDController.clear();
+                                              isSearching = false;
+                                              isEnabled = true;
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      EditStudentScreen(
+                                                    student: student,
+                                                    index: index,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
                                         ),
                                         const SizedBox(width: 10),
                                         Visibility(

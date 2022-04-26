@@ -34,7 +34,7 @@ class _AddFacultyScreen extends State<AddFacultyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> departments = ['Cashier', 'Enrollment', 'Professor'];
+    List<String> departments = ['Cashier', 'Registrar', 'Professor'];
     return Scaffold(
       body: SafeArea(
         child: Form(
@@ -389,7 +389,7 @@ class _AddFacultyScreen extends State<AddFacultyScreen> {
                                             value.trim().length == 0) {
                                           return "required";
                                         } if (departments.contains(value) != true) {
-                                          return "Department not found. [Cashier, Enrollment, Professor]";
+                                          return "Department not found. [Cashier, Registrar, Professor]";
                                         }
                                         return null;
                                       },

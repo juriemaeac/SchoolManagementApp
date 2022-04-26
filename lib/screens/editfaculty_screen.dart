@@ -49,6 +49,8 @@ class _EditFacultyScreen extends State<EditFacultyScreen> {
     userFaculty = widget.faculty.userFaculty;
     isAdmin = widget.faculty.isAdmin;
 
+    String oldUsername = widget.faculty.username;
+
     TextEditingController _usernameController = TextEditingController()
       ..text = widget.faculty.username;
     TextEditingController _passwordController = TextEditingController()
@@ -107,6 +109,8 @@ class _EditFacultyScreen extends State<EditFacultyScreen> {
       _userFacultyController.dispose();
       super.dispose();
     }
+
+    List<String> departments = ['Cashier', 'Registrar', 'Professor'];
 
     return Scaffold(
       body: SafeArea(
@@ -208,10 +212,21 @@ class _EditFacultyScreen extends State<EditFacultyScreen> {
                                         //});
                                       },
                                       validator: (String? value) {
+                                        Box<Faculty> facultyBox =
+                                            Hive.box<Faculty>(
+                                                HiveBoxesFaculty.faculty);
                                         if (value == null ||
-                                            value.trim().length == 0) {
+                                            value.trim().isEmpty) {
                                           return "required";
                                         }
+                                        if (value != oldUsername) {
+                                          for (var faculty in facultyBox.values) {
+                                          if (faculty.username == value) {
+                                            return "Username already exists";
+                                          }
+                                        }
+                                        }
+                                        
                                         return null;
                                       },
                                     ),
@@ -442,6 +457,10 @@ class _EditFacultyScreen extends State<EditFacultyScreen> {
                                             value.trim().length == 0) {
                                           return "required";
                                         }
+                                        if (departments.contains(value) !=
+                                            true) {
+                                          return "Department not found. [Cashier, Registrar, Professor]";
+                                        }
                                         return null;
                                       },
                                     ),
@@ -503,12 +522,12 @@ class _EditFacultyScreen extends State<EditFacultyScreen> {
                                                               Colors.orange)))),
                                           onPressed: () {
                                             Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const FacultyPage(),
-                                          ),
-                                        );
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const FacultyPage(),
+                                              ),
+                                            );
                                           },
                                           child: Padding(
                                             padding: const EdgeInsets.all(10),
