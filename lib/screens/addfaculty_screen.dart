@@ -395,60 +395,60 @@ class _AddFacultyScreen extends State<AddFacultyScreen> {
                                       },
                                     ),
                                   ),
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 25, right: 25),
-                                    margin: const EdgeInsets.only(
-                                        left: 15,
-                                        right: 15,
-                                        top: 5,
-                                        bottom: 5),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.2),
-                                          spreadRadius: 2,
-                                          blurRadius: 9,
-                                          //offset: Offset(2, 6),
-                                          // changes position of shadow
-                                        ),
-                                      ],
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        ListTile(
-                                          title: const Text("Admin"),
-                                          leading: Radio<bool>(
-                                            value: false,
-                                            groupValue: isAdmin,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                isAdmin = value ?? false;
-                                              });
-                                            },
-                                            activeColor: Colors.green,
-                                          ),
-                                        ),
-                                        ListTile(
-                                          title: const Text("Not Admin"),
-                                          leading: Radio<bool>(
-                                            value: true,
-                                            groupValue: isAdmin,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                isAdmin = value ?? true;
-                                              });
-                                            },
-                                            activeColor: Colors.green,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                  // Container(
+                                  //   padding: const EdgeInsets.only(
+                                  //       left: 25, right: 25),
+                                  //   margin: const EdgeInsets.only(
+                                  //       left: 15,
+                                  //       right: 15,
+                                  //       top: 5,
+                                  //       bottom: 5),
+                                  //   decoration: BoxDecoration(
+                                  //     color: Colors.white,
+                                  //     borderRadius: BorderRadius.circular(10),
+                                  //     boxShadow: [
+                                  //       BoxShadow(
+                                  //         color: Colors.grey.withOpacity(0.2),
+                                  //         spreadRadius: 2,
+                                  //         blurRadius: 9,
+                                  //         //offset: Offset(2, 6),
+                                  //         // changes position of shadow
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  //   child: Column(
+                                  //     mainAxisAlignment:
+                                  //         MainAxisAlignment.start,
+                                  //     children: [
+                                  //       ListTile(
+                                  //         title: const Text("Admin"),
+                                  //         leading: Radio<bool>(
+                                  //           value: false,
+                                  //           groupValue: isAdmin,
+                                  //           onChanged: (value) {
+                                  //             setState(() {
+                                  //               isAdmin = value ?? false;
+                                  //             });
+                                  //           },
+                                  //           activeColor: Colors.green,
+                                  //         ),
+                                  //       ),
+                                  //       ListTile(
+                                  //         title: const Text("Not Admin"),
+                                  //         leading: Radio<bool>(
+                                  //           value: true,
+                                  //           groupValue: isAdmin,
+                                  //           onChanged: (value) {
+                                  //             setState(() {
+                                  //               isAdmin = value ?? true;
+                                  //             });
+                                  //           },
+                                  //           activeColor: Colors.green,
+                                  //         ),
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     crossAxisAlignment:
@@ -553,13 +553,6 @@ class _AddFacultyScreen extends State<AddFacultyScreen> {
   }
 
   void _onFormSubmit() {
-    // late String username = '';
-    // late String password = '';
-    // late String firstName = '';
-    // late String middleName = '';
-    // late String lastName = '';
-    // late String userFaculty = '';
-    // late bool isAdmin = false;
     Box<Faculty> facultyBox = Hive.box<Faculty>(HiveBoxesFaculty.faculty);
     facultyBox.add(Faculty(
         username: username,
