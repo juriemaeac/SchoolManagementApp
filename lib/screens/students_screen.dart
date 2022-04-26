@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive/hive.dart';
 import 'package:smapp/pdf/api/pdf_api.dart';
 import 'package:smapp/pdf/api/pdf_invoice_api.dart';
 import 'package:smapp/authentication/right_login_screen.dart';

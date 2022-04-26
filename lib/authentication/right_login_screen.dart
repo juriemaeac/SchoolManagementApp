@@ -25,7 +25,7 @@ class _LoginScreen extends State<LoginScreen> {
     Box<Faculty> facultyBox = Hive.box<Faculty>(HiveBoxesFaculty.faculty);
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       if (username == adminUsername && password == adminPassword) {
-        facultyCredential.setString(username);
+        facultyCredential.setString('admin');
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -41,7 +41,7 @@ class _LoginScreen extends State<LoginScreen> {
                 MaterialPageRoute(
                   builder: (context) => const DashboardPage(),
                 ));
-          } else if (faculty.username != username &&
+          } else if (faculty.username != username ||
               faculty.password != password) {
             errorMessage = 'Wrong Credentials. Please try again.';
             clearInputFields();

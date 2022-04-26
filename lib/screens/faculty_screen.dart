@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive/hive.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
 import 'package:smapp/boxes/boxFaculty.dart';
 import 'package:hive_flutter/hive_flutter.dart';
