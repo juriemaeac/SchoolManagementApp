@@ -66,13 +66,16 @@ class _MeetingsSectionState extends State<MeetingsSection> {
             color: Colors.transparent,
           ),
           child: ListView.builder(
+            
             shrinkWrap: true,
-            reverse: true,
+            //reverse: true,
             scrollDirection: Axis.vertical,
             itemCount:
                 boxValues.values.length < 20 ? boxValues.values.length : 20,
+                
             itemBuilder: (context, index) {
-              Payment? res = boxValues.getAt(index);
+              int reverseIndex = boxValues.length - 1 - index;
+              Payment? res = boxValues.getAt(reverseIndex);
               return Container(
                 margin: const EdgeInsets.all(10),
                 padding: const EdgeInsets.all(10),

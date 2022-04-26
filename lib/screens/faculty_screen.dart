@@ -171,133 +171,139 @@ class _FacultyScreenState extends State<FacultyScreen> {
                       child: const Text("Faculty list is empty")),
                   );
                 }
-                return ListView.builder(
-                  shrinkWrap: true,
-                  reverse: true,
+                return SingleChildScrollView(
                   scrollDirection: Axis.vertical,
-                  itemCount: isSearching ? 1 : box.values.length,
-                  itemBuilder: (context, index) {
-                    final Faculty? res = isSearching
-                        ? box.values
-                            .where((faculty) => faculty.username == searchUsername)
-                            .toList()[index]
-                        : box.getAt(index);
-                    return ListTile(
-                      title: Container(
-                        padding: const EdgeInsets.only(
-                            left: 10, right: 10, top: 5, bottom: 5),
-                        margin: const EdgeInsets.only(bottom: 5),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            //alignment: WrapAlignment.spaceAround,
-                            children: <Widget>[
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.45,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: isSearching ? 1 : box.values.length,
+                      itemBuilder: (context, index) {
+                        int reverseIndex = box.length - 1 - index;
+                        final Faculty? res = isSearching
+                            ? box.values
+                                .where((faculty) => faculty.username == searchUsername)
+                                .toList()[index]
+                            : box.getAt(reverseIndex);
+                        return ListTile(
+                          title: Container(
+                            padding: const EdgeInsets.only(
+                                left: 10, right: 10, top: 5, bottom: 5),
+                            margin: const EdgeInsets.only(bottom: 5),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                //alignment: WrapAlignment.spaceAround,
+                                children: <Widget>[
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      const SizedBox(width: 20),
-                                      Column(
+                                      Row(
                                         children: [
+                                          const SizedBox(width: 20),
+                                          Column(
+                                            children: [
+                                              Text(
+                                                res!.lastName +
+                                                    ', ' +
+                                                    res.firstName +
+                                                    ' ' +
+                                                    res.middleName,
+                                                style: GoogleFonts.quicksand(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          const SizedBox(width: 20),
                                           Text(
-                                            res!.lastName +
-                                                ', ' +
-                                                res.firstName +
-                                                ' ' +
-                                                res.middleName,
+                                            res.userFaculty.toString(),
                                             style: GoogleFonts.quicksand(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold),
+                                                fontSize: 13,
+                                                color: const Color.fromARGB(
+                                                    255, 102, 101, 101)),
                                           ),
                                         ],
                                       ),
                                     ],
                                   ),
-                                  Row(
+                                  //
+                                  Column(
                                     children: [
-                                      const SizedBox(width: 20),
-                                      Text(
-                                        res.userFaculty.toString(),
-                                        style: GoogleFonts.quicksand(
-                                            fontSize: 13,
-                                            color: const Color.fromARGB(
-                                                255, 102, 101, 101)),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              //
-                              Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      IconButton(
-                                        padding: const EdgeInsets.all(3.0),
-                                        splashColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        icon: SizedBox(
-                                          height: 60,
-                                          width: 60,
-                                          child: SvgPicture.asset(
-                                            'assets/edit_svg.svg',
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          Faculty faculty = Faculty(
-                                            username: res.username,
-                                            password: res.password,
-                                            firstName: res.firstName,
-                                            middleName: res.middleName,
-                                            lastName: res.lastName,
-                                            userFaculty: res.userFaculty,
-                                            isAdmin: res.isAdmin,
-                                          );
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  EditFacultyScreen(
-                                                faculty: faculty,
-                                                index: index,
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          IconButton(
+                                            padding: const EdgeInsets.all(3.0),
+                                            splashColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            icon: SizedBox(
+                                              height: 60,
+                                              width: 60,
+                                              child: SvgPicture.asset(
+                                                'assets/edit_svg.svg',
                                               ),
                                             ),
-                                          );
-                                        },
+                                            onPressed: () {
+                                              Faculty faculty = Faculty(
+                                                username: res.username,
+                                                password: res.password,
+                                                firstName: res.firstName,
+                                                middleName: res.middleName,
+                                                lastName: res.lastName,
+                                                userFaculty: res.userFaculty,
+                                                isAdmin: res.isAdmin,
+                                              );
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      EditFacultyScreen(
+                                                    faculty: faculty,
+                                                    index: index,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                          // IconButton(
+                                          //   padding: const EdgeInsets.all(3.0),
+                                          //   splashColor: Colors.transparent,
+                                          //   hoverColor: Colors.transparent,
+                                          //   icon: SizedBox(
+                                          //     height: 60,
+                                          //     width: 60,
+                                          //     child: SvgPicture.asset(
+                                          //       'assets/delete_svg.svg',
+                                          //     ),
+                                          //   ),
+                                          //   onPressed: () {
+                                          //     res.delete();
+                                          //   },
+                                          // ),
+                                          const SizedBox(width: 20),
+                                        ],
                                       ),
-                                      // IconButton(
-                                      //   padding: const EdgeInsets.all(3.0),
-                                      //   splashColor: Colors.transparent,
-                                      //   hoverColor: Colors.transparent,
-                                      //   icon: SizedBox(
-                                      //     height: 60,
-                                      //     width: 60,
-                                      //     child: SvgPicture.asset(
-                                      //       'assets/delete_svg.svg',
-                                      //     ),
-                                      //   ),
-                                      //   onPressed: () {
-                                      //     res.delete();
-                                      //   },
-                                      // ),
-                                      const SizedBox(width: 20),
                                     ],
                                   ),
-                                ],
-                              ),
-                            ]),
-                      ),
-                      // subtitle: Text(res.userFaculty.toString()),
-                      // onTap: () {}
-                    );
-                  },
+                                ]),
+                          ),
+                          // subtitle: Text(res.userFaculty.toString()),
+                          // onTap: () {}
+                        );
+                      },
+                    ),
+                  ),
                 );
               }),
         ],

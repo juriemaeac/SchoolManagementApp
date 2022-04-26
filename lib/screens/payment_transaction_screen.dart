@@ -233,173 +233,179 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       child: const Text("Payment list is empty")),
                   );
                 }
-                return ListView.builder(
-                  shrinkWrap: true,
-                  reverse: true,
+                return SingleChildScrollView(
                   scrollDirection: Axis.vertical,
-                  itemCount: isSearching ? searchCount : box.values.length,
-                  itemBuilder: (context, index) {
-                    final Payment? res = isSearching
-                        ? box.values
-                            .where((payment) => payment.studentID == searchID)
-                            .toList()[index]
-                        : box.getAt(index);
-                    return ListTile(
-                      title: Container(
-                        padding: const EdgeInsets.only(
-                            left: 30, right: 30, top: 5, bottom: 5),
-                        margin: const EdgeInsets.only(bottom: 5),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.45,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: isSearching ? searchCount : box.values.length,
+                      itemBuilder: (context, index) {
+                        int reverseIndex = box.length - 1 - index;
+                        final Payment? res = isSearching
+                            ? box.values
+                                .where((payment) => payment.studentID == searchID)
+                                .toList()[index]
+                            : box.getAt(reverseIndex);
+                        return ListTile(
+                          title: Container(
+                            padding: const EdgeInsets.only(
+                                left: 30, right: 30, top: 5, bottom: 5),
+                            margin: const EdgeInsets.only(bottom: 5),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width / 4.3,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Student: ${res!.studentID.toString()}",
-                                        style: GoogleFonts.quicksand(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold),
+                                Row(
+                                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SizedBox(
+                                      width:
+                                          MediaQuery.of(context).size.width / 4.3,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Student: ${res!.studentID.toString()}",
+                                            style: GoogleFonts.quicksand(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(
+                                            "Cashier: ${res.facultyUsername.toString()}",
+                                            style: GoogleFonts.quicksand(
+                                                fontSize: 13,
+                                                color: const Color.fromARGB(
+                                                    255, 102, 101, 101)),
+                                          ),
+                                        ],
                                       ),
-                                      Text(
-                                        "Cashier: ${res.facultyUsername.toString()}",
-                                        style: GoogleFonts.quicksand(
-                                            fontSize: 13,
-                                            color: const Color.fromARGB(
-                                                255, 102, 101, 101)),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width / 4,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Paid ₱${res.transactionAmount.toString()}",
-                                        style: GoogleFonts.quicksand(
-                                            fontSize: 13,
-                                            color: const Color.fromARGB(
-                                                255, 102, 101, 101)),
-                                      ),
-                                      Text(
-                                        res.transactionDate.toString(),
-                                        style: GoogleFonts.quicksand(
-                                            fontSize: 13,
-                                            color: const Color.fromARGB(
-                                                255, 102, 101, 101)),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                IconButton(
-                                  padding: const EdgeInsets.all(3.0),
-                                  splashColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  icon: SizedBox(
-                                    height: 60,
-                                    width: 60,
-                                    child: Image.asset(
-                                      'assets/invoice.png',
                                     ),
-                                  ),
-                                  onPressed: () async {
-                                    final date = DateTime.now();
-                                    Student payor = getStudent(res.studentID) ??
-                                        Student(
-                                            studentID: 0,
-                                            firstName: 'null',
-                                            middleName: 'null',
-                                            lastName: 'null',
-                                            studentCourse: 'null',
-                                            studentSubjects: 'null',
-                                            academicYear: 0,
-                                            isInstallment: 1,
-                                            accountBalance: 0);
-
-                                    Faculty cashier =
-                                        getCashierInfo(res.facultyUsername);
-                                    final invoice = InvoicePayment(
-                                      studentPDFPayment: StudentPDFPayment(
-                                        studentId: res.studentID,
-                                        name: payor.firstName +
-                                            ' ' +
-                                            payor.lastName,
-                                        course: payor.studentCourse +
-                                            ' ' +
-                                            payor.academicYear.toString(),
-                                        subjects: 'SUBJECTS',
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width / 4,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Paid ₱${res.transactionAmount.toString()}",
+                                            style: GoogleFonts.quicksand(
+                                                fontSize: 13,
+                                                color: const Color.fromARGB(
+                                                    255, 102, 101, 101)),
+                                          ),
+                                          Text(
+                                            res.transactionDate.toString(),
+                                            style: GoogleFonts.quicksand(
+                                                fontSize: 13,
+                                                color: const Color.fromARGB(
+                                                    255, 102, 101, 101)),
+                                          ),
+                                        ],
                                       ),
-                                      info: InvoiceInfoPayment(
-                                        date: date,
-                                        facultyName: cashier.firstName +
-                                            ' ' +
-                                            cashier.lastName,
-                                        description:
-                                            'IMPORTANT: Keep this copy. You will be required to present this when you ask for your examination permits and in all you dealings with the school.',
-                                        method:
-                                            paymentMethod(payor.isInstallment),
+                                    ),
+                                    IconButton(
+                                      padding: const EdgeInsets.all(3.0),
+                                      splashColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      icon: SizedBox(
+                                        height: 60,
+                                        width: 60,
+                                        child: Image.asset(
+                                          'assets/invoice.png',
+                                        ),
                                       ),
-                                      payment: Payment(
-                                        studentID: res.studentID,
-                                        facultyUsername: res.facultyUsername,
-                                        transactionDate: res.transactionDate,
-                                        transactionAmount:
-                                            res.transactionAmount,
-                                        newAccountBalance:
-                                            res.newAccountBalance,
-                                      ),
-                                    );
-
-                                    final pdfFile =
-                                        await PdfInvoiceApiPayment.generate(
-                                            invoice);
-
-                                    PdfApiPayment.openFile(pdfFile);
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const PaymentPage(),
-                                        ));
-                                  },
+                                      onPressed: () async {
+                                        final date = DateTime.now();
+                                        Student payor = getStudent(res.studentID) ??
+                                            Student(
+                                                studentID: 0,
+                                                firstName: 'null',
+                                                middleName: 'null',
+                                                lastName: 'null',
+                                                studentCourse: 'null',
+                                                studentSubjects: 'null',
+                                                academicYear: 0,
+                                                isInstallment: 1,
+                                                accountBalance: 0);
+                            
+                                        Faculty cashier =
+                                            getCashierInfo(res.facultyUsername);
+                                        final invoice = InvoicePayment(
+                                          studentPDFPayment: StudentPDFPayment(
+                                            studentId: res.studentID,
+                                            name: payor.firstName +
+                                                ' ' +
+                                                payor.lastName,
+                                            course: payor.studentCourse +
+                                                ' ' +
+                                                payor.academicYear.toString(),
+                                            subjects: 'SUBJECTS',
+                                          ),
+                                          info: InvoiceInfoPayment(
+                                            date: date,
+                                            facultyName: cashier.firstName +
+                                                ' ' +
+                                                cashier.lastName,
+                                            description:
+                                                'IMPORTANT: Keep this copy. You will be required to present this when you ask for your examination permits and in all you dealings with the school.',
+                                            method:
+                                                paymentMethod(payor.isInstallment),
+                                          ),
+                                          payment: Payment(
+                                            studentID: res.studentID,
+                                            facultyUsername: res.facultyUsername,
+                                            transactionDate: res.transactionDate,
+                                            transactionAmount:
+                                                res.transactionAmount,
+                                            newAccountBalance:
+                                                res.newAccountBalance,
+                                          ),
+                                        );
+                            
+                                        final pdfFile =
+                                            await PdfInvoiceApiPayment.generate(
+                                                invoice);
+                            
+                                        PdfApiPayment.openFile(pdfFile);
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const PaymentPage(),
+                                            ));
+                                      },
+                                    ),
+                                    // IconButton(
+                                    //   padding: const EdgeInsets.all(3.0),
+                                    //   splashColor: Colors.transparent,
+                                    //   hoverColor: Colors.transparent,
+                                    //   icon: SizedBox(
+                                    //     height: 60,
+                                    //     width: 60,
+                                    //     child: SvgPicture.asset(
+                                    //       'assets/delete_svg.svg',
+                                    //     ),
+                                    //   ),
+                                    //   onPressed: () {
+                                    //     res.delete();
+                                    //   },
+                                    // ),
+                                  ],
                                 ),
-                                // IconButton(
-                                //   padding: const EdgeInsets.all(3.0),
-                                //   splashColor: Colors.transparent,
-                                //   hoverColor: Colors.transparent,
-                                //   icon: SizedBox(
-                                //     height: 60,
-                                //     width: 60,
-                                //     child: SvgPicture.asset(
-                                //       'assets/delete_svg.svg',
-                                //     ),
-                                //   ),
-                                //   onPressed: () {
-                                //     res.delete();
-                                //   },
-                                // ),
                               ],
                             ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 );
               }),
         ],
