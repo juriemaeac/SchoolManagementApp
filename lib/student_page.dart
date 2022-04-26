@@ -117,17 +117,69 @@ class _StudentPageState extends State<StudentPage> {
                     const SizedBox(
                       height: 25,
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.04,
-                      width: MediaQuery.of(context).size.width * 0.63,
-                      child: Text(
-                        'Student List',
-                        style: GoogleFonts.quicksand(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14.0,
-                        ),
-                      ),
-                    ),
+                    // SizedBox(
+                    //   height: MediaQuery.of(context).size.height * 0.04,
+                    //   width: MediaQuery.of(context).size.width * 0.63,
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.start,
+                    //     children: [
+                    //       Text(
+                    //         'Student List',
+                    //         style: GoogleFonts.quicksand(
+                    //           fontWeight: FontWeight.bold,
+                    //           fontSize: 14.0,
+                    //         ),
+                    //       ),
+                    //    SizedBox(
+                    //     width: MediaQuery.of(context).size.width / 3,
+                    //   ),
+                    //       Container(
+                    //     padding: const EdgeInsets.only(left: 25, right: 25),
+                    //     height: 50,
+                    //     width: 250,
+                    //     decoration: BoxDecoration(
+                    //       color: Colors.white,
+                    //       borderRadius: BorderRadius.circular(10),
+                    //       boxShadow: [
+                    //         BoxShadow(
+                    //           color: Colors.grey.withOpacity(0.2),
+                    //           spreadRadius: 2,
+                    //           blurRadius: 9,
+                    //           //offset: Offset(2, 6),
+                    //           // changes position of shadow
+                    //         ),
+                    //       ],
+                    //     ),
+                    //     child: TextFormField(
+                    //       autofocus: true,
+                    //       keyboardType: TextInputType.number,
+                    //       decoration: const InputDecoration(
+                            
+                    //         labelText: '     Student ID',
+                    //         border: InputBorder.none,
+                    //         focusedBorder: OutlineInputBorder(
+                    //           borderRadius:
+                    //               BorderRadius.all(Radius.circular(15.0)),
+                    //           borderSide:
+                    //               BorderSide(color: Colors.transparent, width: 2),
+                    //         ),
+                    //       ),
+                    //       onChanged: (value) {
+                    //         setState(() {
+                              
+                    //         });
+                    //       },
+                    //       validator: (String? value) {
+                    //         if (value == null || value.trim().length == 0) {
+                    //           return "required";
+                    //         }
+                    //         return null;
+                    //       },
+                    //     ),
+                    //   ),
+                    //     ],
+                    //   ),
+                    // ),
                     Container(
                         height: MediaQuery.of(context).size.height / 1.9,
                         margin: const EdgeInsets.only(left: 25),
