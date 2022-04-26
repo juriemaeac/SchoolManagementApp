@@ -33,7 +33,7 @@ class _LoginScreen extends State<LoginScreen> {
             ));
       } else if (username != adminUsername && password != adminPassword) {
         // add username and password in global list
-        facultyBox.values.forEach((faculty) {
+        for (var faculty in facultyBox.values) {
           if (faculty.username == username && faculty.password == password) {
             facultyCredential.setString(username);
             Navigator.push(
@@ -46,7 +46,7 @@ class _LoginScreen extends State<LoginScreen> {
             errorMessage = 'Wrong Credentials. Please try again.';
             clearInputFields();
           }
-        });
+        }
       }
     } else {
       return;

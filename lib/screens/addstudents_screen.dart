@@ -42,7 +42,8 @@ class _AddStudentScreen extends State<AddStudentScreen> {
   Widget build(BuildContext context) {
     TextEditingController _studentSubjects = TextEditingController()
       ..text = courseSubjects.getCourseSubjects();
-
+    List<String> courses = ['BSA', 'BSIT', 'BEED', 'BSED'];
+    List<String> academicYears = ['11', '12', '21', '22', '31', '32', '41', '42'];
     return Scaffold(
       body: SafeArea(
         child: Form(
@@ -106,8 +107,14 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                           });
                         },
                         validator: (String? value) {
+                          Box<Student> studentBox = Hive.box<Student>(HiveBoxesStudent.student);
                           if (value == null || value.trim().length == 0) {
                             return "required";
+                          }
+                          for (var student in studentBox.values) {
+                            if (student.studentID == int.parse(value)) {
+                              return "Student ID already exists";
+                            }
                           }
                           return null;
                         },
@@ -295,6 +302,8 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                             validator: (String? value) {
                               if (value == null || value.trim().length == 0) {
                                 return "required";
+                              } else if (courses.contains(value) != true) {
+                                return "Course not found. [BSA, BSIT, BEED, BSED]";
                               }
                               return null;
                             },
@@ -340,6 +349,8 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                             validator: (String? value) {
                               if (value == null || value.trim().length == 0) {
                                 return "required";
+                              } else if (academicYears.contains(value) != true) {
+                                return "Academic Year Error. [11, 12, 21, 22... 42]";
                               }
                               return null;
                             },

@@ -34,6 +34,7 @@ class _AddFacultyScreen extends State<AddFacultyScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> departments = ['Cashier', 'Enrollment', 'Professor'];
     return Scaffold(
       body: SafeArea(
         child: Form(
@@ -136,9 +137,15 @@ class _AddFacultyScreen extends State<AddFacultyScreen> {
                                         });
                                       },
                                       validator: (String? value) {
+                                        Box<Faculty> facultyBox = Hive.box<Faculty>(HiveBoxesFaculty.faculty);
                                         if (value == null ||
                                             value.trim().length == 0) {
                                           return "required";
+                                        } 
+                                        for (var faculty in facultyBox.values) {
+                                          if (faculty.username == value) {
+                                            return "Username already exists";
+                                          }
                                         }
                                         return null;
                                       },
@@ -381,6 +388,8 @@ class _AddFacultyScreen extends State<AddFacultyScreen> {
                                         if (value == null ||
                                             value.trim().length == 0) {
                                           return "required";
+                                        } if (departments.contains(value) != true) {
+                                          return "Department not found. [Cashier, Enrollment, Professor]";
                                         }
                                         return null;
                                       },
