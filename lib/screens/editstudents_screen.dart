@@ -6,6 +6,7 @@ import 'package:smapp/NavigationBar/navbar_student_page.dart';
 import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/models/student_model.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
+import 'package:smapp/student_page.dart';
 
 class EditStudentScreen extends StatefulWidget {
   final Student student;
@@ -754,7 +755,13 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                                             color: Colors
                                                                 .orange)))),
                                             onPressed: () {
-                                              Navigator.pop(context);
+                                               Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const StudentPage(),
+                                          ),
+                                        );
                                             },
                                             child: Padding(
                                               padding: const EdgeInsets.all(10),

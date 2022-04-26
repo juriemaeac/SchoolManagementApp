@@ -6,6 +6,8 @@ import 'package:smapp/NavigationBar/navbar_faculty_page.dart';
 import 'package:smapp/boxes/boxFaculty.dart';
 import 'package:smapp/models/faculty_model.dart';
 
+import '../faculty_page.dart';
+
 class EditFacultyScreen extends StatefulWidget {
   final Faculty faculty;
   final int index;
@@ -500,7 +502,13 @@ class _EditFacultyScreen extends State<EditFacultyScreen> {
                                                           color:
                                                               Colors.orange)))),
                                           onPressed: () {
-                                            Navigator.pop(context);
+                                            Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const FacultyPage(),
+                                          ),
+                                        );
                                           },
                                           child: Padding(
                                             padding: const EdgeInsets.all(10),

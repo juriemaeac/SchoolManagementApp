@@ -24,6 +24,10 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
+  bool isSearching = false;
+  int? searchID;
+  bool? isEnabled = true;
+  int? searchCount = 1;
   @override
   void initState() {
     super.initState();
@@ -31,6 +35,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     Hive.openBox<Student>(HiveBoxesStudent.student);
     Hive.openBox<Faculty>(HiveBoxesFaculty.faculty);
     var user = facultyCredential.getString();
+    isEnabled = true;
     if (user == '') {
       Navigator.push(
         context,
@@ -87,177 +92,295 @@ class _PaymentScreenState extends State<PaymentScreen> {
     }
   }
 
+  TextEditingController searchIDController = TextEditingController();
+
+  @override
+  void dispose() {
+    searchIDController.dispose();
+    super.dispose();
+  }
+
+  validator(int id) {
+    Box<Payment> box = Hive.box<Payment>(HiveBoxesPayment.payment);
+    var count = box.values.where((payment) => payment.studentID == id).length;
+    if (count > 0) {
+      searchID = id;
+      isEnabled = false;
+      isSearching = true;
+      searchCount = count;
+    } else {
+      isSearching = false;
+      searchIDController.clear();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: ValueListenableBuilder(
-          valueListenable:
-              Hive.box<Payment>(HiveBoxesPayment.payment).listenable(),
-          builder: (context, Box<Payment> box, _) {
-            if (box.values.isEmpty) {
-              return const Center(
-                child: Text("Payment list is empty"),
-              );
-            }
-            return ListView.builder(
-              shrinkWrap: true,
-              reverse: true,
-              scrollDirection: Axis.vertical,
-              itemCount: box.values.length,
-              itemBuilder: (context, index) {
-                Payment? res = box.getAt(index);
-
-                return ListTile(
-                  title: Container(
-                    padding: const EdgeInsets.only(
-                        left: 30, right: 30, top: 5, bottom: 5),
-                    margin: const EdgeInsets.only(bottom: 5),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15.0),
+      body: Column(
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.04,
+            width: MediaQuery.of(context).size.width * 0.63,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  'Payment List',
+                  style: GoogleFonts.quicksand(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14.0,
+                  ),
+                ),
+                SizedBox(width: MediaQuery.of(context).size.width / 4),
+                Container(
+                  padding: const EdgeInsets.only(left: 25, right: 25),
+                  height: 70,
+                  width: 220,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius: 2,
+                        blurRadius: 9,
+                        //offset: Offset(2, 6),
+                        // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: TextFormField(
+                    enabled: isEnabled,
+                    controller: searchIDController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      labelText: '    Search by ID',
+                      border: InputBorder.none,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                        borderSide:
+                            BorderSide(color: Colors.transparent, width: 2),
+                      ),
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 4.3,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Student: ${res!.studentID.toString()}",
-                                    style: GoogleFonts.quicksand(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    "Cashier: ${res.facultyUsername.toString()}",
-                                    style: GoogleFonts.quicksand(
-                                        fontSize: 13,
-                                        color: const Color.fromARGB(
-                                            255, 102, 101, 101)),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 4,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Paid ₱${res.transactionAmount.toString()}",
-                                    style: GoogleFonts.quicksand(
-                                        fontSize: 13,
-                                        color: const Color.fromARGB(
-                                            255, 102, 101, 101)),
-                                  ),
-                                  Text(
-                                    res.transactionDate.toString(),
-                                    style: GoogleFonts.quicksand(
-                                        fontSize: 13,
-                                        color: const Color.fromARGB(
-                                            255, 102, 101, 101)),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            IconButton(
-                              padding: const EdgeInsets.all(3.0),
-                              splashColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              icon: SizedBox(
-                                height: 60,
-                                width: 60,
-                                child: Image.asset(
-                                  'assets/invoice.png',
-                                ),
-                              ),
-                              onPressed: () async {
-                                final date = DateTime.now();
-                                Student payor = getStudent(res.studentID) ??
-                                    Student(
-                                        studentID: 0,
-                                        firstName: 'null',
-                                        middleName: 'null',
-                                        lastName: 'null',
-                                        studentCourse: 'null',
-                                        studentSubjects: 'null',
-                                        academicYear: 0,
-                                        isInstallment: 1,
-                                        accountBalance: 0);
-
-                                Faculty cashier =
-                                    getCashierInfo(res.facultyUsername);
-                                final invoice = InvoicePayment(
-                                  studentPDFPayment: StudentPDFPayment(
-                                    studentId: res.studentID,
-                                    name:
-                                        payor.firstName + ' ' + payor.lastName,
-                                    course: payor.studentCourse +
-                                        ' ' +
-                                        payor.academicYear.toString(),
-                                    subjects: 'SUBJECTS',
-                                  ),
-                                  info: InvoiceInfoPayment(
-                                    date: date,
-                                    facultyName: cashier.firstName +
-                                        ' ' +
-                                        cashier.lastName,
-                                    description:
-                                        'IMPORTANT: Keep this copy. You will be required to present this when you ask for your examination permits and in all you dealings with the school.',
-                                    method: paymentMethod(payor.isInstallment),
-                                  ),
-                                  payment: Payment(
-                                    studentID: res.studentID,
-                                    facultyUsername: res.facultyUsername,
-                                    transactionDate: res.transactionDate,
-                                    transactionAmount: res.transactionAmount,
-                                    newAccountBalance: res.newAccountBalance,
-                                  ),
-                                );
-
-                                final pdfFile =
-                                    await PdfInvoiceApiPayment.generate(
-                                        invoice);
-
-                                PdfApiPayment.openFile(pdfFile);
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const PaymentPage(),
-                                    ));
-                              },
-                            ),
-                            // IconButton(
-                            //   padding: const EdgeInsets.all(3.0),
-                            //   splashColor: Colors.transparent,
-                            //   hoverColor: Colors.transparent,
-                            //   icon: SizedBox(
-                            //     height: 60,
-                            //     width: 60,
-                            //     child: SvgPicture.asset(
-                            //       'assets/delete_svg.svg',
-                            //     ),
-                            //   ),
-                            //   onPressed: () {
-                            //     res.delete();
-                            //   },
-                            // ),
-                          ],
+                    onChanged: (value) {},
+                  ),
+                ),
+                const SizedBox(width: 10),
+                ElevatedButton(
+                  style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                              side: const BorderSide(color: Colors.orange)))),
+                  onPressed: () {
+                    int idVal = int.parse(searchIDController.text);
+                    validator(idVal);
+                    setState(() {
+                      searchID = int.parse(searchIDController.text);
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(2),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: const <Widget>[
+                        Icon(
+                          Icons.search_rounded,
+                          color: Colors.white,
+                          size: 15,
                         ),
                       ],
                     ),
                   ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 15),
+          ValueListenableBuilder(
+              valueListenable:
+                  Hive.box<Payment>(HiveBoxesPayment.payment).listenable(),
+              builder: (context, Box<Payment> box, _) {
+                if (box.values.isEmpty) {
+                  return const Center(
+                    child: Text("Payment list is empty"),
+                  );
+                }
+                return ListView.builder(
+                  shrinkWrap: true,
+                  reverse: true,
+                  scrollDirection: Axis.vertical,
+                  itemCount: isSearching ? searchCount : box.values.length,
+                  itemBuilder: (context, index) {
+                    final Payment? res = isSearching
+                        ? box.values
+                            .where((payment) => payment.studentID == searchID)
+                            .toList()[index]
+                        : box.getAt(index);
+                    return ListTile(
+                      title: Container(
+                        padding: const EdgeInsets.only(
+                            left: 30, right: 30, top: 5, bottom: 5),
+                        margin: const EdgeInsets.only(bottom: 5),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width / 4.3,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Student: ${res!.studentID.toString()}",
+                                        style: GoogleFonts.quicksand(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Cashier: ${res.facultyUsername.toString()}",
+                                        style: GoogleFonts.quicksand(
+                                            fontSize: 13,
+                                            color: const Color.fromARGB(
+                                                255, 102, 101, 101)),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width / 4,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Paid ₱${res.transactionAmount.toString()}",
+                                        style: GoogleFonts.quicksand(
+                                            fontSize: 13,
+                                            color: const Color.fromARGB(
+                                                255, 102, 101, 101)),
+                                      ),
+                                      Text(
+                                        res.transactionDate.toString(),
+                                        style: GoogleFonts.quicksand(
+                                            fontSize: 13,
+                                            color: const Color.fromARGB(
+                                                255, 102, 101, 101)),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                IconButton(
+                                  padding: const EdgeInsets.all(3.0),
+                                  splashColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  icon: SizedBox(
+                                    height: 60,
+                                    width: 60,
+                                    child: Image.asset(
+                                      'assets/invoice.png',
+                                    ),
+                                  ),
+                                  onPressed: () async {
+                                    final date = DateTime.now();
+                                    Student payor = getStudent(res.studentID) ??
+                                        Student(
+                                            studentID: 0,
+                                            firstName: 'null',
+                                            middleName: 'null',
+                                            lastName: 'null',
+                                            studentCourse: 'null',
+                                            studentSubjects: 'null',
+                                            academicYear: 0,
+                                            isInstallment: 1,
+                                            accountBalance: 0);
+
+                                    Faculty cashier =
+                                        getCashierInfo(res.facultyUsername);
+                                    final invoice = InvoicePayment(
+                                      studentPDFPayment: StudentPDFPayment(
+                                        studentId: res.studentID,
+                                        name: payor.firstName +
+                                            ' ' +
+                                            payor.lastName,
+                                        course: payor.studentCourse +
+                                            ' ' +
+                                            payor.academicYear.toString(),
+                                        subjects: 'SUBJECTS',
+                                      ),
+                                      info: InvoiceInfoPayment(
+                                        date: date,
+                                        facultyName: cashier.firstName +
+                                            ' ' +
+                                            cashier.lastName,
+                                        description:
+                                            'IMPORTANT: Keep this copy. You will be required to present this when you ask for your examination permits and in all you dealings with the school.',
+                                        method:
+                                            paymentMethod(payor.isInstallment),
+                                      ),
+                                      payment: Payment(
+                                        studentID: res.studentID,
+                                        facultyUsername: res.facultyUsername,
+                                        transactionDate: res.transactionDate,
+                                        transactionAmount:
+                                            res.transactionAmount,
+                                        newAccountBalance:
+                                            res.newAccountBalance,
+                                      ),
+                                    );
+
+                                    final pdfFile =
+                                        await PdfInvoiceApiPayment.generate(
+                                            invoice);
+
+                                    PdfApiPayment.openFile(pdfFile);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const PaymentPage(),
+                                        ));
+                                  },
+                                ),
+                                // IconButton(
+                                //   padding: const EdgeInsets.all(3.0),
+                                //   splashColor: Colors.transparent,
+                                //   hoverColor: Colors.transparent,
+                                //   icon: SizedBox(
+                                //     height: 60,
+                                //     width: 60,
+                                //     child: SvgPicture.asset(
+                                //       'assets/delete_svg.svg',
+                                //     ),
+                                //   ),
+                                //   onPressed: () {
+                                //     res.delete();
+                                //   },
+                                // ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
                 );
-              },
-            );
-          }),
+              }),
+        ],
+      ),
     );
   }
 }
