@@ -180,12 +180,12 @@ class _FacultyScreenState extends State<FacultyScreen> {
                       scrollDirection: Axis.vertical,
                       itemCount: isSearching ? 1 : box.values.length,
                       itemBuilder: (context, index) {
-                        int reverseIndex = box.length - 1 - index;
+                        //int reverseIndex = box.length - 1 - index;
                         final Faculty? res = isSearching
                             ? box.values
                                 .where((faculty) => faculty.username == searchUsername)
                                 .toList()[index]
-                            : box.getAt(reverseIndex);
+                            : box.getAt(index);
                         return ListTile(
                           title: Container(
                             padding: const EdgeInsets.only(

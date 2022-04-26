@@ -242,12 +242,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       scrollDirection: Axis.vertical,
                       itemCount: isSearching ? searchCount : box.values.length,
                       itemBuilder: (context, index) {
-                        int reverseIndex = box.length - 1 - index;
+                        //int reverseIndex = box.length - 1 - index;
                         final Payment? res = isSearching
                             ? box.values
                                 .where((payment) => payment.studentID == searchID)
                                 .toList()[index]
-                            : box.getAt(reverseIndex);
+                            : box.getAt(index);
                         return ListTile(
                           title: Container(
                             padding: const EdgeInsets.only(

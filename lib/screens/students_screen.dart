@@ -256,12 +256,12 @@ class _StudentScreenState extends State<StudentScreen> {
                       //itemCount: box.values.length,
                       itemCount: isSearching ? 1 : box.values.length,
                       itemBuilder: (context, index) {
-                        int reverseIndex = box.length - 1 - index;
+                        //int reverseIndex = box.length - 1 - index;
                         final Student? res = isSearching
                             ? box.values
                                 .where((student) => student.studentID == searchID)
                                 .toList()[index]
-                            : box.getAt(reverseIndex);
+                            : box.getAt(index);
                         //Student? res = box.getAt(index);
                         return ListTile(
                           title: Container(

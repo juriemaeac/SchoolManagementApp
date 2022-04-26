@@ -276,6 +276,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                     ),
                                     child: TextFormField(
                                       autofocus: true,
+                                      enabled: false,
                                       keyboardType: TextInputType.number,
                                       controller: _studentIDController,
                                       decoration: const InputDecoration(
