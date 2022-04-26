@@ -52,7 +52,7 @@ class _PaymentPageState extends State<PaymentPage> {
               children: [
                 SizedBox(
                   height: MediaQuery.of(context).size.height,
-                  width: 120,
+                  width: MediaQuery.of(context).size.width * 0.08,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,9 +60,10 @@ class _PaymentPageState extends State<PaymentPage> {
                     const SizedBox(
                       height: 25,
                     ),
-                    SizedBox(
+                    Container(
                       height: MediaQuery.of(context).size.height * 0.04,
                       width: MediaQuery.of(context).size.width * 0.63,
+                      padding: const EdgeInsets.only(left: 40),
                       child: Text(
                         'Payment Page',
                         textAlign: TextAlign.start,
@@ -75,9 +76,10 @@ class _PaymentPageState extends State<PaymentPage> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    Container(
                         height: MediaQuery.of(context).size.height * 0.05,
                         width: MediaQuery.of(context).size.width * 0.63,
+                        padding: const EdgeInsets.only(left: 40),
                         child: const StudentTabs()),
                     const SizedBox(
                       height: 25,
@@ -117,17 +119,6 @@ class _PaymentPageState extends State<PaymentPage> {
                     ),
                     const SizedBox(
                       height: 25,
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.04,
-                      width: MediaQuery.of(context).size.width * 0.63,
-                      child: Text(
-                        'Payment List',
-                        style: GoogleFonts.quicksand(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14.0,
-                        ),
-                      ),
                     ),
                     Container(
                         height: MediaQuery.of(context).size.height / 1.9,

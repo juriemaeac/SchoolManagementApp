@@ -59,81 +59,103 @@ class _FacultyScreenState extends State<FacultyScreen> {
       body: Column(
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.04,
-            width: MediaQuery.of(context).size.width * 0.63,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+            height: MediaQuery.of(context).size.height * 0.045,
+            width: MediaQuery.of(context).size.width * 0.56,
+            child: Column(
               children: [
-                Text(
-                  'Faculty List',
-                  style: GoogleFonts.quicksand(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14.0,
-                  ),
-                ),
-                SizedBox(width: MediaQuery.of(context).size.width / 4),
-                Container(
-                  padding: const EdgeInsets.only(left: 25, right: 25),
-                  height: 70,
-                  width: 220,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        spreadRadius: 2,
-                        blurRadius: 9,
-                        //offset: Offset(2, 6),
-                        // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  child: TextFormField(
-                    enabled: isEnabled,
-                    controller: facultyController,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      labelText: '    Search by Username',
-                      border: InputBorder.none,
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                        borderSide:
-                            BorderSide(color: Colors.transparent, width: 2),
-                      ),
-                    ),
-                    onChanged: (value) {},
-                  ),
-                ),
-                SizedBox(width: 10),
-                ElevatedButton(
-                  style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                              side: const BorderSide(color: Colors.orange)))),
-                  onPressed: () {
-                    String usernameVal = facultyController.text;
-                    validator(usernameVal);
-                    setState(() {
-                      searchUsername = facultyController.text;
-                    });
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const <Widget>[
-                        Icon(
-                          Icons.search_rounded,
-                          color: Colors.white,
-                          size: 15,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Faculty List',
+                          style: GoogleFonts.quicksand(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14.0,
+                          ),
                         ),
                       ],
                     ),
-                  ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.only(left: 25, right: 25),
+                              height: 30,
+                              width: 220,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.2),
+                                    spreadRadius: 2,
+                                    blurRadius: 9,
+                                    //offset: Offset(2, 6),
+                                    // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              child: TextFormField(
+                                enabled: isEnabled,
+                                controller: facultyController,
+                                keyboardType: TextInputType.number,
+                                decoration: const InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(vertical: 11),
+                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                  labelText: '    Search by Username',
+                                  border: InputBorder.none,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                                    borderSide:
+                                        BorderSide(color: Colors.transparent, width: 2),
+                                  ),
+                                ),
+                                onChanged: (value) {},
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(15.0),
+                                          side: const BorderSide(color: Colors.orange)))),
+                              onPressed: () {
+                                String usernameVal = facultyController.text;
+                                validator(usernameVal);
+                                setState(() {
+                                  searchUsername = facultyController.text;
+                                });
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(2),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: const <Widget>[
+                                    Icon(
+                                      Icons.search_rounded,
+                                      color: Colors.white,
+                                      size: 15,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -144,8 +166,10 @@ class _FacultyScreenState extends State<FacultyScreen> {
                   Hive.box<Faculty>(HiveBoxesFaculty.faculty).listenable(),
               builder: (context, Box<Faculty> box, _) {
                 if (box.values.isEmpty) {
-                  return const Center(
-                    child: Text("Faculty list is empty"),
+                  return Center(
+                    child: Container(
+                      padding: const EdgeInsets.only(top: 120),
+                      child: const Text("Faculty list is empty")),
                   );
                 }
                 return ListView.builder(
