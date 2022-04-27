@@ -149,7 +149,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Container(
-                              padding: const EdgeInsets.only(left: 25, right: 25),
+                              padding:
+                                  const EdgeInsets.only(left: 25, right: 25),
                               height: 30,
                               width: 220,
                               decoration: BoxDecoration(
@@ -170,14 +171,17 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 controller: searchIDController,
                                 keyboardType: TextInputType.number,
                                 decoration: const InputDecoration(
-                                  contentPadding: EdgeInsets.symmetric(vertical: 11),
-                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 11),
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.never,
                                   labelText: '    Search by ID',
                                   border: InputBorder.none,
                                   focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                                    borderSide:
-                                        BorderSide(color: Colors.transparent, width: 2),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(15.0)),
+                                    borderSide: BorderSide(
+                                        color: Colors.transparent, width: 2),
                                   ),
                                 ),
                                 onChanged: (value) {},
@@ -186,10 +190,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             const SizedBox(width: 10),
                             ElevatedButton(
                               style: ButtonStyle(
-                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  elevation: MaterialStateProperty.all(3),
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(15.0),
-                                          side: const BorderSide(color: Colors.orange)))),
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                          side: const BorderSide(
+                                              color: Colors.orange)))),
                               onPressed: () {
                                 int idVal = int.parse(searchIDController.text);
                                 validator(idVal);
@@ -198,7 +206,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 });
                               },
                               child: Padding(
-                                padding: const EdgeInsets.all(2),
+                                padding: const EdgeInsets.all(7),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -211,6 +219,35 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   ],
                                 ),
                               ),
+                            ),
+                            const SizedBox(width: 10),
+                            MouseRegion(
+                              cursor: SystemMouseCursors.click,
+                              child: GestureDetector(
+                                  child: Material(
+                                    elevation: 3,
+                                    borderRadius: BorderRadius.circular(15.0),
+                                    child: Container(
+                                        height: 30,
+                                        width: 30,
+                                        padding: const EdgeInsets.all(7),
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xff6C6CE5),
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                        ),
+                                        child: const Icon(Icons.refresh_rounded,
+                                            color: Colors.white, size: 15)),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const PaymentPage(),
+                                      ),
+                                    );
+                                  }),
                             ),
                           ],
                         ),
@@ -229,8 +266,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 if (box.values.isEmpty) {
                   return Center(
                     child: Container(
-                      padding: const EdgeInsets.only(top: 120),
-                      child: const Text("Payment list is empty")),
+                        padding: const EdgeInsets.only(top: 120),
+                        child: const Text("Payment list is empty")),
                   );
                 }
                 return SingleChildScrollView(
@@ -242,12 +279,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       scrollDirection: Axis.vertical,
                       itemCount: isSearching ? searchCount : box.values.length,
                       itemBuilder: (context, index) {
-                        //int reverseIndex = box.length - 1 - index;
+                        int reverseIndex = box.length - 1 - index;
                         final Payment? res = isSearching
                             ? box.values
-                                .where((payment) => payment.studentID == searchID)
+                                .where(
+                                    (payment) => payment.studentID == searchID)
                                 .toList()[index]
-                            : box.getAt(index);
+                            : box.getAt(reverseIndex);
                         return ListTile(
                           title: Container(
                             padding: const EdgeInsets.only(
@@ -265,8 +303,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.width / 4.3,
+                                      width: MediaQuery.of(context).size.width /
+                                          4.3,
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -288,7 +326,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       ),
                                     ),
                                     SizedBox(
-                                      width: MediaQuery.of(context).size.width / 4,
+                                      width:
+                                          MediaQuery.of(context).size.width / 4,
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -323,20 +362,21 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       ),
                                       onPressed: () async {
                                         final date = DateTime.now();
-                                        Student payor = getStudent(res.studentID) ??
-                                            Student(
-                                                studentID: 0,
-                                                firstName: 'null',
-                                                middleName: 'null',
-                                                lastName: 'null',
-                                                studentCourse: 'null',
-                                                studentSubjects: 'null',
-                                                academicYear: 'null',
-                                                studentAddress: 'null',
-                                                academicTerm: 'null',
-                                                isInstallment: 1,
-                                                accountBalance: 0);
-                            
+                                        Student payor =
+                                            getStudent(res.studentID) ??
+                                                Student(
+                                                    studentID: 0,
+                                                    firstName: 'null',
+                                                    middleName: 'null',
+                                                    lastName: 'null',
+                                                    studentCourse: 'null',
+                                                    studentSubjects: 'null',
+                                                    studentAddress: 'null',
+                                                    academicTerm: 'null',
+                                                    academicYear: 'null',
+                                                    isInstallment: 1,
+                                                    accountBalance: 0);
+
                                         Faculty cashier =
                                             getCashierInfo(res.facultyUsername);
                                         final invoice = InvoicePayment(
@@ -357,24 +397,26 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                 cashier.lastName,
                                             description:
                                                 'IMPORTANT: Keep this copy. You will be required to present this when you ask for your examination permits and in all you dealings with the school.',
-                                            method:
-                                                paymentMethod(payor.isInstallment),
+                                            method: paymentMethod(
+                                                payor.isInstallment),
                                           ),
                                           payment: Payment(
                                             studentID: res.studentID,
-                                            facultyUsername: res.facultyUsername,
-                                            transactionDate: res.transactionDate,
+                                            facultyUsername:
+                                                res.facultyUsername,
+                                            transactionDate:
+                                                res.transactionDate,
                                             transactionAmount:
                                                 res.transactionAmount,
                                             newAccountBalance:
                                                 res.newAccountBalance,
                                           ),
                                         );
-                            
+
                                         final pdfFile =
                                             await PdfInvoiceApiPayment.generate(
                                                 invoice);
-                            
+
                                         PdfApiPayment.openFile(pdfFile);
                                         Navigator.push(
                                             context,

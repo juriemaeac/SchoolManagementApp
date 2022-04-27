@@ -198,6 +198,7 @@ class _StudentScreenState extends State<StudentScreen> {
                             const SizedBox(width: 10),
                             ElevatedButton(
                               style: ButtonStyle(
+                                  elevation: MaterialStateProperty.all(3),
                                   shape: MaterialStateProperty.all<
                                           RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
@@ -215,7 +216,7 @@ class _StudentScreenState extends State<StudentScreen> {
                                 });
                               },
                               child: Padding(
-                                padding: const EdgeInsets.all(2),
+                                padding: const EdgeInsets.all(7),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -228,6 +229,35 @@ class _StudentScreenState extends State<StudentScreen> {
                                   ],
                                 ),
                               ),
+                            ),
+                            const SizedBox(width: 10),
+                            MouseRegion(
+                              cursor: SystemMouseCursors.click,
+                              child: GestureDetector(
+                                  child: Material(
+                                    elevation: 3,
+                                    borderRadius: BorderRadius.circular(15.0),
+                                    child: Container(
+                                        height: 30,
+                                        width: 30,
+                                        padding: const EdgeInsets.all(7),
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xff6C6CE5),
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                        ),
+                                        child: const Icon(Icons.refresh_rounded,
+                                            color: Colors.white, size: 15)),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const StudentPage(),
+                                      ),
+                                    );
+                                  }),
                             ),
                           ],
                         ),
@@ -261,13 +291,13 @@ class _StudentScreenState extends State<StudentScreen> {
                       //itemCount: box.values.length,
                       itemCount: isSearching ? 1 : box.values.length,
                       itemBuilder: (context, index) {
-                        //int reverseIndex = box.length - 1 - index;
+                        int reverseIndex = box.length - 1 - index;
                         final Student? res = isSearching
                             ? box.values
                                 .where(
                                     (student) => student.studentID == searchID)
                                 .toList()[index]
-                            : box.getAt(index);
+                            : box.getAt(reverseIndex);
                         //Student? res = box.getAt(index);
                         return ListTile(
                           title: Container(
@@ -366,23 +396,22 @@ class _StudentScreenState extends State<StudentScreen> {
                                             ),
                                             onPressed: () {
                                               Student student = Student(
-                                                studentID: res.studentID,
-                                                firstName: res.firstName,
-                                                middleName: res.middleName,
-                                                lastName: res.lastName,
-                                                studentCourse:
-                                                    res.studentCourse,
-                                                studentSubjects:
-                                                    res.studentSubjects,
-                                                academicYear: res.academicYear,
-                                                isInstallment:
-                                                    res.isInstallment,
-                                                accountBalance:
-                                                    res.accountBalance,
-                                                academicTerm: res.academicTerm,
-                                                studentAddress:
-                                                    res.studentAddress,
-                                              );
+                                                  studentID: res.studentID,
+                                                  firstName: res.firstName,
+                                                  middleName: res.middleName,
+                                                  lastName: res.lastName,
+                                                  studentCourse:
+                                                      res.studentCourse,
+                                                  studentSubjects:
+                                                      res.studentSubjects,
+                                                  academicYear:
+                                                      res.academicYear,
+                                                  isInstallment:
+                                                      res.isInstallment,
+                                                  accountBalance:
+                                                      res.accountBalance, 
+                                                      studentAddress: res.studentAddress,
+                                                      academicTerm: res.academicTerm);
                                               studentIDController.clear();
                                               isSearching = false;
                                               isEnabled = true;
@@ -392,7 +421,7 @@ class _StudentScreenState extends State<StudentScreen> {
                                                   builder: (context) =>
                                                       EditStudentScreen(
                                                     student: student,
-                                                    index: index,
+                                                    index: reverseIndex,
                                                   ),
                                                 ),
                                               );
@@ -438,7 +467,7 @@ class _StudentScreenState extends State<StudentScreen> {
                                                   builder: (context) =>
                                                       AddTransactionScreen(
                                                     student: student,
-                                                    index: index,
+                                                    index: reverseIndex,
                                                   ),
                                                 ),
                                               );
