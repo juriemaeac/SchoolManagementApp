@@ -16,19 +16,20 @@ class _AddStudentScreen extends State<AddStudentScreen> {
   @override
   void initState() {
     super.initState();
-
     Hive.openBox<Student>(HiveBoxesStudent.student);
   }
 
   late int studentID;
   late String firstName;
-  late String middleName;
+  late String middleName = '';
   late String lastName;
   late String studentCourse;
   late String studentSubjects;
-  late int academicYear;
+  late String academicYear;
   late double accountBalance;
-  late int isInstallment = 0;
+  late String studentAddress;
+  late int isInstallment = 1;
+  late String academicTerm;
 
   validated(String subjects) {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
@@ -44,6 +45,8 @@ class _AddStudentScreen extends State<AddStudentScreen> {
       ..text = courseSubjects.getCourseSubjects();
     List<String> courses = ['BSA', 'BSIT', 'BEED', 'BSED'];
     List<String> academicYears = ['11', '12', '21', '22', '31', '32', '41', '42'];
+    List<String> acadYear = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
+    List<String> acadTerm = ['1st Sem', '2nd Sem', 'Summer'];
     return Scaffold(
       body: SafeArea(
         child: Form(
@@ -260,6 +263,49 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                     const SizedBox(
                       height: 8,
                     ),
+                    Container(
+                      padding: const EdgeInsets.only(left: 25, right: 25),
+                      margin: const EdgeInsets.only(
+                          left: 15, right: 15, top: 5, bottom: 5),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 2,
+                            blurRadius: 9,
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        initialValue: '',
+                        decoration: const InputDecoration(
+                          labelText: '     Home Adress',
+                          border: InputBorder.none,
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0)),
+                            borderSide:
+                                BorderSide(color: Colors.transparent, width: 2),
+                          ),
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            studentAddress = value;
+                          });
+                        },
+                        validator: (String? value) {
+                          if (value == null || value.trim().length == 0) {
+                            return "required";
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -341,16 +387,17 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                               ),
                             ),
                             onChanged: (value) {
-                              courseSubjects.setAcademicYear(int.parse(value));
+                              //courseSubjects.setAcademicYear(int.parse(value));  ito yung auto populate
                               setState(() {
-                                academicYear = int.parse(value);
+                                academicYear = value;
                               });
                             },
                             validator: (String? value) {
                               if (value == null || value.trim().length == 0) {
                                 return "required";
-                              } else if (academicYears.contains(value) != true) {
-                                return "Academic Year Error. [11, 12, 21, 22... 42]";
+                              } 
+                              else if (acadYear.contains(value) != true) {
+                                return "Academic Year Error. [1st Year, 2nd Year...]";
                               }
                               return null;
                             },
@@ -358,6 +405,57 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                         ),
                       ],
                     ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                     Container(
+                          width:
+                              (MediaQuery.of(context).size.width * 0.59) / 2.8,
+                          margin: const EdgeInsets.only(
+                              left: 15, right: 15, top: 5, bottom: 5),
+                          padding: const EdgeInsets.only(left: 15, right: 15),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 2,
+                                blurRadius: 9,
+                                //offset: Offset(2, 6),
+                                // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                              labelText: '     Academic Term',
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.0)),
+                                borderSide: BorderSide(
+                                    color: Colors.transparent, width: 2),
+                              ),
+                            ),
+                            onChanged: (value) {
+                              //courseSubjects.setAcademicYear(int.parse(value));
+                              setState(() {
+                                academicTerm = value;
+                              });
+                            },
+                            validator: (String? value) {
+                              if (value == null || value.trim().length == 0) {
+                                return "required";
+                              } 
+                              else if (acadTerm.contains(value) != true) {
+                                return "Academic Term Error. [1st Sem, 2nd Sem, Summer]";
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
                     const SizedBox(
                       height: 8,
                     ),
@@ -646,7 +744,9 @@ class _AddStudentScreen extends State<AddStudentScreen> {
         studentSubjects: subs,
         academicYear: academicYear,
         isInstallment: isInstallment,
-        accountBalance: accountBalance));
+        accountBalance: accountBalance,
+        studentAddress: studentAddress,
+        academicTerm: academicTerm));
     Navigator.of(context).pop();
   }
 }
@@ -665,7 +765,7 @@ class courseSubjects {
 
   static String getCourseSubjects() {
     if (course == "BSIT") {
-      if (academicYear == 11) {
+      if (academicYear == 1) {
         String subjects =
             "GERPH, GESTS, FIL 1, CC 101, CC 102, LIT, PE 101, NSTP 101";
         return subjects;

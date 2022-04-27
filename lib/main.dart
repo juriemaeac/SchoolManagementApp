@@ -8,8 +8,12 @@ import 'package:smapp/models/student_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:smapp/splash_screen.dart';
 
+import 'boxes/boxCourse.dart';
 import 'boxes/boxPayment.dart';
+import 'boxes/boxSubject.dart';
+import 'models/course_model.dart';
 import 'models/payment_model.dart';
+import 'models/subject_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,9 +25,13 @@ void main() async {
   Hive.registerAdapter(StudentAdapter());
   Hive.registerAdapter(FacultyAdapter());
   Hive.registerAdapter(PaymentAdapter());
+  Hive.registerAdapter(CourseAdapter());
+  Hive.registerAdapter(SubjectAdapter());
   await Hive.openBox<Student>(HiveBoxesStudent.student);
   await Hive.openBox<Faculty>(HiveBoxesFaculty.faculty);
   await Hive.openBox<Payment>(HiveBoxesPayment.payment);
+  await Hive.openBox<Course>(HiveBoxesCourse.course);
+  await Hive.openBox<Subject>(HiveBoxesSubject.subject);
   runApp(const MyApp());
   doWhenWindowReady(() {
     final win = appWindow;

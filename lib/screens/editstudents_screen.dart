@@ -32,9 +32,11 @@ class _EditStudentScreen extends State<EditStudentScreen> {
   String? lastName;
   String? studentCourse;
   String? studentSubjects;
-  int? academicYear;
+  String? academicYear;
   int? isInstallment;
   double? accountBalance;
+  String? studentAddress;
+  String? academicTerm;
 
   @override
   void initState() {
@@ -85,6 +87,8 @@ class _EditStudentScreen extends State<EditStudentScreen> {
     academicYear = widget.student.academicYear;
     isInstallment = widget.student.isInstallment;
     accountBalance = widget.student.accountBalance;
+    studentAddress = widget.student.studentAddress;
+    academicTerm = widget.student.academicTerm;
 
     int? oldID = studentID;
     TextEditingController _studentIDController = TextEditingController()
@@ -105,6 +109,10 @@ class _EditStudentScreen extends State<EditStudentScreen> {
       ..text = '${widget.student.isInstallment}';
     TextEditingController _accountBalanceController = TextEditingController()
       ..text = '${widget.student.accountBalance}';
+    TextEditingController _studentAddressController = TextEditingController()
+      ..text = '${widget.student.studentAddress}';
+    TextEditingController _academicTermController = TextEditingController()
+      ..text = '${widget.student.academicTerm}';
 
     @override
     void initState() {
@@ -141,7 +149,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
       });
       _academicYearController.addListener(() {
         setState(() {
-          academicYear = int.parse(_academicYearController.text);
+          academicYear = _academicYearController.text;
         });
       });
       _isInstallmentController.addListener(() {
@@ -152,6 +160,16 @@ class _EditStudentScreen extends State<EditStudentScreen> {
       _accountBalanceController.addListener(() {
         setState(() {
           accountBalance = double.parse(_accountBalanceController.text);
+        });
+      });
+      _studentAddressController.addListener(() {
+        setState(() {
+          studentAddress = _studentAddressController.text;
+        });
+      });
+      _academicTermController.addListener(() {
+        setState(() {
+          academicTerm = _academicTermController.text;
         });
       });
     }
@@ -167,6 +185,8 @@ class _EditStudentScreen extends State<EditStudentScreen> {
       _academicYearController.dispose();
       _isInstallmentController.dispose();
       _accountBalanceController.dispose();
+      _studentAddressController.dispose();
+      _academicTermController.dispose();
       super.dispose();
     }
 
@@ -183,16 +203,9 @@ class _EditStudentScreen extends State<EditStudentScreen> {
 
     String method = paymentMethod(isInstallment!) ?? "";
     List<String> courses = ['BSA', 'BSIT', 'BEED', 'BSED'];
-    List<String> academicYears = [
-      '11',
-      '12',
-      '21',
-      '22',
-      '31',
-      '32',
-      '41',
-      '42'
-    ];
+    List<String> academicYears = ['11','12','21','22','31','32','41','42'];
+    List<String> acadYear = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
+    List<String> acadTerm = ['1st Sem', '2nd Sem', 'Summer'];
     return Scaffold(
       // appBar: AppBar(
       //   title: const Text('Edit Students'),
@@ -474,6 +487,51 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                       ],
                                     ),
                                     child: TextFormField(
+                                      controller: _studentAddressController,
+                                      decoration: const InputDecoration(
+                                        labelText: 'Home Address',
+                                        border: InputBorder.none,
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15.0)),
+                                          borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 2),
+                                        ),
+                                      ),
+                                      onChanged: (value) {
+                                        //setState(() {
+                                        studentAddress = value;
+                                        //});
+                                      },
+                                      validator: (String? value) {
+                                        if (value == null ||
+                                            value.trim().length == 0) {
+                                          return "required";
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.only(
+                                        left: 25, right: 25),
+                                    margin: const EdgeInsets.only(
+                                        left: 15, right: 15, top: 5, bottom: 5),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          spreadRadius: 2,
+                                          blurRadius: 9,
+                                          //offset: Offset(2, 6),
+                                          // changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                    child: TextFormField(
                                       controller: _studentCourseController,
                                       decoration: const InputDecoration(
                                         labelText: 'Student Course',
@@ -582,17 +640,69 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                       ),
                                       onChanged: (value) {
                                         //setState(() {
-                                        academicYear = int.parse(value);
+                                        academicYear = value;
                                         //});
                                       },
                                       validator: (String? value) {
                                         if (value == null ||
                                             value.trim().length == 0) {
                                           return "required";
-                                        } else if (academicYears
+                                        } 
+                                        else if (acadYear
                                                 .contains(value) !=
                                             true) {
-                                          return "Academic Year Error. [11, 12, 21, 22... 42]";
+                                          return "Academic Year Error. [1st Year, 2nd Year...]";
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.only(
+                                        left: 25, right: 25),
+                                    margin: const EdgeInsets.only(
+                                        left: 15, right: 15, top: 5, bottom: 5),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          spreadRadius: 2,
+                                          blurRadius: 9,
+                                          //offset: Offset(2, 6),
+                                          // changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                    child: TextFormField(
+                                      controller: _academicTermController,
+                                      keyboardType: TextInputType.number,
+                                      decoration: const InputDecoration(
+                                        labelText: 'Academic Term',
+                                        border: InputBorder.none,
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15.0)),
+                                          borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 2),
+                                        ),
+                                      ),
+                                      onChanged: (value) {
+                                        //setState(() {
+                                        academicTerm = value;
+                                        //});
+                                      },
+                                      validator: (String? value) {
+                                        if (value == null ||
+                                            value.trim().length == 0) {
+                                          return "required";
+                                        } 
+                                        else if (acadTerm
+                                                .contains(value) !=
+                                            true) {
+                                          return "Academic Term Error. [1st Sem, 2nd Sem, Summer]";
                                         }
                                         return null;
                                       },
@@ -840,9 +950,11 @@ class _EditStudentScreen extends State<EditStudentScreen> {
             lastName: lastName ?? '',
             studentCourse: studentCourse ?? '',
             studentSubjects: studentSubjects ?? '',
-            academicYear: academicYear ?? 0,
+            academicYear: academicYear ?? '',
             isInstallment: isInstallment ?? 0,
-            accountBalance: accountBalance ?? 0.0));
+            accountBalance: accountBalance ?? 0.0,
+            studentAddress: studentAddress ?? '',
+            academicTerm: academicTerm ?? ''));
     Navigator.of(context).pop();
   }
 }

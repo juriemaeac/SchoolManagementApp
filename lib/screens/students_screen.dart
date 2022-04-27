@@ -157,7 +157,8 @@ class _StudentScreenState extends State<StudentScreen> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Container(
-                              padding: const EdgeInsets.only(left: 25, right: 25),
+                              padding:
+                                  const EdgeInsets.only(left: 25, right: 25),
                               height: 30,
                               width: 220,
                               decoration: BoxDecoration(
@@ -178,14 +179,17 @@ class _StudentScreenState extends State<StudentScreen> {
                                 controller: studentIDController,
                                 keyboardType: TextInputType.number,
                                 decoration: const InputDecoration(
-                                  contentPadding: EdgeInsets.symmetric(vertical: 11),
-                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 11),
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.never,
                                   labelText: '    Search by ID',
                                   border: InputBorder.none,
                                   focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                                    borderSide:
-                                        BorderSide(color: Colors.transparent, width: 2),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(15.0)),
+                                    borderSide: BorderSide(
+                                        color: Colors.transparent, width: 2),
                                   ),
                                 ),
                                 onChanged: (value) {},
@@ -197,14 +201,16 @@ class _StudentScreenState extends State<StudentScreen> {
                                   shape: MaterialStateProperty.all<
                                           RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(15.0),
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
                                           side: const BorderSide(
                                               color: Colors.orange)))),
                               onPressed: () {
                                 int idVal = int.parse(studentIDController.text);
                                 validator(idVal);
                                 setState(() {
-                                  searchID = int.parse(studentIDController.text);
+                                  searchID =
+                                      int.parse(studentIDController.text);
                                   //studentIDController.clear();
                                 });
                               },
@@ -227,7 +233,6 @@ class _StudentScreenState extends State<StudentScreen> {
                         ),
                       ],
                     ),
-                    
                   ],
                 ),
               ],
@@ -259,7 +264,8 @@ class _StudentScreenState extends State<StudentScreen> {
                         //int reverseIndex = box.length - 1 - index;
                         final Student? res = isSearching
                             ? box.values
-                                .where((student) => student.studentID == searchID)
+                                .where(
+                                    (student) => student.studentID == searchID)
                                 .toList()[index]
                             : box.getAt(index);
                         //Student? res = box.getAt(index);
@@ -301,7 +307,8 @@ class _StudentScreenState extends State<StudentScreen> {
                                                 " ",
                                                 style: GoogleFonts.quicksand(
                                                     fontSize: 13,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                             ],
                                           ),
@@ -359,17 +366,24 @@ class _StudentScreenState extends State<StudentScreen> {
                                             ),
                                             onPressed: () {
                                               Student student = Student(
-                                                  studentID: res.studentID,
-                                                  firstName: res.firstName,
-                                                  middleName: res.middleName,
-                                                  lastName: res.lastName,
-                                                  studentCourse: res.studentCourse,
-                                                  studentSubjects:
-                                                      res.studentSubjects,
-                                                  academicYear: res.academicYear,
-                                                  isInstallment: res.isInstallment,
-                                                  accountBalance: res.accountBalance);
-                                                  studentIDController.clear();
+                                                studentID: res.studentID,
+                                                firstName: res.firstName,
+                                                middleName: res.middleName,
+                                                lastName: res.lastName,
+                                                studentCourse:
+                                                    res.studentCourse,
+                                                studentSubjects:
+                                                    res.studentSubjects,
+                                                academicYear: res.academicYear,
+                                                isInstallment:
+                                                    res.isInstallment,
+                                                accountBalance:
+                                                    res.accountBalance,
+                                                academicTerm: res.academicTerm,
+                                                studentAddress:
+                                                    res.studentAddress,
+                                              );
+                                              studentIDController.clear();
                                               isSearching = false;
                                               isEnabled = true;
                                               Navigator.push(
@@ -401,17 +415,23 @@ class _StudentScreenState extends State<StudentScreen> {
                                             ),
                                             onPressed: () {
                                               Student student = Student(
-                                                  studentID: res.studentID,
-                                                  firstName: res.firstName,
-                                                  middleName: res.middleName,
-                                                  lastName: res.lastName,
-                                                  studentCourse: res.studentCourse,
-                                                  studentSubjects:
-                                                      res.studentSubjects,
-                                                  academicYear: res.academicYear,
-                                                  isInstallment: res.isInstallment,
-                                                  accountBalance:
-                                                      res.accountBalance);
+                                                studentID: res.studentID,
+                                                firstName: res.firstName,
+                                                middleName: res.middleName,
+                                                lastName: res.lastName,
+                                                studentCourse:
+                                                    res.studentCourse,
+                                                studentSubjects:
+                                                    res.studentSubjects,
+                                                academicYear: res.academicYear,
+                                                isInstallment:
+                                                    res.isInstallment,
+                                                accountBalance:
+                                                    res.accountBalance,
+                                                studentAddress:
+                                                    res.studentAddress,
+                                                academicTerm: res.academicTerm,
+                                              );
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
@@ -457,11 +477,11 @@ class _StudentScreenState extends State<StudentScreen> {
                                                     '${paymentMethod(res.isInstallment)}',
                                               ),
                                             );
-                
+
                                             final pdfFile =
                                                 await PdfInvoiceApi.generate(
                                                     invoice);
-                
+
                                             PdfApi.openFile(pdfFile);
                                             Navigator.push(
                                               context,

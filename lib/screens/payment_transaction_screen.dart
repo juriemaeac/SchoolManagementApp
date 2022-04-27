@@ -331,7 +331,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                 lastName: 'null',
                                                 studentCourse: 'null',
                                                 studentSubjects: 'null',
-                                                academicYear: 0,
+                                                academicYear: 'null',
+                                                studentAddress: 'null',
+                                                academicTerm: 'null',
                                                 isInstallment: 1,
                                                 accountBalance: 0);
                             

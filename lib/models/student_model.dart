@@ -6,24 +6,27 @@ class Student extends HiveObject {
   @HiveField(0)
   String? id;
   @HiveField(1)
-  late int studentID = 0;
+  late int studentID;
   @HiveField(2)
-  late String firstName = '';
+  late String firstName;
   @HiveField(3)
-  late String middleName = '';
+  late String middleName;
   @HiveField(4)
-  late String lastName = '';
+  late String lastName;
   @HiveField(5)
-  late String studentCourse = '';
+  late String studentCourse;
   @HiveField(6)
-  late String studentSubjects = '';
+  late String studentSubjects;
   @HiveField(7)
-  late int academicYear = 0;
+  late String academicYear;
   @HiveField(8)
-  late int isInstallment = 0;
+  late int isInstallment;
   @HiveField(9)
-  late double accountBalance = 0.0;
-
+  late double accountBalance;
+  @HiveField(10)
+  late String studentAddress;
+  @HiveField(11)
+  late String academicTerm;
   Student(
       {required this.studentID,
       required this.firstName,
@@ -33,5 +36,7 @@ class Student extends HiveObject {
       required this.studentSubjects,
       required this.academicYear,
       required this.isInstallment,
-      required this.accountBalance});
+      required this.accountBalance,
+      required this.studentAddress,
+      required this.academicTerm});
 }

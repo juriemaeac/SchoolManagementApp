@@ -51,9 +51,11 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
   String? lastName;
   String? studentCourse;
   String? studentSubjects;
-  int? academicYear;
+  String? academicYear;
   int? isInstallment;
   double? accountBalance;
+  String? studentAddress;
+  String? academicTerm;
 
   String? facultyUsername;
   String? transactionDate;
@@ -80,6 +82,7 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
     academicYear = widget.student.academicYear;
     isInstallment = widget.student.isInstallment;
     accountBalance = widget.student.accountBalance;
+    studentAddress = widget.student.studentAddress;
 
     oldBalance = widget.student.accountBalance;
 
@@ -520,9 +523,11 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
               lastName: lastName ?? '',
               studentCourse: studentCourse ?? '',
               studentSubjects: studentSubjects ?? '',
-              academicYear: academicYear ?? 0,
+              academicYear: academicYear ?? '',
               isInstallment: isInstallment ?? 0,
-              accountBalance: newAccountBalance));
+              accountBalance: newAccountBalance,
+              studentAddress: studentAddress ?? '',
+              academicTerm: academicTerm ?? '',));
     }
     Navigator.of(context).pop();
   }

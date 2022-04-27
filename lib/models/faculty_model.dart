@@ -6,19 +6,19 @@ class Faculty extends HiveObject {
   @HiveField(0)
   String? id;
   @HiveField(1)
-  late String username = '';
+  late String username;
   @HiveField(2)
-  late String password = '';
+  late String password;
   @HiveField(3)
-  late String firstName = '';
+  late String firstName;
   @HiveField(4)
-  late String middleName = '';
+  late String middleName;
   @HiveField(5)
-  late String lastName = '';
+  late String lastName;
   @HiveField(6)
-  late String userFaculty = '';
+  late String userFaculty;
   @HiveField(7)
-  late bool isAdmin = false;
+  late bool isAdmin;
 
   Faculty(
       {required this.username,
