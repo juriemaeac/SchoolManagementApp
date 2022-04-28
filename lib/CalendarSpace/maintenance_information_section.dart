@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smapp/CalendarSpace/src/calendar_section.dart';
 import 'package:smapp/CalendarSpace/src/profile_section.dart';
-import 'package:smapp/screens/add_screen/addfaculty_screen.dart';
+import 'package:smapp/addcourse_page.dart';
+import 'package:smapp/addsubject_page.dart';
 
 class MaintenanceInfo extends StatelessWidget {
   const MaintenanceInfo({Key? key}) : super(key: key);
@@ -70,7 +71,14 @@ class MaintenanceInfo extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(10.0),
                                       side: const BorderSide(
                                           color: Colors.orange)))),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const AddCoursePage(),
+                              ),
+                            );
+                          },
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 top: 10, bottom: 10, left: 5, right: 5),
@@ -114,7 +122,14 @@ class MaintenanceInfo extends StatelessWidget {
                                       side: const BorderSide(
                                         color: Color(0xff6C6CE5),
                                       )))),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const AddSubjectPage(),
+                              ),
+                            );
+                          },
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 top: 10, bottom: 10, left: 5, right: 5),
