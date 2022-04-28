@@ -6,9 +6,8 @@ import 'package:smapp/boxes/boxCourse.dart';
 import 'package:smapp/boxes/boxFaculty.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:smapp/boxes/boxSubject.dart';
-import 'package:smapp/faculty_page.dart';
 import 'package:smapp/models/subject_model.dart';
-import 'package:smapp/screens/edit_screen/editfaculty_screen.dart';
+import 'package:smapp/screens/edit_screen/editcourse_screen.dart';
 import '../models/course_model.dart';
 import '../models/faculty_model.dart';
 
@@ -88,126 +87,6 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                               ),
                             ],
                           ),
-                          // Column(
-                          //   mainAxisAlignment: MainAxisAlignment.end,
-                          //   crossAxisAlignment: CrossAxisAlignment.end,
-                          //   children: [
-                          //     Row(
-                          //       mainAxisAlignment: MainAxisAlignment.end,
-                          //       crossAxisAlignment: CrossAxisAlignment.end,
-                          //       children: [
-                          //         Container(
-                          //           padding: const EdgeInsets.only(
-                          //               left: 25, right: 25),
-                          //           height: 30,
-                          //           width: 120,
-                          //           decoration: BoxDecoration(
-                          //             color: Colors.white,
-                          //             borderRadius: BorderRadius.circular(10),
-                          //             boxShadow: [
-                          //               BoxShadow(
-                          //                 color: Colors.grey.withOpacity(0.2),
-                          //                 spreadRadius: 2,
-                          //                 blurRadius: 9,
-                          //                 //offset: Offset(2, 6),
-                          //                 // changes position of shadow
-                          //               ),
-                          //             ],
-                          //           ),
-                          //           child: TextFormField(
-                          //             enabled: isEnabled,
-                          //             controller: facultyController,
-                          //             keyboardType: TextInputType.number,
-                          //             decoration: const InputDecoration(
-                          //               contentPadding:
-                          //                   EdgeInsets.symmetric(vertical: 11),
-                          //               floatingLabelBehavior:
-                          //                   FloatingLabelBehavior.never,
-                          //               labelText: '    Search by Username',
-                          //               border: InputBorder.none,
-                          //               focusedBorder: OutlineInputBorder(
-                          //                 borderRadius: BorderRadius.all(
-                          //                     Radius.circular(15.0)),
-                          //                 borderSide: BorderSide(
-                          //                     color: Colors.transparent,
-                          //                     width: 2),
-                          //               ),
-                          //             ),
-                          //             onChanged: (value) {},
-                          //           ),
-                          //         ),
-                          //         const SizedBox(width: 10),
-                          //         ElevatedButton(
-                          //           style: ButtonStyle(
-                          //               elevation: MaterialStateProperty.all(3),
-                          //               shape: MaterialStateProperty.all<
-                          //                       RoundedRectangleBorder>(
-                          //                   RoundedRectangleBorder(
-                          //                       borderRadius:
-                          //                           BorderRadius.circular(15.0),
-                          //                       side: const BorderSide(
-                          //                           color: Colors.orange)))),
-                          //           onPressed: () {
-                          //             String usernameVal =
-                          //                 facultyController.text;
-                          //             validator(usernameVal);
-                          //             setState(() {
-                          //               searchUsername = facultyController.text;
-                          //             });
-                          //           },
-                          //           child: Padding(
-                          //             padding: const EdgeInsets.all(7),
-                          //             child: Row(
-                          //               mainAxisAlignment:
-                          //                   MainAxisAlignment.center,
-                          //               crossAxisAlignment:
-                          //                   CrossAxisAlignment.center,
-                          //               children: const <Widget>[
-                          //                 Icon(
-                          //                   Icons.search_rounded,
-                          //                   color: Colors.white,
-                          //                   size: 15,
-                          //                 ),
-                          //               ],
-                          //             ),
-                          //           ),
-                          //         ),
-                          //         const SizedBox(width: 10),
-                          //         MouseRegion(
-                          //           cursor: SystemMouseCursors.click,
-                          //           child: GestureDetector(
-                          //               child: Material(
-                          //                 elevation: 3,
-                          //                 borderRadius:
-                          //                     BorderRadius.circular(15.0),
-                          //                 child: Container(
-                          //                     height: 30,
-                          //                     width: 30,
-                          //                     padding: const EdgeInsets.all(7),
-                          //                     decoration: BoxDecoration(
-                          //                       color: const Color(0xff6C6CE5),
-                          //                       borderRadius:
-                          //                           BorderRadius.circular(15.0),
-                          //                     ),
-                          //                     child: const Icon(
-                          //                         Icons.refresh_rounded,
-                          //                         color: Colors.white,
-                          //                         size: 15)),
-                          //               ),
-                          //               onTap: () {
-                          //                 Navigator.push(
-                          //                   context,
-                          //                   MaterialPageRoute(
-                          //                     builder: (context) =>
-                          //                         const FacultyPage(),
-                          //                   ),
-                          //                 );
-                          //               }),
-                          //         ),
-                          //       ],
-                          //     ),
-                          //   ],
-                          // ),
                         ],
                       ),
                     ],
@@ -237,126 +116,6 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                               ),
                             ],
                           ),
-                          // Column(
-                          //   mainAxisAlignment: MainAxisAlignment.end,
-                          //   crossAxisAlignment: CrossAxisAlignment.end,
-                          //   children: [
-                          //     Row(
-                          //       mainAxisAlignment: MainAxisAlignment.end,
-                          //       crossAxisAlignment: CrossAxisAlignment.end,
-                          //       children: [
-                          //         Container(
-                          //           padding: const EdgeInsets.only(
-                          //               left: 25, right: 25),
-                          //           height: 30,
-                          //           width: 120,
-                          //           decoration: BoxDecoration(
-                          //             color: Colors.white,
-                          //             borderRadius: BorderRadius.circular(10),
-                          //             boxShadow: [
-                          //               BoxShadow(
-                          //                 color: Colors.grey.withOpacity(0.2),
-                          //                 spreadRadius: 2,
-                          //                 blurRadius: 9,
-                          //                 //offset: Offset(2, 6),
-                          //                 // changes position of shadow
-                          //               ),
-                          //             ],
-                          //           ),
-                          //           child: TextFormField(
-                          //             enabled: isEnabled,
-                          //             controller: facultyController,
-                          //             keyboardType: TextInputType.number,
-                          //             decoration: const InputDecoration(
-                          //               contentPadding:
-                          //                   EdgeInsets.symmetric(vertical: 11),
-                          //               floatingLabelBehavior:
-                          //                   FloatingLabelBehavior.never,
-                          //               labelText: '    Search by Username',
-                          //               border: InputBorder.none,
-                          //               focusedBorder: OutlineInputBorder(
-                          //                 borderRadius: BorderRadius.all(
-                          //                     Radius.circular(15.0)),
-                          //                 borderSide: BorderSide(
-                          //                     color: Colors.transparent,
-                          //                     width: 2),
-                          //               ),
-                          //             ),
-                          //             onChanged: (value) {},
-                          //           ),
-                          //         ),
-                          //         const SizedBox(width: 10),
-                          //         ElevatedButton(
-                          //           style: ButtonStyle(
-                          //               elevation: MaterialStateProperty.all(3),
-                          //               shape: MaterialStateProperty.all<
-                          //                       RoundedRectangleBorder>(
-                          //                   RoundedRectangleBorder(
-                          //                       borderRadius:
-                          //                           BorderRadius.circular(15.0),
-                          //                       side: const BorderSide(
-                          //                           color: Colors.orange)))),
-                          //           onPressed: () {
-                          //             String usernameVal =
-                          //                 facultyController.text;
-                          //             validator(usernameVal);
-                          //             setState(() {
-                          //               searchUsername = facultyController.text;
-                          //             });
-                          //           },
-                          //           child: Padding(
-                          //             padding: const EdgeInsets.all(7),
-                          //             child: Row(
-                          //               mainAxisAlignment:
-                          //                   MainAxisAlignment.center,
-                          //               crossAxisAlignment:
-                          //                   CrossAxisAlignment.center,
-                          //               children: const <Widget>[
-                          //                 Icon(
-                          //                   Icons.search_rounded,
-                          //                   color: Colors.white,
-                          //                   size: 15,
-                          //                 ),
-                          //               ],
-                          //             ),
-                          //           ),
-                          //         ),
-                          //         const SizedBox(width: 10),
-                          //         MouseRegion(
-                          //           cursor: SystemMouseCursors.click,
-                          //           child: GestureDetector(
-                          //               child: Material(
-                          //                 elevation: 3,
-                          //                 borderRadius:
-                          //                     BorderRadius.circular(15.0),
-                          //                 child: Container(
-                          //                     height: 30,
-                          //                     width: 30,
-                          //                     padding: const EdgeInsets.all(7),
-                          //                     decoration: BoxDecoration(
-                          //                       color: const Color(0xff6C6CE5),
-                          //                       borderRadius:
-                          //                           BorderRadius.circular(15.0),
-                          //                     ),
-                          //                     child: const Icon(
-                          //                         Icons.refresh_rounded,
-                          //                         color: Colors.white,
-                          //                         size: 15)),
-                          //               ),
-                          //               onTap: () {
-                          //                 Navigator.push(
-                          //                   context,
-                          //                   MaterialPageRoute(
-                          //                     builder: (context) =>
-                          //                         const FacultyPage(),
-                          //                   ),
-                          //                 );
-                          //               }),
-                          //         ),
-                          //       ],
-                          //     ),
-                          //   ],
-                          // ),
                         ],
                       ),
                     ],
@@ -372,8 +131,8 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                 height: MediaQuery.of(context).size.height * 0.45,
                 width: (MediaQuery.of(context).size.width * 0.59) / 2.07,
                 child: ValueListenableBuilder(
-                    valueListenable: Hive.box<Course>(HiveBoxesCourse.course)
-                        .listenable(),
+                    valueListenable:
+                        Hive.box<Course>(HiveBoxesCourse.course).listenable(),
                     builder: (context, Box<Course> box, _) {
                       if (box.values.isEmpty) {
                         return Center(
@@ -421,9 +180,10 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                                                 Column(
                                                   children: [
                                                     Text(
-                                                      res!.courseCode+
+                                                      res!.courseCode +
                                                           ' - ' +
-                                                          res.courseFee.toString(),
+                                                          res.courseFee
+                                                              .toString(),
                                                       style:
                                                           GoogleFonts.quicksand(
                                                               fontSize: 14,
@@ -475,6 +235,23 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                                                     ),
                                                   ),
                                                   onPressed: () {
+                                                    Course course = Course(
+                                                        courseCode:
+                                                            res.courseCode,
+                                                        courseName:
+                                                            res.courseName,
+                                                        courseFee:
+                                                            res.courseFee);
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            EditCourseScreen(
+                                                          course: course,
+                                                          index: index,
+                                                        ),
+                                                      ),
+                                                    );
                                                   },
                                                 ),
                                                 // IconButton(
@@ -561,7 +338,10 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                                                 Column(
                                                   children: [
                                                     Text(
-                                                      res!.subjectCode + ' ' + res.subjectUnit.toString(),
+                                                      res!.subjectCode +
+                                                          ' ' +
+                                                          res.subjectUnit
+                                                              .toString(),
                                                       style:
                                                           GoogleFonts.quicksand(
                                                               fontSize: 14,
@@ -577,11 +357,19 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                                               children: [
                                                 const SizedBox(width: 20),
                                                 Text(
-                                                  res.subjectCourse + ' - ' + res.subjectYear + ' ' + res.subjectTerm,
+                                                  res.subjectCourse +
+                                                      ' - ' +
+                                                      res.subjectYear +
+                                                      ' ' +
+                                                      res.subjectTerm,
                                                   style: GoogleFonts.quicksand(
                                                       fontSize: 13,
-                                                      color:const Color.fromARGB(
-                                                      255, 102,101,101)),
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              102,
+                                                              101,
+                                                              101)),
                                                 ),
                                               ],
                                             ),
@@ -608,8 +396,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                                                       'assets/edit_svg.svg',
                                                     ),
                                                   ),
-                                                  onPressed: () {
-                                                  },
+                                                  onPressed: () {},
                                                 ),
                                                 // IconButton(
                                                 //   padding: const EdgeInsets.all(3.0),
