@@ -71,7 +71,7 @@ class _FacultyScreenState extends State<FacultyScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Faculty List',
+                          'Users List',
                           style: GoogleFonts.quicksand(
                             fontWeight: FontWeight.bold,
                             fontSize: 14.0,
@@ -206,7 +206,7 @@ class _FacultyScreenState extends State<FacultyScreen> {
                   return Center(
                     child: Container(
                         padding: const EdgeInsets.only(top: 120),
-                        child: const Text("Faculty list is empty")),
+                        child: const Text("Users list is empty")),
                   );
                 }
                 return SingleChildScrollView(

@@ -2,22 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:smapp/CalendarSpace/faculty_information_section.dart';
+import 'package:smapp/CalendarSpace/maintenance_information_section.dart';
 import 'package:smapp/Dashboard/src/ProjectStatisticsCards.dart';
 import 'package:smapp/NavigationBar/navbar_faculty_page.dart';
+import 'package:smapp/NavigationBar/navbar_maintenance_page.dart';
 import 'package:smapp/Student/student_tabs.dart';
 import 'package:smapp/screens/faculty_screen.dart';
+import 'package:smapp/screens/maintenance_screen.dart';
 
 import 'boxes/boxFaculty.dart';
 import 'models/faculty_model.dart';
 
-class FacultyPage extends StatefulWidget {
-  const FacultyPage({Key? key}) : super(key: key);
+class MaintenancePage extends StatefulWidget {
+  const MaintenancePage({Key? key}) : super(key: key);
 
   @override
-  State<FacultyPage> createState() => _FacultyPageState();
+  State<MaintenancePage> createState() => _MaintenancePageState();
 }
 
-class _FacultyPageState extends State<FacultyPage> {
+class _MaintenancePageState extends State<MaintenancePage> {
   @override
   void initState() {
     super.initState();
@@ -64,7 +67,7 @@ class _FacultyPageState extends State<FacultyPage> {
                       width: MediaQuery.of(context).size.width * 0.63,
                       padding: const EdgeInsets.only(left: 40),
                       child: Text(
-                        'Users Page',
+                        'Maintenance Page',
                         textAlign: TextAlign.start,
                         style: GoogleFonts.quicksand(
                           fontWeight: FontWeight.bold,
@@ -91,8 +94,8 @@ class _FacultyPageState extends State<FacultyPage> {
                             height: MediaQuery.of(context).size.height / 4.5,
                             width: MediaQuery.of(context).size.width / 3.25,
                             child: ProjectStatisticsCard(
-                              count: 'Users',
-                              name: 'Enlisted Now',
+                              count: 'Courses',
+                              name: 'Listed Now',
                               descriptions: 'Database Analytics',
                               progress: 1.0,
                               progressString: '$facultyCount',
@@ -105,11 +108,13 @@ class _FacultyPageState extends State<FacultyPage> {
                             height: MediaQuery.of(context).size.height / 4.5,
                             width: MediaQuery.of(context).size.width / 3.25,
                             child: ProjectStatisticsCard(
-                              count: 'Users',
-                              name: 'Active Cashiers',
+                              count: 'Subjects',
+                              name: 'Listed Now',
                               descriptions: 'Database Analytics',
-                              progress: double.parse(percentage),
-                              progressString: '$activeCashiers',
+                              progress: 1.0,
+                              progressString: '1.0',
+                              //progress: double.parse(percentage),
+                              //progressString: '$activeCashiers',
                               color: const Color(0xff6C6CE5),
                             ),
                           ),
@@ -122,16 +127,16 @@ class _FacultyPageState extends State<FacultyPage> {
                     Container(
                         height: MediaQuery.of(context).size.height / 1.9,
                         margin: const EdgeInsets.only(left: 25),
-                        width: MediaQuery.of(context).size.width * 0.59,
-                        child: const FacultyScreen(
+                        width: (MediaQuery.of(context).size.width * 0.59),
+                        child: const MaintenanceScreen(
                           title: 'title',
                         )),
                   ],
                 ),
               ],
             ),
-            const NavibarFaculty(),
-            const FacultyInfo(),
+            const NavibarMaintenance(),
+            const MaintenanceInfo(),
           ],
         ),
       ),

@@ -64,7 +64,7 @@ class _AddFacultyScreen extends State<AddFacultyScreen> {
                                   const EdgeInsets.only(bottom: 20, left: 20),
                               width: MediaQuery.of(context).size.width * 0.6,
                               child: Text(
-                                'Add Faculty',
+                                'Add User',
                                 textAlign: TextAlign.start,
                                 style: GoogleFonts.quicksand(
                                   fontWeight: FontWeight.bold,
@@ -225,7 +225,7 @@ class _AddFacultyScreen extends State<AddFacultyScreen> {
                                       autofocus: true,
                                       initialValue: '',
                                       decoration: const InputDecoration(
-                                        labelText: 'Faculty First Name',
+                                        labelText: 'First Name',
                                         border: InputBorder.none,
                                         focusedBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
@@ -369,7 +369,7 @@ class _AddFacultyScreen extends State<AddFacultyScreen> {
                                     child: TextFormField(
                                       initialValue: '',
                                       decoration: const InputDecoration(
-                                        labelText: 'Faculty Department',
+                                        labelText: 'User Department',
                                         border: InputBorder.none,
                                         focusedBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
@@ -479,7 +479,7 @@ class _AddFacultyScreen extends State<AddFacultyScreen> {
                                                   CrossAxisAlignment.center,
                                               children: const <Widget>[
                                                 Text(
-                                                  'Add Faculty',
+                                                  'Add Users',
                                                   style: TextStyle(
                                                     fontSize: 15,
                                                     fontWeight:

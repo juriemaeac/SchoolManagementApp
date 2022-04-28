@@ -6,7 +6,7 @@ import 'package:smapp/Dashboard/src/ProjectStatisticsCards.dart';
 import 'package:smapp/NavigationBar/navbar_student_page.dart';
 import 'package:smapp/Student/student_tabs.dart';
 import 'package:smapp/boxes/boxStudent.dart';
-import 'package:smapp/screens/students_screen.dart';
+import 'package:smapp/screens/student_screen.dart';
 
 import 'models/student_model.dart';
 

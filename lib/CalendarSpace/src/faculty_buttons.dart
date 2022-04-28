@@ -45,7 +45,7 @@ class FacultyButtons extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      'Add Faculty',
+                      'Add Users',
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w400,

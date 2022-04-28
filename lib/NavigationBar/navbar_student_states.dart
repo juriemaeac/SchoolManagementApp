@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:smapp/NavigationBar/src/navbar_item.dart';
 import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/faculty_page.dart';
+import 'package:smapp/maintenance_page.dart';
 import 'package:smapp/models/student_model.dart';
 import 'package:smapp/payment_transaction_page.dart';
 import 'package:smapp/splash_screen.dart';
@@ -69,12 +70,12 @@ class _NavBarStudentsState extends State<NavBarStudents> {
               setState(() {
                 select(1);
               });
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const StudentPage(),
-                ),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => const StudentPage(),
+              //   ),
+              // );
             },
           ),
           Visibility(
@@ -110,7 +111,22 @@ class _NavBarStudentsState extends State<NavBarStudents> {
               );
             },
           ),
-          const SizedBox(height: 100),
+          NavBarItem(
+            icon: Feather.archive,
+            active: selected[4],
+            touched: () {
+              setState(() {
+                select(4);
+              });
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MaintenancePage(),
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: 50),
           NavBarItem(
             icon: Feather.log_out,
             active: false,

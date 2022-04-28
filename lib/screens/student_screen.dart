@@ -9,7 +9,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:smapp/pdf/model/studentPDF.dart';
 import 'package:smapp/pdf/model/invoice.dart';
 import 'package:smapp/models/faculty_model.dart';
-import 'package:smapp/screens/editstudents_screen.dart';
+import 'package:smapp/screens/editstudent_screen.dart';
 import 'package:smapp/student_page.dart';
 import '../models/student_model.dart';
 import 'addtransaction_screen.dart';
@@ -26,7 +26,7 @@ class StudentScreen extends StatefulWidget {
 class _StudentScreenState extends State<StudentScreen> {
   bool? isAdmin = false;
   bool isSearching = false;
-  int? searchID;
+  String? searchSurname;
   bool? isEnabled = true;
   @override
   void initState() {
@@ -34,9 +34,9 @@ class _StudentScreenState extends State<StudentScreen> {
     Hive.openBox<Student>(HiveBoxesStudent.student);
     Hive.openBox<Faculty>(HiveBoxesFaculty.faculty);
     isEnabled = true;
-    studentIDController.addListener(() {
+    studentSearchController.addListener(() {
       setState(() {
-        searchID = int.parse(studentIDController.text);
+        searchSurname = studentSearchController.text;
       });
     });
 
@@ -53,24 +53,25 @@ class _StudentScreenState extends State<StudentScreen> {
     }
   }
 
-  TextEditingController studentIDController = TextEditingController();
+  TextEditingController studentSearchController = TextEditingController();
 
   @override
   void dispose() {
-    studentIDController.dispose();
+    studentSearchController.dispose();
     super.dispose();
   }
 
-  validator(int id) {
+  validator(String surname) {
     Box<Student> box = Hive.box<Student>(HiveBoxesStudent.student);
-    var count = box.values.where((student) => student.studentID == id).length;
+    var count =
+        box.values.where((student) => student.lastName == surname).length;
     if (count > 0) {
-      searchID = id;
+      searchSurname = surname;
       isEnabled = false;
       isSearching = true;
     } else {
       isSearching = false;
-      studentIDController.clear();
+      studentSearchController.clear();
     }
   }
 
@@ -176,14 +177,14 @@ class _StudentScreenState extends State<StudentScreen> {
                               ),
                               child: TextFormField(
                                 enabled: isEnabled,
-                                controller: studentIDController,
+                                controller: studentSearchController,
                                 keyboardType: TextInputType.number,
                                 decoration: const InputDecoration(
                                   contentPadding:
                                       EdgeInsets.symmetric(vertical: 11),
                                   floatingLabelBehavior:
                                       FloatingLabelBehavior.never,
-                                  labelText: '    Search by ID',
+                                  labelText: '    Search by Surname',
                                   border: InputBorder.none,
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius:
@@ -207,11 +208,11 @@ class _StudentScreenState extends State<StudentScreen> {
                                           side: const BorderSide(
                                               color: Colors.orange)))),
                               onPressed: () {
-                                int idVal = int.parse(studentIDController.text);
-                                validator(idVal);
+                                String surnameVal =
+                                    studentSearchController.text;
+                                validator(surnameVal);
                                 setState(() {
-                                  searchID =
-                                      int.parse(studentIDController.text);
+                                  searchSurname = studentSearchController.text;
                                   //studentIDController.clear();
                                 });
                               },
@@ -294,8 +295,8 @@ class _StudentScreenState extends State<StudentScreen> {
                         int reverseIndex = box.length - 1 - index;
                         final Student? res = isSearching
                             ? box.values
-                                .where(
-                                    (student) => student.studentID == searchID)
+                                .where((student) =>
+                                    student.lastName == searchSurname)
                                 .toList()[index]
                             : box.getAt(reverseIndex);
                         //Student? res = box.getAt(index);
@@ -409,10 +410,12 @@ class _StudentScreenState extends State<StudentScreen> {
                                                   isInstallment:
                                                       res.isInstallment,
                                                   accountBalance:
-                                                      res.accountBalance, 
-                                                      studentAddress: res.studentAddress,
-                                                      academicTerm: res.academicTerm);
-                                              studentIDController.clear();
+                                                      res.accountBalance,
+                                                  studentAddress:
+                                                      res.studentAddress,
+                                                  academicTerm:
+                                                      res.academicTerm);
+                                              studentSearchController.clear();
                                               isSearching = false;
                                               isEnabled = true;
                                               Navigator.push(

@@ -12,15 +12,15 @@ import 'package:smapp/authentication/right_login_screen.dart';
 import 'package:smapp/dashboard_page.dart';
 import 'package:smapp/student_page.dart';
 
-class NavBarFaculty extends StatefulWidget {
-  const NavBarFaculty({Key? key}) : super(key: key);
+class NavBarMaintenance extends StatefulWidget {
+  const NavBarMaintenance({Key? key}) : super(key: key);
 
   @override
-  _NavBarFacultyState createState() => _NavBarFacultyState();
+  _NavBarMaintenanceState createState() => _NavBarMaintenanceState();
 }
 
-class _NavBarFacultyState extends State<NavBarFaculty> {
-  List<bool> selected = [false, false, true, false, false];
+class _NavBarMaintenanceState extends State<NavBarMaintenance> {
+  List<bool> selected = [false, false, false, false, true];
   void select(int n) {
     for (int i = 0; i < 5; i++) {
       if (i != n) {
@@ -87,12 +87,12 @@ class _NavBarFacultyState extends State<NavBarFaculty> {
                 setState(() {
                   select(2);
                 });
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => const FacultyPage(),
-                //   ),
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const FacultyPage(),
+                  ),
+                );
               },
             ),
           ),
@@ -118,12 +118,12 @@ class _NavBarFacultyState extends State<NavBarFaculty> {
               setState(() {
                 select(4);
               });
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const MaintenancePage(),
-                ),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => const MaintenancePage(),
+              //   ),
+              // );
             },
           ),
           const SizedBox(height: 50),
