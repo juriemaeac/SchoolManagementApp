@@ -20,14 +20,15 @@ class SubjectAdapter extends TypeAdapter<Subject> {
       subjectCourse: fields[1] as String,
       subjectYear: fields[2] as String,
       subjectTerm: fields[3] as String,
-      subjectList: (fields[4] as Map).cast<dynamic, dynamic>(),
+      subjectCode: fields[4] as String,
+      subjectUnit: fields[5] as int,
     )..id = fields[0] as String?;
   }
 
   @override
   void write(BinaryWriter writer, Subject obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -37,7 +38,9 @@ class SubjectAdapter extends TypeAdapter<Subject> {
       ..writeByte(3)
       ..write(obj.subjectTerm)
       ..writeByte(4)
-      ..write(obj.subjectList);
+      ..write(obj.subjectCode)
+      ..writeByte(5)
+      ..write(obj.subjectUnit);
   }
 
   @override

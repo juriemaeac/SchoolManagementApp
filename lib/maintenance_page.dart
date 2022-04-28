@@ -7,10 +7,14 @@ import 'package:smapp/Dashboard/src/ProjectStatisticsCards.dart';
 import 'package:smapp/NavigationBar/navbar_faculty_page.dart';
 import 'package:smapp/NavigationBar/navbar_maintenance_page.dart';
 import 'package:smapp/Dashboard/src/subtitle.dart';
+import 'package:smapp/boxes/boxCourse.dart';
+import 'package:smapp/boxes/boxSubject.dart';
+import 'package:smapp/models/subject_model.dart';
 import 'package:smapp/screens/faculty_screen.dart';
 import 'package:smapp/screens/maintenance_screen.dart';
 
 import 'boxes/boxFaculty.dart';
+import 'models/course_model.dart';
 import 'models/faculty_model.dart';
 
 class MaintenancePage extends StatefulWidget {
@@ -27,22 +31,13 @@ class _MaintenancePageState extends State<MaintenancePage> {
     Hive.openBox<Faculty>(HiveBoxesFaculty.faculty);
   }
 
-  countCashiers() {
-    final box = Hive.box<Faculty>(HiveBoxesFaculty.faculty);
-    int cashiers = 0;
-    for (final faculty in box.values) {
-      if (faculty.userFaculty == 'Cashier') {
-        cashiers += 1;
-      }
-    }
-    return cashiers;
-  }
+
+  
 
   @override
   Widget build(BuildContext context) {
-    var facultyCount = Hive.box<Faculty>(HiveBoxesFaculty.faculty).length;
-    var activeCashiers = countCashiers();
-    var percentage = (activeCashiers / facultyCount).toStringAsFixed(2);
+    var courseCount = Hive.box<Course>(HiveBoxesCourse.course).length;
+    var subjectsCount = Hive.box<Subject>(HiveBoxesSubject.subject).length;
     return Scaffold(
       backgroundColor: const Color(0xfff3f5f9),
       body: SizedBox(
@@ -98,7 +93,7 @@ class _MaintenancePageState extends State<MaintenancePage> {
                               name: 'Listed Now',
                               descriptions: 'Database Analytics',
                               progress: 1.0,
-                              progressString: '$facultyCount',
+                              progressString: '$courseCount',
                               color: const Color(0xffFAAA1E),
                             ),
                           ),
@@ -112,9 +107,7 @@ class _MaintenancePageState extends State<MaintenancePage> {
                               name: 'Listed Now',
                               descriptions: 'Database Analytics',
                               progress: 1.0,
-                              progressString: '1.0',
-                              //progress: double.parse(percentage),
-                              //progressString: '$activeCashiers',
+                              progressString: '$subjectsCount',
                               color: const Color(0xff6C6CE5),
                             ),
                           ),

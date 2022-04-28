@@ -8,35 +8,28 @@ import 'package:smapp/models/student_model.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
 import 'package:smapp/student_page.dart';
 
+import '../../boxes/boxCourse.dart';
 import '../../boxes/boxFaculty.dart';
+import '../../models/course_model.dart';
 import '../../models/faculty_model.dart';
 
-class EditStudentScreen extends StatefulWidget {
-  final Student student;
+class EditCourseScreen extends StatefulWidget {
+  final Course course;
   final int index;
-  const EditStudentScreen(
-      {Key? key, required this.student, required this.index})
+  const EditCourseScreen({Key? key, required this.course, required this.index})
       : super(key: key);
 
   @override
-  _EditStudentScreen createState() => _EditStudentScreen();
+  _EditCourseScreen createState() => _EditCourseScreen();
 }
 
-class _EditStudentScreen extends State<EditStudentScreen> {
+class _EditCourseScreen extends State<EditCourseScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  late int studentIndex = widget.index;
-  int? studentID;
-  String? firstName;
-  String? middleName;
-  String? lastName;
-  String? studentCourse;
-  String? studentSubjects;
-  String? academicYear;
-  int? isInstallment;
-  double? accountBalance;
-  String? studentAddress;
-  String? academicTerm;
+  late int courseIndex = widget.index;
+  String? courseName;
+  String? courseCode;
+  double? courseFee;
 
   @override
   void initState() {
@@ -78,138 +71,46 @@ class _EditStudentScreen extends State<EditStudentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    studentID = widget.student.studentID;
-    firstName = widget.student.firstName;
-    middleName = widget.student.middleName;
-    lastName = widget.student.lastName;
-    studentCourse = widget.student.studentCourse;
-    studentSubjects = widget.student.studentSubjects;
-    academicYear = widget.student.academicYear;
-    isInstallment = widget.student.isInstallment;
-    accountBalance = widget.student.accountBalance;
-    studentAddress = widget.student.studentAddress;
-    academicTerm = widget.student.academicTerm;
+    courseName = widget.course.courseName;
+    courseCode = widget.course.courseCode;
+    courseFee = widget.course.courseFee;
 
-    int? oldID = studentID;
-    TextEditingController _studentIDController = TextEditingController()
-      ..text = '${widget.student.studentID}';
-    TextEditingController _firstNameController = TextEditingController()
-      ..text = widget.student.firstName;
-    TextEditingController _middleNameController = TextEditingController()
-      ..text = widget.student.middleName;
-    TextEditingController _lastNameController = TextEditingController()
-      ..text = widget.student.lastName;
-    TextEditingController _studentCourseController = TextEditingController()
-      ..text = widget.student.studentCourse;
-    TextEditingController _studentSubjectsController = TextEditingController()
-      ..text = widget.student.studentSubjects;
-    TextEditingController _academicYearController = TextEditingController()
-      ..text = widget.student.academicYear;
-    TextEditingController _isInstallmentController = TextEditingController()
-      ..text = '${widget.student.isInstallment}';
-    TextEditingController _accountBalanceController = TextEditingController()
-      ..text = '${widget.student.accountBalance}';
-    TextEditingController _studentAddressController = TextEditingController()
-      ..text = widget.student.studentAddress;
-    TextEditingController _academicTermController = TextEditingController()
-      ..text = widget.student.academicTerm;
+    TextEditingController _courseNameController = TextEditingController()
+      ..text = widget.course.courseName;
+    TextEditingController _courseCodeController = TextEditingController()
+      ..text = widget.course.courseCode;
+    TextEditingController _courseFeeController = TextEditingController()
+      ..text = widget.course.courseFee.toString();
 
     @override
     void initState() {
       super.initState();
-      _studentIDController.addListener(() {
+      _courseNameController.addListener(() {
         setState(() {
-          studentID = int.parse(_studentIDController.text);
+          courseName = _courseNameController.text;
         });
       });
-      _firstNameController.addListener(() {
+      _courseCodeController.addListener(() {
         setState(() {
-          firstName = _firstNameController.text;
+          courseCode = _courseCodeController.text;
         });
       });
-      _middleNameController.addListener(() {
+      _courseFeeController.addListener(() {
         setState(() {
-          middleName = _middleNameController.text;
-        });
-      });
-      _lastNameController.addListener(() {
-        setState(() {
-          lastName = _lastNameController.text;
-        });
-      });
-      _studentCourseController.addListener(() {
-        setState(() {
-          studentCourse = _studentCourseController.text;
-        });
-      });
-      _studentSubjectsController.addListener(() {
-        setState(() {
-          studentSubjects = _studentSubjectsController.text;
-        });
-      });
-      _academicYearController.addListener(() {
-        setState(() {
-          academicYear = _academicYearController.text;
-        });
-      });
-      _isInstallmentController.addListener(() {
-        setState(() {
-          isInstallment = int.parse(_isInstallmentController.text);
-        });
-      });
-      _accountBalanceController.addListener(() {
-        setState(() {
-          accountBalance = double.parse(_accountBalanceController.text);
-        });
-      });
-      _studentAddressController.addListener(() {
-        setState(() {
-          studentAddress = _studentAddressController.text;
-        });
-      });
-      _academicTermController.addListener(() {
-        setState(() {
-          academicTerm = _academicTermController.text;
+          courseFee = double.tryParse(_courseFeeController.text);
         });
       });
     }
 
     @override
     void dispose() {
-      _studentIDController.dispose();
-      _firstNameController.dispose();
-      _middleNameController.dispose();
-      _lastNameController.dispose();
-      _studentCourseController.dispose();
-      _studentSubjectsController.dispose();
-      _academicYearController.dispose();
-      _isInstallmentController.dispose();
-      _accountBalanceController.dispose();
-      _studentAddressController.dispose();
-      _academicTermController.dispose();
+      _courseNameController.dispose();
+      _courseCodeController.dispose();
+      _courseFeeController.dispose();
       super.dispose();
     }
 
-    paymentMethod(int met) {
-      String paymentMethod = '';
-      if (met == 1) {
-        paymentMethod = "Cash";
-        return paymentMethod;
-      } else if (met == 2) {
-        paymentMethod = "Installment";
-        return paymentMethod;
-      }
-    }
-
-    String method = paymentMethod(isInstallment!) ?? "";
-    List<String> courses = ['BSA', 'BSIT', 'BEED', 'BSED'];
-    List<String> academicYears = ['11','12','21','22','31','32','41','42'];
-    List<String> acadYear = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
-    List<String> acadTerm = ['1st Sem', '2nd Sem', 'Summer'];
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Edit Students'),
-      // ),
       body: SafeArea(
         child: Form(
           key: _formKey,
@@ -237,7 +138,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                   const EdgeInsets.only(bottom: 20, left: 20),
                               width: MediaQuery.of(context).size.width * 0.6,
                               child: Text(
-                                'Edit Student',
+                                'Edit Course',
                                 textAlign: TextAlign.start,
                                 style: GoogleFonts.quicksand(
                                   fontWeight: FontWeight.bold,
@@ -647,9 +548,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                         if (value == null ||
                                             value.trim().length == 0) {
                                           return "required";
-                                        } 
-                                        else if (acadYear
-                                                .contains(value) !=
+                                        } else if (acadYear.contains(value) !=
                                             true) {
                                           return "Academic Year Error. [1st Year, 2nd Year...]";
                                         }
@@ -698,9 +597,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                         if (value == null ||
                                             value.trim().length == 0) {
                                           return "required";
-                                        } 
-                                        else if (acadTerm
-                                                .contains(value) !=
+                                        } else if (acadTerm.contains(value) !=
                                             true) {
                                           return "Academic Term Error. [1st Sem, 2nd Sem, Summer]";
                                         }
@@ -928,7 +825,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                     ),
                   ),
                 ),
-                const NavibarStudent(),
+                const Navibar(),
                 const AddStudentInfo(),
               ],
             ),
@@ -939,22 +836,13 @@ class _EditStudentScreen extends State<EditStudentScreen> {
   }
 
   void _onFormSubmit() {
-    Box<Student> studentBox = Hive.box<Student>(HiveBoxesStudent.student);
-
-    studentBox.putAt(
-        studentIndex,
-        Student(
-            studentID: studentID ?? 0,
-            firstName: firstName ?? '',
-            middleName: middleName ?? '',
-            lastName: lastName ?? '',
-            studentCourse: studentCourse ?? '',
-            studentSubjects: studentSubjects ?? '',
-            academicYear: academicYear ?? '',
-            isInstallment: isInstallment ?? 0,
-            accountBalance: accountBalance ?? 0.0,
-            studentAddress: studentAddress ?? '',
-            academicTerm: academicTerm ?? ''));
+    Box<Course> courseBox = Hive.box<Course>(HiveBoxesCourse.course);
+    courseBox.putAt(
+        courseIndex,
+        Course(
+            courseCode: courseCode ?? '',
+            courseName: courseName ?? '',
+            courseFee: courseFee ?? 0.0,));
     Navigator.of(context).pop();
   }
 }

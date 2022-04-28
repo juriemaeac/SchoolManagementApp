@@ -65,12 +65,6 @@ class PdfInvoiceApi {
               fontSize: 8.00,
             ),
           ),
-          pw.Text(
-            "Annex: 892 Alfina Bldg., 2nd Floor, Gulod, Novaliches, Quezon City",
-            style: const TextStyle(
-              fontSize: 8.00,
-            ),
-          ),
         ],
       );
 

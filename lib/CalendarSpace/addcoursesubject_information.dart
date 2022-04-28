@@ -20,7 +20,7 @@ class AddCourseSubjectInfo extends StatelessWidget {
             ),
             const TopContainer(), //profile
             const SizedBox(
-              height: 30.0,
+              height: 20.0,
             ),
             const CalendarSection(), //Month Year
             Container(

@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
+import 'package:smapp/boxes/boxCourse.dart';
 import 'package:smapp/boxes/boxFaculty.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:smapp/boxes/boxSubject.dart';
 import 'package:smapp/faculty_page.dart';
+import 'package:smapp/models/subject_model.dart';
 import 'package:smapp/screens/edit_screen/editfaculty_screen.dart';
+import '../models/course_model.dart';
 import '../models/faculty_model.dart';
 
 class MaintenanceScreen extends StatefulWidget {
@@ -368,14 +372,14 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                 height: MediaQuery.of(context).size.height * 0.45,
                 width: (MediaQuery.of(context).size.width * 0.59) / 2.07,
                 child: ValueListenableBuilder(
-                    valueListenable: Hive.box<Faculty>(HiveBoxesFaculty.faculty)
+                    valueListenable: Hive.box<Course>(HiveBoxesCourse.course)
                         .listenable(),
-                    builder: (context, Box<Faculty> box, _) {
+                    builder: (context, Box<Course> box, _) {
                       if (box.values.isEmpty) {
                         return Center(
                           child: Container(
                               padding: const EdgeInsets.only(top: 120),
-                              child: const Text("Users list is empty")),
+                              child: const Text("Course list is empty")),
                         );
                       }
                       return SingleChildScrollView(
@@ -385,15 +389,10 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                           child: ListView.builder(
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
-                            itemCount: isSearching ? 1 : box.values.length,
+                            itemCount: box.values.length,
                             itemBuilder: (context, index) {
                               int reverseIndex = box.length - 1 - index;
-                              final Faculty? res = isSearching
-                                  ? box.values
-                                      .where((faculty) =>
-                                          faculty.username == searchUsername)
-                                      .toList()[index]
-                                  : box.getAt(reverseIndex);
+                              final Course? res = box.getAt(reverseIndex);
                               return ListTile(
                                 title: Container(
                                   padding: const EdgeInsets.only(
@@ -422,11 +421,9 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                                                 Column(
                                                   children: [
                                                     Text(
-                                                      res!.lastName +
-                                                          ', ' +
-                                                          res.firstName +
-                                                          ' ' +
-                                                          res.middleName,
+                                                      res!.courseCode+
+                                                          ' - ' +
+                                                          res.courseFee.toString(),
                                                       style:
                                                           GoogleFonts.quicksand(
                                                               fontSize: 14,
@@ -442,9 +439,9 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                                               children: [
                                                 const SizedBox(width: 20),
                                                 Text(
-                                                  res.userFaculty.toString(),
+                                                  res.courseName,
                                                   style: GoogleFonts.quicksand(
-                                                      fontSize: 13,
+                                                      fontSize: 10,
                                                       color:
                                                           const Color.fromARGB(
                                                               255,
@@ -478,27 +475,6 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                                                     ),
                                                   ),
                                                   onPressed: () {
-                                                    Faculty faculty = Faculty(
-                                                      username: res.username,
-                                                      password: res.password,
-                                                      firstName: res.firstName,
-                                                      middleName:
-                                                          res.middleName,
-                                                      lastName: res.lastName,
-                                                      userFaculty:
-                                                          res.userFaculty,
-                                                      isAdmin: res.isAdmin,
-                                                    );
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            EditFacultyScreen(
-                                                          faculty: faculty,
-                                                          index: reverseIndex,
-                                                        ),
-                                                      ),
-                                                    );
                                                   },
                                                 ),
                                                 // IconButton(
@@ -536,14 +512,14 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                 height: MediaQuery.of(context).size.height * 0.45,
                 width: (MediaQuery.of(context).size.width * 0.59) / 2.07,
                 child: ValueListenableBuilder(
-                    valueListenable: Hive.box<Faculty>(HiveBoxesFaculty.faculty)
+                    valueListenable: Hive.box<Subject>(HiveBoxesSubject.subject)
                         .listenable(),
-                    builder: (context, Box<Faculty> box, _) {
+                    builder: (context, Box<Subject> box, _) {
                       if (box.values.isEmpty) {
                         return Center(
                           child: Container(
                               padding: const EdgeInsets.only(top: 120),
-                              child: const Text("Users list is empty")),
+                              child: const Text("Subject list is empty")),
                         );
                       }
                       return SingleChildScrollView(
@@ -553,15 +529,10 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                           child: ListView.builder(
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
-                            itemCount: isSearching ? 1 : box.values.length,
+                            itemCount: box.values.length,
                             itemBuilder: (context, index) {
                               int reverseIndex = box.length - 1 - index;
-                              final Faculty? res = isSearching
-                                  ? box.values
-                                      .where((faculty) =>
-                                          faculty.username == searchUsername)
-                                      .toList()[index]
-                                  : box.getAt(reverseIndex);
+                              final Subject? res = box.getAt(reverseIndex);
                               return ListTile(
                                 title: Container(
                                   padding: const EdgeInsets.only(
@@ -590,11 +561,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                                                 Column(
                                                   children: [
                                                     Text(
-                                                      res!.lastName +
-                                                          ', ' +
-                                                          res.firstName +
-                                                          ' ' +
-                                                          res.middleName,
+                                                      res!.subjectCode + ' ' + res.subjectUnit.toString(),
                                                       style:
                                                           GoogleFonts.quicksand(
                                                               fontSize: 14,
@@ -610,15 +577,11 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                                               children: [
                                                 const SizedBox(width: 20),
                                                 Text(
-                                                  res.userFaculty.toString(),
+                                                  res.subjectCourse + ' - ' + res.subjectYear + ' ' + res.subjectTerm,
                                                   style: GoogleFonts.quicksand(
                                                       fontSize: 13,
-                                                      color:
-                                                          const Color.fromARGB(
-                                                              255,
-                                                              102,
-                                                              101,
-                                                              101)),
+                                                      color:const Color.fromARGB(
+                                                      255, 102,101,101)),
                                                 ),
                                               ],
                                             ),
@@ -646,27 +609,6 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                                                     ),
                                                   ),
                                                   onPressed: () {
-                                                    Faculty faculty = Faculty(
-                                                      username: res.username,
-                                                      password: res.password,
-                                                      firstName: res.firstName,
-                                                      middleName:
-                                                          res.middleName,
-                                                      lastName: res.lastName,
-                                                      userFaculty:
-                                                          res.userFaculty,
-                                                      isAdmin: res.isAdmin,
-                                                    );
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            EditFacultyScreen(
-                                                          faculty: faculty,
-                                                          index: reverseIndex,
-                                                        ),
-                                                      ),
-                                                    );
                                                   },
                                                 ),
                                                 // IconButton(

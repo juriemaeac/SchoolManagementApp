@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smapp/CalendarSpace/addcoursesubject_information.dart';
 import 'package:smapp/NavigationBar/navbar_maintenance_page.dart';
+import 'package:smapp/screens/add_screen/addcourse_screen.dart';
 import 'package:smapp/screens/add_screen/addstudent_screen.dart';
 
 class AddCoursePage extends StatelessWidget {
@@ -40,7 +41,7 @@ class AddCoursePage extends StatelessWidget {
                     height: MediaQuery.of(context).size.height - 100,
                     margin: const EdgeInsets.only(left: 70),
                     width: MediaQuery.of(context).size.width * 0.6,
-                    child: const AddStudentScreen()),
+                    child: const AddCourseScreen()),
               ],
             ),
             const NavibarMaintenance(),

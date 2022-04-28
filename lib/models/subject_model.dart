@@ -12,11 +12,13 @@ class Subject extends HiveObject {
   @HiveField(3)
   late String subjectTerm;
   @HiveField(4)
-  late Map subjectList;
-  //map {subjectCode: subjectUnit}
+  late String subjectCode;
+  @HiveField(5)
+  late int subjectUnit;
   Subject(
       {required this.subjectCourse,
       required this.subjectYear,
       required this.subjectTerm,
-      required this.subjectList});
+      required this.subjectCode,
+      required this.subjectUnit});
 }

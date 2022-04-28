@@ -209,7 +209,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                         },
                         validator: (String? value) {
                           if (value == null || value.trim().length == 0) {
-                            return "required";
+                            middleName = " ";
                           }
                           return null;
                         },
@@ -477,7 +477,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                         ],
                       ),
                       child: TextFormField(
-                        controller: _studentSubjects,
+                        //controller: _studentSubjects,
                         decoration: const InputDecoration(
                           labelText: '     Student Subjects',
                           border: InputBorder.none,
@@ -490,7 +490,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                         ),
                         onChanged: (value) {
                           setState(() {
-                            studentSubjects = _studentSubjects.text;
+                            studentSubjects = value;
                           });
                         },
                         validator: (String? value) {

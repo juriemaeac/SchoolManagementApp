@@ -62,12 +62,6 @@ class PdfInvoiceApiPayment {
               fontSize: 8.00,
             ),
           ),
-          pw.Text(
-            "Annex: 892 Alfina Bldg., 2nd Floor, Gulod, Novaliches, Quezon City",
-            style: const TextStyle(
-              fontSize: 8.00,
-            ),
-          ),
         ],
       );
 
@@ -149,11 +143,17 @@ class PdfInvoiceApiPayment {
           Container(
             padding: const pw.EdgeInsets.all(0),
             child: Row(children: [
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text('Transaction Details',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-              ]),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start, 
+                children: [
+                  Text('Total Tuition Fee:',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)
+                  ),
+                  Text('Transaction Details',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)
+                  ),
+                ]
+              ),
             ]),
           ),
           Divider(),
@@ -188,6 +188,24 @@ class PdfInvoiceApiPayment {
                       color: PdfColors.red)),
             ]),
           ]),
+          //IF INSTALLMENT
+          // Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          //     Text('Remaining Balance: ',
+          //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+          //         Text('1st Period: ',
+          //         style: const TextStyle(
+          //             fontSize: 12,)),
+          //             Text('2nd Period: ',
+          //         style: const TextStyle(
+          //             fontSize: 12,)),
+          //             Text('3rd Period: ',
+          //         style: const TextStyle(
+          //             fontSize: 12,)),
+          //             Text('4th Period: ',
+          //         style: const TextStyle(
+          //             fontSize: 12,)),
+          //   ]),
+
           Divider(),
         ],
       );
