@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smapp/CalendarSpace/src/calendar_section.dart';
 import 'package:smapp/CalendarSpace/src/profile_section.dart';
-import 'package:smapp/screens/addfaculty_screen.dart';
+import 'package:smapp/screens/add_screen/addfaculty_screen.dart';
 
 class MaintenanceInfo extends StatelessWidget {
   const MaintenanceInfo({Key? key}) : super(key: key);

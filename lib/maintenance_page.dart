@@ -6,7 +6,7 @@ import 'package:smapp/CalendarSpace/maintenance_information_section.dart';
 import 'package:smapp/Dashboard/src/ProjectStatisticsCards.dart';
 import 'package:smapp/NavigationBar/navbar_faculty_page.dart';
 import 'package:smapp/NavigationBar/navbar_maintenance_page.dart';
-import 'package:smapp/Student/student_tabs.dart';
+import 'package:smapp/Dashboard/src/subtitle.dart';
 import 'package:smapp/screens/faculty_screen.dart';
 import 'package:smapp/screens/maintenance_screen.dart';
 

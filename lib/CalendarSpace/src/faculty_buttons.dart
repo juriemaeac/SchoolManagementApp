@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smapp/screens/addfaculty_screen.dart';
+import 'package:smapp/screens/add_screen/addfaculty_screen.dart';
 
 class FacultyButtons extends StatelessWidget {
   const FacultyButtons({Key? key}) : super(key: key);

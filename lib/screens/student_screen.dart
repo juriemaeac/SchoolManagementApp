@@ -9,10 +9,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:smapp/pdf/model/studentPDF.dart';
 import 'package:smapp/pdf/model/invoice.dart';
 import 'package:smapp/models/faculty_model.dart';
-import 'package:smapp/screens/editstudent_screen.dart';
+import 'package:smapp/screens/edit_screen/editstudent_screen.dart';
 import 'package:smapp/student_page.dart';
 import '../models/student_model.dart';
-import 'addtransaction_screen.dart';
+import 'add_screen/addtransaction_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class StudentScreen extends StatefulWidget {

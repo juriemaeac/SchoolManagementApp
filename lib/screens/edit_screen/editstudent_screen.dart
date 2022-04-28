@@ -8,8 +8,8 @@ import 'package:smapp/models/student_model.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
 import 'package:smapp/student_page.dart';
 
-import '../boxes/boxFaculty.dart';
-import '../models/faculty_model.dart';
+import '../../boxes/boxFaculty.dart';
+import '../../models/faculty_model.dart';
 
 class EditStudentScreen extends StatefulWidget {
   final Student student;

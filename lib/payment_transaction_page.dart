@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:smapp/CalendarSpace/payment_information.dart';
 import 'package:smapp/Dashboard/src/ProjectStatisticsCards.dart';
 import 'package:smapp/NavigationBar/navbar_payment_page.dart';
-import 'package:smapp/Student/student_tabs.dart';
+import 'package:smapp/Dashboard/src/subtitle.dart';
 import 'package:smapp/screens/payment_transaction_screen.dart';
 import 'package:intl/intl.dart';
 import 'boxes/boxPayment.dart';

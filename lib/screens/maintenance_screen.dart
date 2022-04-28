@@ -5,7 +5,7 @@ import 'package:smapp/authentication/right_login_screen.dart';
 import 'package:smapp/boxes/boxFaculty.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:smapp/faculty_page.dart';
-import 'package:smapp/screens/editfaculty_screen.dart';
+import 'package:smapp/screens/edit_screen/editfaculty_screen.dart';
 import '../models/faculty_model.dart';
 
 class MaintenanceScreen extends StatefulWidget {

@@ -3,8 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:smapp/CalendarSpace/student_information_section.dart';
 import 'package:smapp/Dashboard/src/ProjectStatisticsCards.dart';
+import 'package:smapp/Dashboard/src/subtitle.dart';
 import 'package:smapp/NavigationBar/navbar_student_page.dart';
-import 'package:smapp/Student/student_tabs.dart';
+import 'package:smapp/Dashboard/src/subtitle.dart';
 import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/screens/student_screen.dart';
 

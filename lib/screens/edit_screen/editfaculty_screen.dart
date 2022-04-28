@@ -1,71 +1,39 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
-import 'package:smapp/CalendarSpace/src/addpayment_information.dart';
-import 'package:smapp/NavigationBar/navbar_student_page.dart';
-import 'package:smapp/boxes/boxPayment.dart';
-import 'package:smapp/boxes/boxStudent.dart';
-import 'package:smapp/models/student_model.dart';
-import 'package:intl/intl.dart';
-import '../Dashboard/src/ProjectStatisticsCards.dart';
-import '../models/payment_model.dart';
-import '../authentication/right_login_screen.dart';
+import 'package:smapp/CalendarSpace/addfaculty_information.dart';
+import 'package:smapp/NavigationBar/navbar_faculty_page.dart';
+import 'package:smapp/boxes/boxFaculty.dart';
+import 'package:smapp/models/faculty_model.dart';
 
-class AddTransactionScreen extends StatefulWidget {
-  final Student student;
+import '../../faculty_page.dart';
+
+class EditFacultyScreen extends StatefulWidget {
+  final Faculty faculty;
   final int index;
-  const AddTransactionScreen(
-      {Key? key, required this.student, required this.index})
+  const EditFacultyScreen(
+      {Key? key, required this.faculty, required this.index})
       : super(key: key);
 
   @override
-  _AddTransactionScreen createState() => _AddTransactionScreen();
+  _EditFacultyScreen createState() => _EditFacultyScreen();
 }
 
-class _AddTransactionScreen extends State<AddTransactionScreen> {
+class _EditFacultyScreen extends State<EditFacultyScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  @override
-  void initState() {
-    Hive.openBox<Payment>(HiveBoxesPayment.payment);
-    Hive.openBox<Student>(HiveBoxesStudent.student);
-
-    super.initState();
-    var user = facultyCredential.getString();
-    if (user == '') {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const LoginScreen(),
-        ),
-      );
-    }
-  }
-
-  late int studentIndex = widget.index;
-  int? studentID;
+  late int facultyIndex = widget.index;
+  String? username;
+  String? password;
   String? firstName;
   String? middleName;
   String? lastName;
-  String? studentCourse;
-  String? studentSubjects;
-  String? academicYear;
-  int? isInstallment;
-  double? accountBalance;
-  String? studentAddress;
-  String? academicTerm;
+  String? userFaculty;
+  bool? isAdmin;
 
-  String? facultyUsername;
-  String? transactionDate;
-  double? transactionAmount;
-  double? newAccountBalance;
-  double? oldBalance;
-
-  validated(double oldBalance, double transactionAmount) {
+  validated() {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
-      _onFormSubmit(oldBalance, transactionAmount);
+      _onFormSubmit();
     } else {
       return;
     }
@@ -73,60 +41,76 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    studentID = widget.student.studentID;
-    firstName = widget.student.firstName;
-    middleName = widget.student.middleName;
-    lastName = widget.student.lastName;
-    studentCourse = widget.student.studentCourse;
-    studentSubjects = widget.student.studentSubjects;
-    academicYear = widget.student.academicYear;
-    isInstallment = widget.student.isInstallment;
-    accountBalance = widget.student.accountBalance;
-    studentAddress = widget.student.studentAddress;
+    username = widget.faculty.username;
+    password = widget.faculty.password;
+    firstName = widget.faculty.firstName;
+    middleName = widget.faculty.middleName;
+    lastName = widget.faculty.lastName;
+    userFaculty = widget.faculty.userFaculty;
+    isAdmin = widget.faculty.isAdmin;
 
-    oldBalance = widget.student.accountBalance;
+    String oldUsername = widget.faculty.username;
 
-    TextEditingController _studentIDController = TextEditingController()
-      ..text = '${widget.student.studentID}';
-    TextEditingController _accountBalanceController = TextEditingController()
-      ..text = '${widget.student.accountBalance}';
+    TextEditingController _usernameController = TextEditingController()
+      ..text = widget.faculty.username;
+    TextEditingController _passwordController = TextEditingController()
+      ..text = widget.faculty.password;
+    TextEditingController _firstNameController = TextEditingController()
+      ..text = widget.faculty.firstName;
+    TextEditingController _middleNameController = TextEditingController()
+      ..text = widget.faculty.middleName;
+    TextEditingController _lastNameController = TextEditingController()
+      ..text = widget.faculty.lastName;
+    TextEditingController _userFacultyController = TextEditingController()
+      ..text = widget.faculty.userFaculty;
 
     @override
     void initState() {
       super.initState();
-      _studentIDController.addListener(() {
+      _usernameController.addListener(() {
         setState(() {
-          studentID = int.parse(_studentIDController.text);
+          username = _usernameController.text;
         });
       });
-      _accountBalanceController.addListener(() {
+      _passwordController.addListener(() {
         setState(() {
-          accountBalance = double.parse(_accountBalanceController.text);
+          password = _passwordController.text;
+        });
+      });
+      _firstNameController.addListener(() {
+        setState(() {
+          firstName = _firstNameController.text;
+        });
+      });
+      _middleNameController.addListener(() {
+        setState(() {
+          middleName = _middleNameController.text;
+        });
+      });
+      _lastNameController.addListener(() {
+        setState(() {
+          lastName = _lastNameController.text;
+        });
+      });
+      _userFacultyController.addListener(() {
+        setState(() {
+          userFaculty = _userFacultyController.text;
         });
       });
     }
 
     @override
     void dispose() {
-      _studentIDController.dispose();
-      _accountBalanceController.dispose();
+      _usernameController.dispose();
+      _passwordController.dispose();
+      _firstNameController.dispose();
+      _middleNameController.dispose();
+      _lastNameController.dispose();
+      _userFacultyController.dispose();
       super.dispose();
     }
 
-    paymentMethod(int met) {
-      String paymentMethod = '';
-      if (met == 1) {
-        paymentMethod = "Cash";
-        return paymentMethod;
-      } else if (met == 2) {
-        paymentMethod = "Installment";
-        return paymentMethod;
-      }
-    }
-
-    String? user = facultyCredential.getString();
-    String transacDate = DateFormat("MMMM, dd, yyyy").format(DateTime.now());
-    String payingStudent = ('$firstName $lastName');
+    List<String> departments = ['Cashier', 'Registrar', 'Professor'];
 
     return Scaffold(
       body: SafeArea(
@@ -156,7 +140,7 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                   const EdgeInsets.only(bottom: 20, left: 20),
                               width: MediaQuery.of(context).size.width * 0.6,
                               child: Text(
-                                'Add Payment',
+                                'Edit Faculty',
                                 textAlign: TextAlign.start,
                                 style: GoogleFonts.quicksand(
                                   fontWeight: FontWeight.bold,
@@ -167,42 +151,6 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                 ),
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                SizedBox(
-                                  child: SizedBox(
-                                    height:
-                                        MediaQuery.of(context).size.height / 5,
-                                    width: MediaQuery.of(context).size.width /
-                                        3.25,
-                                    child: ProjectStatisticsCardNoGraph(
-                                      count:
-                                          'Cashier: ${user.substring(0, min(user.length, 15))}..',
-                                      name: transacDate,
-                                      descriptions: 'Authorized Faculty',
-                                      color: const Color(0xffFAAA1E),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  child: SizedBox(
-                                    height:
-                                        MediaQuery.of(context).size.height / 5,
-                                    width: MediaQuery.of(context).size.width /
-                                        3.25,
-                                    child: ProjectStatisticsCardNoGraph(
-                                      count:
-                                          'Payor: ${payingStudent.substring(0, min(payingStudent.length, 15))}..',
-                                      name: '$studentID $studentCourse',
-                                      descriptions: 'Student Payor',
-                                      color: const Color(0xff6C6CE5),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 20),
                             Container(
                               decoration: BoxDecoration(
                                 color: Colors.white,
@@ -225,23 +173,63 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
+                                    padding: const EdgeInsets.only(
+                                        left: 25, right: 25),
                                     margin: const EdgeInsets.only(
                                         left: 15, right: 15, top: 5, bottom: 5),
-                                    child: Text(
-                                      'Payment Method: ${paymentMethod(isInstallment!)}',
-                                      textAlign: TextAlign.start,
-                                      style: GoogleFonts.quicksand(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20.0,
-                                        textStyle: const TextStyle(
-                                          color:
-                                              Color.fromARGB(255, 51, 57, 81),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          spreadRadius: 2,
+                                          blurRadius: 9,
+                                          //offset: Offset(2, 6),
+                                          // changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                    child: TextFormField(
+                                      //enabled: false,
+                                      autofocus: true,
+                                      controller: _usernameController,
+                                      decoration: const InputDecoration(
+                                        labelText: 'Faculty Username',
+                                        border: InputBorder.none,
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15.0)),
+                                          borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 2),
                                         ),
                                       ),
+                                      onChanged: (value) {
+                                        //setState(() {
+                                        username =
+                                            _usernameController.value.text;
+                                        //});
+                                      },
+                                      validator: (String? value) {
+                                        Box<Faculty> facultyBox =
+                                            Hive.box<Faculty>(
+                                                HiveBoxesFaculty.faculty);
+                                        if (value == null ||
+                                            value.trim().isEmpty) {
+                                          return "required";
+                                        }
+                                        if (value != oldUsername) {
+                                          for (var faculty in facultyBox.values) {
+                                          if (faculty.username == value) {
+                                            return "Username already exists";
+                                          }
+                                        }
+                                        }
+                                        
+                                        return null;
+                                      },
                                     ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
                                   ),
                                   Container(
                                     padding: const EdgeInsets.only(
@@ -262,11 +250,10 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                       ],
                                     ),
                                     child: TextFormField(
-                                      enabled: false,
                                       autofocus: true,
-                                      controller: _studentIDController,
+                                      controller: _passwordController,
                                       decoration: const InputDecoration(
-                                        labelText: 'Student ID',
+                                        labelText: 'Faculty Password',
                                         border: InputBorder.none,
                                         focusedBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
@@ -277,9 +264,10 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                         ),
                                       ),
                                       onChanged: (value) {
-                                        setState(() {
-                                          studentID = int.parse(value);
-                                        });
+                                        //setState(() {
+                                        password =
+                                            _passwordController.value.text;
+                                        //});
                                       },
                                       validator: (String? value) {
                                         if (value == null ||
@@ -290,9 +278,6 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                       },
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
                                   Container(
                                     padding: const EdgeInsets.only(
                                         left: 25, right: 25),
@@ -312,10 +297,10 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                       ],
                                     ),
                                     child: TextFormField(
-                                      enabled: false,
-                                      autofocus: false,
+                                      autofocus: true,
+                                      controller: _firstNameController,
                                       decoration: const InputDecoration(
-                                        labelText: 'Account Balance',
+                                        labelText: 'First Name',
                                         border: InputBorder.none,
                                         focusedBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
@@ -325,11 +310,20 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                               width: 2),
                                         ),
                                       ),
-                                      controller: _accountBalanceController,
+                                      onChanged: (value) {
+                                        //setState(() {
+                                        firstName =
+                                            _firstNameController.value.text;
+                                        //});
+                                      },
+                                      validator: (String? value) {
+                                        if (value == null ||
+                                            value.trim().length == 0) {
+                                          return "required";
+                                        }
+                                        return null;
+                                      },
                                     ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
                                   ),
                                   Container(
                                     padding: const EdgeInsets.only(
@@ -351,8 +345,9 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                     ),
                                     child: TextFormField(
                                       autofocus: true,
+                                      controller: _middleNameController,
                                       decoration: const InputDecoration(
-                                        labelText: 'Payment Amount',
+                                        labelText: 'Middle Name',
                                         border: InputBorder.none,
                                         focusedBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
@@ -363,36 +358,110 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                         ),
                                       ),
                                       onChanged: (value) {
-                                        setState(() {
-                                          transactionAmount =
-                                              double.parse(value);
-                                        });
+                                        //setState(() {
+                                        middleName = value;
+                                        //});
                                       },
                                       validator: (String? value) {
-                                        if (isInstallment == 1) {
-                                          if (value == null ||
-                                              value.trim().length == 0) {
-                                            return "required";
-                                          } else if (double.parse(value) <= 0 ||
-                                              double.parse(value) >
-                                                  oldBalance!) {
-                                            return "Payment amount error. Please try again.";
-                                          } else if (double.parse(value) <
-                                              oldBalance!) {
-                                            return "Payment amount error. Student shall pay in full.";
-                                          }
-                                          return null;
-                                        } else if (isInstallment == 2) {
-                                          if (value == null ||
-                                              value.trim().length == 0) {
-                                            return "required";
-                                          } else if (double.parse(value) <= 0 ||
-                                              double.parse(value) >
-                                                  oldBalance!) {
-                                            return "Payment amount error. Please try again.";
-                                          }
-                                          return null;
+                                        if (value == null ||
+                                            value.trim().length == 0) {
+                                          return "required";
                                         }
+                                        return null;
+                                      },
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.only(
+                                        left: 25, right: 25),
+                                    margin: const EdgeInsets.only(
+                                        left: 15, right: 15, top: 5, bottom: 5),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          spreadRadius: 2,
+                                          blurRadius: 9,
+                                          //offset: Offset(2, 6),
+                                          // changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                    child: TextFormField(
+                                      controller: _lastNameController,
+                                      decoration: const InputDecoration(
+                                        labelText: 'Last Name',
+                                        border: InputBorder.none,
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15.0)),
+                                          borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 2),
+                                        ),
+                                      ),
+                                      onChanged: (value) {
+                                        //setState(() {
+                                        lastName = value;
+                                        //});
+                                      },
+                                      validator: (String? value) {
+                                        if (value == null ||
+                                            value.trim().length == 0) {
+                                          return "required";
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.only(
+                                        left: 25, right: 25),
+                                    margin: const EdgeInsets.only(
+                                        left: 15, right: 15, top: 5, bottom: 5),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          spreadRadius: 2,
+                                          blurRadius: 9,
+                                          //offset: Offset(2, 6),
+                                          // changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                    child: TextFormField(
+                                      controller: _userFacultyController,
+                                      decoration: const InputDecoration(
+                                        labelText: 'Faculty Department',
+                                        border: InputBorder.none,
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15.0)),
+                                          borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 2),
+                                        ),
+                                      ),
+                                      onChanged: (value) {
+                                        //setState(() {
+                                        userFaculty = value;
+                                        //});
+                                      },
+                                      validator: (String? value) {
+                                        if (value == null ||
+                                            value.trim().length == 0) {
+                                          return "required";
+                                        }
+                                        if (departments.contains(value) !=
+                                            true) {
+                                          return "Department not found. [Cashier, Registrar, Professor]";
+                                        }
+                                        return null;
                                       },
                                     ),
                                   ),
@@ -414,8 +483,7 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                                           color:
                                                               Colors.orange)))),
                                           onPressed: () {
-                                            validated(oldBalance!,
-                                                transactionAmount!);
+                                            validated();
                                           },
                                           child: Padding(
                                             padding: const EdgeInsets.all(10),
@@ -426,7 +494,7 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                                   CrossAxisAlignment.center,
                                               children: const <Widget>[
                                                 Text(
-                                                  'Add Payment',
+                                                  'Save Faculty',
                                                   style: TextStyle(
                                                     fontSize: 15,
                                                     fontWeight: FontWeight.w400,
@@ -438,7 +506,7 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                           ),
                                         ),
                                       ),
-                                      const SizedBox(width: 10),
+                                      const SizedBox(width: 20),
                                       Container(
                                         margin: const EdgeInsets.all(10),
                                         child: ElevatedButton(
@@ -453,7 +521,13 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                                           color:
                                                               Colors.orange)))),
                                           onPressed: () {
-                                            Navigator.pop(context);
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const FacultyPage(),
+                                              ),
+                                            );
                                           },
                                           child: Padding(
                                             padding: const EdgeInsets.all(10),
@@ -487,8 +561,8 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                     ),
                   ),
                 ),
-                const NavibarStudent(),
-                const AddPaymentInfo(),
+                const NavibarFaculty(),
+                const AddFacultyInfo(),
               ],
             ),
           ),
@@ -497,38 +571,20 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
     );
   }
 
-  void _onFormSubmit(double oldBalance, double transactionAmount) {
-    String? user = facultyCredential.getString();
+  void _onFormSubmit() {
+    Box<Faculty> facultyBox = Hive.box<Faculty>(HiveBoxesFaculty.faculty);
 
-    if (transactionAmount > oldBalance && transactionAmount >= 1.0) {
-      return;
-    } else {
-      double? newAccountBalance = oldBalance - transactionAmount;
-      String transacDate = DateFormat("MMMM dd, yyyy").format(DateTime.now());
-      Box<Payment> paymentBox = Hive.box<Payment>(HiveBoxesPayment.payment);
-      paymentBox.add(Payment(
-        studentID: studentID ?? 0,
-        transactionAmount: transactionAmount,
-        transactionDate: transacDate,
-        facultyUsername: user,
-        newAccountBalance: newAccountBalance,
-      ));
-      Box<Student> studentBox = Hive.box<Student>(HiveBoxesStudent.student);
-      studentBox.putAt(
-          studentIndex,
-          Student(
-              studentID: studentID ?? 0,
-              firstName: firstName ?? '',
-              middleName: middleName ?? '',
-              lastName: lastName ?? '',
-              studentCourse: studentCourse ?? '',
-              studentSubjects: studentSubjects ?? '',
-              academicYear: academicYear ?? '',
-              isInstallment: isInstallment ?? 0,
-              accountBalance: newAccountBalance,
-              studentAddress: studentAddress ?? '',
-              academicTerm: academicTerm ?? '',));
-    }
+    facultyBox.putAt(
+        facultyIndex,
+        Faculty(
+          username: username ?? '',
+          password: password ?? '',
+          firstName: firstName ?? '',
+          middleName: middleName ?? '',
+          lastName: lastName ?? '',
+          userFaculty: userFaculty ?? '',
+          isAdmin: isAdmin ?? false,
+        ));
     Navigator.of(context).pop();
   }
 }

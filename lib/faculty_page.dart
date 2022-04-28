@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:smapp/CalendarSpace/faculty_information_section.dart';
 import 'package:smapp/Dashboard/src/ProjectStatisticsCards.dart';
 import 'package:smapp/NavigationBar/navbar_faculty_page.dart';
-import 'package:smapp/Student/student_tabs.dart';
+import 'package:smapp/Dashboard/src/subtitle.dart';
 import 'package:smapp/screens/faculty_screen.dart';
 
 import 'boxes/boxFaculty.dart';

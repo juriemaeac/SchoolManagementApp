@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smapp/CalendarSpace/addstudent_information.dart';
 import 'package:smapp/NavigationBar/navbar_student_page.dart';
-import 'package:smapp/screens/addstudent_screen.dart';
+import 'package:smapp/screens/add_screen/addstudent_screen.dart';
 
 class AddStudentPage extends StatelessWidget {
   const AddStudentPage({Key? key}) : super(key: key);
