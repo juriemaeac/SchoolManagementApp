@@ -50,6 +50,8 @@ class _AddStudentScreen extends State<AddStudentScreen> {
   Widget build(BuildContext context) {
     TextEditingController _studentSubjects = TextEditingController()
       ..text = courseSubjects.getCourseSubjects();
+    TextEditingController _courseFee = TextEditingController()
+      ..text = courseSubjects.getCourseFee().toString();
     List<String> courses = ['BSA', 'BSIT', 'BEED', 'BSED'];
     List<String> academicYears = [
       '11',
@@ -566,6 +568,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                                       onChanged: (value) {
                                         setState(() {
                                           isInstallment = value ?? 0;
+                                          courseSubjects.setPayment(1);
                                         });
                                       },
                                       activeColor: Colors.orange,
@@ -579,6 +582,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                                       onChanged: (value) {
                                         setState(() {
                                           isInstallment = value ?? 0;
+                                          courseSubjects.setPayment(2);
                                         });
                                       },
                                       activeColor: Colors.orange,
@@ -629,7 +633,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                               ),
                               child: TextFormField(
                                 textAlign: TextAlign.right,
-                                initialValue: '',
+                                controller: _courseFee,
                                 decoration: const InputDecoration(
                                   hintText: '₱ 0.00',
                                   //labelText: '₱ 0.00',
@@ -765,6 +769,7 @@ class courseSubjects {
   static String subCourse = "";
   static String subAcadYear = "";
   static String subAcadTerm = "";
+  static int subPayment = 1;
 
   static void setCourse(String newValue) {
     subCourse = newValue;
@@ -776,6 +781,10 @@ class courseSubjects {
 
   static void setAcademicTerm(String newValue) {
     subAcadTerm = newValue;
+  }
+
+  static void setPayment(int newValue) {
+    subPayment = newValue;
   }
 
   static String getCourseSubjects() {
@@ -796,50 +805,21 @@ class courseSubjects {
     }
     String finalSubjects = courseSubjects.join(',');
     return finalSubjects;
-    // if (course == "BSIT") {
-    //   if (academicYear == 1) {
-    //     String subjects =
-    //         "GERPH, GESTS, FIL 1, CC 101, CC 102, LIT, PE 101, NSTP 101";
-    //     return subjects;
-    //   } else if (academicYear == 12) {
-    //     String subjects =
-    //         "GEMCW, GEPC, FIL 2, CC 103, HCI 101, MS 101, PE 102, NSTP 2";
-    //     return subjects;
-    //   } else if (academicYear == 21) {
-    //     String subjects =
-    //         "GETCW, GEUS, CC 104, CC 105, IAS 101, IM 101, PE 103";
-    //     return subjects;
-    //   } else if (academicYear == 22) {
-    //     String subjects =
-    //         "GEAA, GEETH, IAS 2, IPT 101, CC 106, MS 102, ADMS, PE 4";
-    //     return subjects;
-    //   } else if (academicYear == 31) {
-    //     String subjects =
-    //         "WS 101, PHYS, NET 101, SA 101, SP 101, APT 102, OS 2";
-    //     return subjects;
-    //   } else if (academicYear == 32) {
-    //     String subjects = "RIZAL, NET 102, SIA 101, DC, PF 101, SIA 102, ITP 3";
-    //     return subjects;
-    //   } else if (academicYear == 41) {
-    //     String subjects = "CAP 101, ITP 4, ITP 5";
-    //     return subjects;
-    //   } else if (academicYear == 42) {
-    //     String subjects = "CAP 102, IT6, FTS 101";
-    //     return subjects;
-    //   } else if (academicYear == 0) {
-    //     String subjects = " -- Select Academic Year -- ";
-    //     return subjects;
-    //   } else {
-    //     return "Subjects not found";
-    //   }
-    // } else if (course == "BEED") {
-    //   return "Elementary Education Subjects - Not set -";
-    // } else if (course == "BSED") {
-    //   return "Secondary Education Subjects  - Not set -";
-    // } else if (course == "BSA") {
-    //   return "Accountancy Subjects  - Not set -";
-    // } else {
-    //   return "--";
-    // }
+  }
+
+  static double getCourseFee() {
+    Box<Course> courseBox = Hive.box<Course>(HiveBoxesCourse.course);
+    double fee = 0.0;
+    if (subPayment == 1) {
+      for (var courses in courseBox.values) {
+        if (subCourse == courses.courseCode) {
+          fee = courses.courseFee;
+        }
+      }
+      return fee;
+    } else {
+      fee = 5000.0;
+      return fee;
+    }
   }
 }
