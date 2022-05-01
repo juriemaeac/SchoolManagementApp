@@ -42,6 +42,7 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
   Widget build(BuildContext context) {
     List<String> acadYear = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
     List<String> acadTerm = ['1st Sem', '2nd Sem', 'Summer'];
+
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -107,7 +108,6 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
                               ),
                               child: TextFormField(
                                 autofocus: true,
-                                keyboardType: TextInputType.number,
                                 decoration: const InputDecoration(
                                   labelText: '    Course Code',
                                   border: InputBorder.none,
@@ -136,6 +136,7 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
                                   } else if (count == 0) {
                                     return "Course Code not found";
                                   }
+
                                   return null;
                                 },
                               ),
@@ -180,7 +181,7 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
                                       value.trim().length == 0) {
                                     return "required";
                                   } else if (acadYear.contains(value) != true) {
-                                    return "Academic Year Error. [1st Year, 2nd Year...]";
+                                    return "! [1st Year, 2nd Year...]";
                                   }
                                   return null;
                                 },
@@ -228,7 +229,7 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
                                       value.trim().length == 0) {
                                     return "required";
                                   } else if (acadTerm.contains(value) != true) {
-                                    return "Academic Term Error. [1st Sem, 2nd Sem, Summer]";
+                                    return "! [1st Sem, 2nd Sem, Summer]";
                                   }
                                   return null;
                                 },
@@ -280,11 +281,21 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
                                   });
                                 },
                                 validator: (String? value) {
+                                  Box<Subject> subjectBox = Hive.box<Subject>(
+                                      HiveBoxesSubject.subject);
+                                  //Box<Course> courseBox = Hive.box<Course>(HiveBoxesCourse.course);
                                   if (value == null ||
                                       value.trim().length == 0) {
                                     return "required";
                                   }
-                                  return null;
+                                  for (var subject in subjectBox.values) {
+                                    if (subject.subjectCode == value &&
+                                        subject.subjectCourse ==
+                                            subjectCourse) {
+                                      return "Subject Code already Exists.";
+                                    }
+                                    return null;
+                                  }
                                 },
                               ),
                             ),
@@ -425,11 +436,6 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
       ),
     );
   }
-
-  // late String subjectCourse;
-  // late String subjectYear;
-  // late String subjectTerm;
-  // late Map subjectList;
 
   void _onFormSubmit() {
     Box<Subject> subjectBox = Hive.box<Subject>(HiveBoxesSubject.subject);

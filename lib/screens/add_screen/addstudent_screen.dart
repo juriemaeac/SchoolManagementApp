@@ -3,6 +3,11 @@ import 'package:hive/hive.dart';
 import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/models/student_model.dart';
 
+import '../../boxes/boxCourse.dart';
+import '../../boxes/boxSubject.dart';
+import '../../models/course_model.dart';
+import '../../models/subject_model.dart';
+
 class AddStudentScreen extends StatefulWidget {
   const AddStudentScreen({Key? key}) : super(key: key);
 
@@ -17,6 +22,8 @@ class _AddStudentScreen extends State<AddStudentScreen> {
   void initState() {
     super.initState();
     Hive.openBox<Student>(HiveBoxesStudent.student);
+    Hive.openBox<Subject>(HiveBoxesSubject.subject);
+    Hive.openBox<Course>(HiveBoxesCourse.course);
   }
 
   late int studentID;
@@ -44,7 +51,16 @@ class _AddStudentScreen extends State<AddStudentScreen> {
     TextEditingController _studentSubjects = TextEditingController()
       ..text = courseSubjects.getCourseSubjects();
     List<String> courses = ['BSA', 'BSIT', 'BEED', 'BSED'];
-    List<String> academicYears = ['11', '12', '21', '22', '31', '32', '41', '42'];
+    List<String> academicYears = [
+      '11',
+      '12',
+      '21',
+      '22',
+      '31',
+      '32',
+      '41',
+      '42'
+    ];
     List<String> acadYear = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
     List<String> acadTerm = ['1st Sem', '2nd Sem', 'Summer'];
     return Scaffold(
@@ -110,7 +126,8 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                           });
                         },
                         validator: (String? value) {
-                          Box<Student> studentBox = Hive.box<Student>(HiveBoxesStudent.student);
+                          Box<Student> studentBox =
+                              Hive.box<Student>(HiveBoxesStudent.student);
                           if (value == null || value.trim().length == 0) {
                             return "required";
                           }
@@ -311,7 +328,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                       children: [
                         Container(
                           padding: const EdgeInsets.only(left: 25, right: 25),
-                          width: (MediaQuery.of(context).size.width * 0.59) / 2,
+                          width: (MediaQuery.of(context).size.width * 0.59) / 3,
                           margin: const EdgeInsets.only(
                               left: 15, right: 15, top: 5, bottom: 5),
                           decoration: BoxDecoration(
@@ -349,15 +366,14 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                               if (value == null || value.trim().length == 0) {
                                 return "required";
                               } else if (courses.contains(value) != true) {
-                                return "Course not found. [BSA, BSIT, BEED, BSED]";
+                                return "! [BSA, BSIT, BEED, BSED]";
                               }
                               return null;
                             },
                           ),
                         ),
                         Container(
-                          width:
-                              (MediaQuery.of(context).size.width * 0.59) / 2.8,
+                          width: (MediaQuery.of(context).size.width * 0.59) / 4,
                           margin: const EdgeInsets.only(
                               left: 15, right: 15, top: 5, bottom: 5),
                           padding: const EdgeInsets.only(left: 15, right: 15),
@@ -387,7 +403,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                               ),
                             ),
                             onChanged: (value) {
-                              //courseSubjects.setAcademicYear(int.parse(value));  ito yung auto populate
+                              courseSubjects.setAcademicYear(value);
                               setState(() {
                                 academicYear = value;
                               });
@@ -395,22 +411,15 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                             validator: (String? value) {
                               if (value == null || value.trim().length == 0) {
                                 return "required";
-                              } 
-                              else if (acadYear.contains(value) != true) {
-                                return "Academic Year Error. [1st Year, 2nd Year...]";
+                              } else if (acadYear.contains(value) != true) {
+                                return "! [1st Year, 2nd Year...]";
                               }
                               return null;
                             },
                           ),
                         ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                     Container(
-                          width:
-                              (MediaQuery.of(context).size.width * 0.59) / 2.8,
+                        Container(
+                          width: (MediaQuery.of(context).size.width * 0.59) / 4,
                           margin: const EdgeInsets.only(
                               left: 15, right: 15, top: 5, bottom: 5),
                           padding: const EdgeInsets.only(left: 15, right: 15),
@@ -440,7 +449,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                               ),
                             ),
                             onChanged: (value) {
-                              //courseSubjects.setAcademicYear(int.parse(value));
+                              courseSubjects.setAcademicTerm(value);
                               setState(() {
                                 academicTerm = value;
                               });
@@ -448,14 +457,15 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                             validator: (String? value) {
                               if (value == null || value.trim().length == 0) {
                                 return "required";
-                              } 
-                              else if (acadTerm.contains(value) != true) {
-                                return "Academic Term Error. [1st Sem, 2nd Sem, Summer]";
+                              } else if (acadTerm.contains(value) != true) {
+                                return "! [1st Sem, 2nd Sem, Summer]";
                               }
                               return null;
                             },
                           ),
                         ),
+                      ],
+                    ),
                     const SizedBox(
                       height: 8,
                     ),
@@ -477,7 +487,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                         ],
                       ),
                       child: TextFormField(
-                        //controller: _studentSubjects,
+                        controller: _studentSubjects,
                         decoration: const InputDecoration(
                           labelText: '     Student Subjects',
                           border: InputBorder.none,
@@ -752,62 +762,84 @@ class _AddStudentScreen extends State<AddStudentScreen> {
 }
 
 class courseSubjects {
-  static String course = "";
-  static int academicYear = 0;
+  static String subCourse = "";
+  static String subAcadYear = "";
+  static String subAcadTerm = "";
 
   static void setCourse(String newValue) {
-    course = newValue;
+    subCourse = newValue;
   }
 
-  static void setAcademicYear(int newValue) {
-    academicYear = newValue;
+  static void setAcademicYear(String newValue) {
+    subAcadYear = newValue;
+  }
+
+  static void setAcademicTerm(String newValue) {
+    subAcadTerm = newValue;
   }
 
   static String getCourseSubjects() {
-    if (course == "BSIT") {
-      if (academicYear == 1) {
-        String subjects =
-            "GERPH, GESTS, FIL 1, CC 101, CC 102, LIT, PE 101, NSTP 101";
-        return subjects;
-      } else if (academicYear == 12) {
-        String subjects =
-            "GEMCW, GEPC, FIL 2, CC 103, HCI 101, MS 101, PE 102, NSTP 2";
-        return subjects;
-      } else if (academicYear == 21) {
-        String subjects =
-            "GETCW, GEUS, CC 104, CC 105, IAS 101, IM 101, PE 103";
-        return subjects;
-      } else if (academicYear == 22) {
-        String subjects =
-            "GEAA, GEETH, IAS 2, IPT 101, CC 106, MS 102, ADMS, PE 4";
-        return subjects;
-      } else if (academicYear == 31) {
-        String subjects =
-            "WS 101, PHYS, NET 101, SA 101, SP 101, APT 102, OS 2";
-        return subjects;
-      } else if (academicYear == 32) {
-        String subjects = "RIZAL, NET 102, SIA 101, DC, PF 101, SIA 102, ITP 3";
-        return subjects;
-      } else if (academicYear == 41) {
-        String subjects = "CAP 101, ITP 4, ITP 5";
-        return subjects;
-      } else if (academicYear == 42) {
-        String subjects = "CAP 102, IT6, FTS 101";
-        return subjects;
-      } else if (academicYear == 0) {
-        String subjects = " -- Select Academic Year -- ";
-        return subjects;
-      } else {
-        return "Subjects not found";
+    Box<Course> courseBox = Hive.box<Course>(HiveBoxesCourse.course);
+    Box<Subject> subjectBox = Hive.box<Subject>(HiveBoxesSubject.subject);
+    List<String> courseSubjects = [];
+    for (var courses in courseBox.values) {
+      if (subCourse == courses.courseCode) {
+        for (var sub in subjectBox.values) {
+          if (sub.subjectCourse == subCourse) {
+            if (sub.subjectYear == subAcadYear &&
+                sub.subjectTerm == subAcadTerm) {
+              courseSubjects.add(sub.subjectCode);
+            }
+          }
+        }
       }
-    } else if (course == "BEED") {
-      return "Elementary Education Subjects - Not set -";
-    } else if (course == "BSED") {
-      return "Secondary Education Subjects  - Not set -";
-    } else if (course == "BSA") {
-      return "Accountancy Subjects  - Not set -";
-    } else {
-      return "--";
     }
+    String finalSubjects = courseSubjects.join(',');
+    return finalSubjects;
+    // if (course == "BSIT") {
+    //   if (academicYear == 1) {
+    //     String subjects =
+    //         "GERPH, GESTS, FIL 1, CC 101, CC 102, LIT, PE 101, NSTP 101";
+    //     return subjects;
+    //   } else if (academicYear == 12) {
+    //     String subjects =
+    //         "GEMCW, GEPC, FIL 2, CC 103, HCI 101, MS 101, PE 102, NSTP 2";
+    //     return subjects;
+    //   } else if (academicYear == 21) {
+    //     String subjects =
+    //         "GETCW, GEUS, CC 104, CC 105, IAS 101, IM 101, PE 103";
+    //     return subjects;
+    //   } else if (academicYear == 22) {
+    //     String subjects =
+    //         "GEAA, GEETH, IAS 2, IPT 101, CC 106, MS 102, ADMS, PE 4";
+    //     return subjects;
+    //   } else if (academicYear == 31) {
+    //     String subjects =
+    //         "WS 101, PHYS, NET 101, SA 101, SP 101, APT 102, OS 2";
+    //     return subjects;
+    //   } else if (academicYear == 32) {
+    //     String subjects = "RIZAL, NET 102, SIA 101, DC, PF 101, SIA 102, ITP 3";
+    //     return subjects;
+    //   } else if (academicYear == 41) {
+    //     String subjects = "CAP 101, ITP 4, ITP 5";
+    //     return subjects;
+    //   } else if (academicYear == 42) {
+    //     String subjects = "CAP 102, IT6, FTS 101";
+    //     return subjects;
+    //   } else if (academicYear == 0) {
+    //     String subjects = " -- Select Academic Year -- ";
+    //     return subjects;
+    //   } else {
+    //     return "Subjects not found";
+    //   }
+    // } else if (course == "BEED") {
+    //   return "Elementary Education Subjects - Not set -";
+    // } else if (course == "BSED") {
+    //   return "Secondary Education Subjects  - Not set -";
+    // } else if (course == "BSA") {
+    //   return "Accountancy Subjects  - Not set -";
+    // } else {
+    //   return "--";
+    // }
   }
 }

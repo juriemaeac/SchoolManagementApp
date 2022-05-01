@@ -517,17 +517,18 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
       studentBox.putAt(
           studentIndex,
           Student(
-              studentID: studentID ?? 0,
-              firstName: firstName ?? '',
-              middleName: middleName ?? '',
-              lastName: lastName ?? '',
-              studentCourse: studentCourse ?? '',
-              studentSubjects: studentSubjects ?? '',
-              academicYear: academicYear ?? '',
-              isInstallment: isInstallment ?? 0,
-              accountBalance: newAccountBalance,
-              studentAddress: studentAddress ?? '',
-              academicTerm: academicTerm ?? '',));
+            studentID: studentID ?? 0,
+            firstName: firstName ?? '',
+            middleName: middleName ?? '',
+            lastName: lastName ?? '',
+            studentCourse: studentCourse ?? '',
+            studentSubjects: studentSubjects ?? '',
+            academicYear: academicYear ?? '',
+            isInstallment: isInstallment ?? 0,
+            accountBalance: newAccountBalance,
+            studentAddress: studentAddress ?? '',
+            academicTerm: academicTerm ?? '',
+          ));
     }
     Navigator.of(context).pop();
   }

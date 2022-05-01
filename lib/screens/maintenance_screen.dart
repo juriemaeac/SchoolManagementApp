@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,6 +10,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:smapp/boxes/boxSubject.dart';
 import 'package:smapp/models/subject_model.dart';
 import 'package:smapp/screens/edit_screen/editcourse_screen.dart';
+import 'package:smapp/screens/edit_screen/editsubject_screen.dart';
 import '../models/course_model.dart';
 import '../models/faculty_model.dart';
 
@@ -181,7 +184,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                                                   children: [
                                                     Text(
                                                       res!.courseCode +
-                                                          ' - ' +
+                                                          ' - Php' +
                                                           res.courseFee
                                                               .toString(),
                                                       style:
@@ -199,7 +202,10 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                                               children: [
                                                 const SizedBox(width: 20),
                                                 Text(
-                                                  res.courseName,
+                                                  res.courseName.substring(
+                                                      0,
+                                                      min(res.courseName.length,
+                                                          47)),
                                                   style: GoogleFonts.quicksand(
                                                       fontSize: 10,
                                                       color:
@@ -248,7 +254,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                                                         builder: (context) =>
                                                             EditCourseScreen(
                                                           course: course,
-                                                          index: index,
+                                                          index: reverseIndex,
                                                         ),
                                                       ),
                                                     );
@@ -269,7 +275,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                                                 //     res.delete();
                                                 //   },
                                                 // ),
-                                                const SizedBox(width: 20),
+                                                const SizedBox(width: 10),
                                               ],
                                             ),
                                           ],
@@ -339,8 +345,8 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                                                   children: [
                                                     Text(
                                                       res!.subjectCode +
-                                                          ' ' +
-                                                          res.subjectUnit
+                                                          ' : ' +
+                                                          '${res.subjectUnit}units'
                                                               .toString(),
                                                       style:
                                                           GoogleFonts.quicksand(
@@ -396,24 +402,49 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                                                       'assets/edit_svg.svg',
                                                     ),
                                                   ),
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    Subject subject = Subject(
+                                                        subjectCourse:
+                                                            res.subjectCourse,
+                                                        subjectYear:
+                                                            res.subjectYear,
+                                                        subjectTerm:
+                                                            res.subjectTerm,
+                                                        subjectCode:
+                                                            res.subjectCode,
+                                                        subjectUnit:
+                                                            res.subjectUnit);
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            EditSubjectScreen(
+                                                          subject: subject,
+                                                          index: reverseIndex,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
                                                 ),
-                                                // IconButton(
-                                                //   padding: const EdgeInsets.all(3.0),
-                                                //   splashColor: Colors.transparent,
-                                                //   hoverColor: Colors.transparent,
-                                                //   icon: SizedBox(
-                                                //     height: 60,
-                                                //     width: 60,
-                                                //     child: SvgPicture.asset(
-                                                //       'assets/delete_svg.svg',
-                                                //     ),
-                                                //   ),
-                                                //   onPressed: () {
-                                                //     res.delete();
-                                                //   },
-                                                // ),
-                                                const SizedBox(width: 20),
+                                                IconButton(
+                                                  padding:
+                                                      const EdgeInsets.all(3.0),
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  icon: SizedBox(
+                                                    height: 60,
+                                                    width: 60,
+                                                    child: SvgPicture.asset(
+                                                      'assets/delete_svg.svg',
+                                                    ),
+                                                  ),
+                                                  onPressed: () {
+                                                    res.delete();
+                                                  },
+                                                ),
+                                                const SizedBox(width: 10),
                                               ],
                                             ),
                                           ],

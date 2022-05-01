@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
+import 'package:smapp/CalendarSpace/addcoursesubject_information.dart';
 import 'package:smapp/CalendarSpace/addfaculty_information.dart';
 import 'package:smapp/NavigationBar/navbar_faculty_page.dart';
+import 'package:smapp/NavigationBar/navbar_maintenance_page.dart';
 import 'package:smapp/boxes/boxCourse.dart';
 import 'package:smapp/boxes/boxFaculty.dart';
 import 'package:smapp/models/course_model.dart';
@@ -42,6 +44,9 @@ class _EditCourseScreen extends State<EditCourseScreen> {
     courseName = widget.course.courseName;
     courseCode = widget.course.courseCode;
     courseFee = widget.course.courseFee;
+
+    String? currentCourseName = widget.course.courseName;
+    String? currentCourseCode = widget.course.courseCode;
 
     TextEditingController _courseNameController = TextEditingController()
       ..text = widget.course.courseName;
@@ -196,11 +201,13 @@ class _EditCourseScreen extends State<EditCourseScreen> {
                                             value.trim().length == 0) {
                                           return "required";
                                         }
-                                        // for (var course in courseBox.values) {
-                                        //   if (course.courseCode == value) {
-                                        //     return "Course Code already exists";
-                                        //   }
-                                        // }
+                                        if (currentCourseCode != value) {
+                                          for (var course in courseBox.values) {
+                                            if (course.courseCode == value) {
+                                              return "Course Code already exists";
+                                            }
+                                          }
+                                        }
                                         return null;
                                       },
                                     ),
@@ -253,11 +260,14 @@ class _EditCourseScreen extends State<EditCourseScreen> {
                                             value.trim().length == 0) {
                                           return "required";
                                         }
-                                        // for (var course in courseBox.values) {
-                                        //   if (course.courseName == value) {
-                                        //     return "Course Name already exists";
-                                        //   }
-                                        // }
+                                        if (currentCourseName != value) {
+                                          for (var course in courseBox.values) {
+                                            if (course.courseName == value) {
+                                              return "Course Name already exists";
+                                            }
+                                          }
+                                        }
+
                                         return null;
                                       },
                                     ),
@@ -340,7 +350,7 @@ class _EditCourseScreen extends State<EditCourseScreen> {
                                                   CrossAxisAlignment.center,
                                               children: const <Widget>[
                                                 Text(
-                                                  'Save Faculty',
+                                                  'Save Course',
                                                   style: TextStyle(
                                                     fontSize: 15,
                                                     fontWeight: FontWeight.w400,
@@ -352,7 +362,6 @@ class _EditCourseScreen extends State<EditCourseScreen> {
                                           ),
                                         ),
                                       ),
-                                      const SizedBox(width: 20),
                                       Container(
                                         margin: const EdgeInsets.all(10),
                                         child: ElevatedButton(
@@ -401,8 +410,8 @@ class _EditCourseScreen extends State<EditCourseScreen> {
                     ),
                   ),
                 ),
-                const NavibarFaculty(),
-                const AddFacultyInfo(),
+                const NavibarMaintenance(),
+                const AddCourseSubjectInfo(),
               ],
             ),
           ),
