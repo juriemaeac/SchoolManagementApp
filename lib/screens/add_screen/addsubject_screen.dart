@@ -21,7 +21,8 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
   @override
   void initState() {
     super.initState();
-    Hive.openBox<Student>(HiveBoxesStudent.student);
+    Hive.openBox<Subject>(HiveBoxesSubject.subject);
+    Hive.openBox<Course>(HiveBoxesCourse.course);
   }
 
   late String subjectCourse;
@@ -29,13 +30,18 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
   late String subjectTerm;
   late String subjectCode;
   late int subjectUnit;
-
+  String? courseCheck;
   validated() {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       _onFormSubmit();
     } else {
       return;
     }
+  }
+
+  ifExist(String course, String subject) {
+     Box<Subject> subjectBox = Hive.box<Subject>(HiveBoxesSubject.subject);
+
   }
 
   @override
@@ -119,6 +125,7 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
                                   ),
                                 ),
                                 onChanged: (value) {
+                                  courseCheck = value;
                                   setState(() {
                                     subjectCourse = value;
                                   });
@@ -283,19 +290,22 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
                                 validator: (String? value) {
                                   Box<Subject> subjectBox = Hive.box<Subject>(
                                       HiveBoxesSubject.subject);
+                                  var checker = courseCheck;
+                                  print("Checker: $checker");
                                   //Box<Course> courseBox = Hive.box<Course>(HiveBoxesCourse.course);
                                   if (value == null ||
                                       value.trim().length == 0) {
                                     return "required";
                                   }
                                   for (var subject in subjectBox.values) {
-                                    if (subject.subjectCode == value &&
-                                        subject.subjectCourse ==
-                                            subjectCourse) {
-                                      return "Subject Code already Exists.";
+                                    if (subject.subjectCourse == checker) {
+                                      if (subject.subjectCode == value) {
+                                        return "Subject Code already exists";
+                                      }
                                     }
-                                    return null;
+                                    
                                   }
+                                  return null;
                                 },
                               ),
                             ),
@@ -446,6 +456,7 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
       subjectCode: subjectCode,
       subjectUnit: subjectUnit,
     ));
+    print("courseCheck: $courseCheck");
     Navigator.of(context).pop();
   }
 }
