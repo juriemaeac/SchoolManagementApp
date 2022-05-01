@@ -88,10 +88,9 @@ class _StudentScreenState extends State<StudentScreen> {
     }
     var subs = subjectsSplit.join('\n');
     return subs.toString();
-
   }
 
-  separateUnits(String subjects) {
+  separateUnits(String subjects, String course) {
     List<String> subjectsSplit = [];
     List<int> subjectUnits = [];
 
@@ -104,7 +103,7 @@ class _StudentScreenState extends State<StudentScreen> {
     for (var subs in subjectsSplit) {
       Box<Subject> subjectBox = Hive.box<Subject>(HiveBoxesSubject.subject);
       for (var sub in subjectBox.values) {
-        if (sub.subjectCode == subs) {
+        if (sub.subjectCode == subs && sub.subjectCourse == course) {
           subjectUnits.add(sub.subjectUnit);
         }
       }
@@ -113,7 +112,7 @@ class _StudentScreenState extends State<StudentScreen> {
     return units.toString();
   }
 
-   totalUnits(String subjects) {
+  totalUnits(String subjects, String course) {
     List<String> subjectsSplit = [];
     List<int> subjectUnits = [];
     int totalUnits = 0;
@@ -126,7 +125,7 @@ class _StudentScreenState extends State<StudentScreen> {
     for (var subs in subjectsSplit) {
       Box<Subject> subjectBox = Hive.box<Subject>(HiveBoxesSubject.subject);
       for (var sub in subjectBox.values) {
-        if (sub.subjectCode == subs) {
+        if (sub.subjectCode == subs && sub.subjectCourse == course) {
           totalUnits += sub.subjectUnit;
         }
       }
@@ -552,20 +551,22 @@ class _StudentScreenState extends State<StudentScreen> {
                                             var subs = separateSubs(
                                                 res.studentSubjects);
                                             var units = separateUnits(
-                                                res.studentSubjects);
-                                            var total = totalUnits(res.studentSubjects);
+                                                res.studentSubjects,
+                                                res.studentCourse);
+                                            var total = totalUnits(
+                                                res.studentSubjects,
+                                                res.studentCourse);
                                             final date = DateTime.now();
                                             final invoice = Invoice(
                                               studentPDF: StudentPDF(
-                                                studentId: res.studentID,
-                                                name:
-                                                    '${res.lastName}, ${res.firstName} ${res.middleName}',
-                                                course:
-                                                    '${res.studentCourse} ${res.academicYear}',
-                                                subjects: subs,
-                                                subjectUnits: units,
-                                                totalUnits: total
-                                              ),
+                                                  studentId: res.studentID,
+                                                  name:
+                                                      '${res.lastName}, ${res.firstName} ${res.middleName}',
+                                                  course:
+                                                      '${res.studentCourse} ${res.academicYear} ${res.academicTerm}',
+                                                  subjects: subs,
+                                                  subjectUnits: units,
+                                                  totalUnits: total),
                                               info: InvoiceInfo(
                                                 date: date,
                                                 balance: res.accountBalance,
