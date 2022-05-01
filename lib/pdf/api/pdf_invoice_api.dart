@@ -12,33 +12,83 @@ class PdfInvoiceApi {
   static Future<File> generate(Invoice invoice) async {
     final pdf = Document();
     final imageSvg = await rootBundle.loadString('assets/logo.svg');
+    
 
     pdf.addPage(MultiPage(
       build: (context) => [
-        pw.Column(children: [
-          pw.Row(children: [
-            SvgImage(svg: imageSvg, width: 50, height: 50),
+        pw.Column(mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+          pw.Row(mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+            SvgImage(svg: imageSvg, width: 40, height: 40),
             pw.SizedBox(width: 10),
             buildHeader(invoice),
+            pw.SizedBox(width: 40),
           ]),
         ]),
         buildInfoSection(invoice),
-        SizedBox(height: 20),
+        SizedBox(height: 10),
         buildSubjects(invoice.studentPDF),
         SizedBox(height: 10),
         buildFooter(invoice),
-        SizedBox(height: 1 * PdfPageFormat.cm),
+        SizedBox(height: 10),
         dashedHorizontalLine(),
-        SizedBox(height: 1 * PdfPageFormat.cm),
-        pw.Column(children: [
-          pw.Row(children: [
-            SvgImage(svg: imageSvg, width: 50, height: 50),
+        SizedBox(height: 10),
+        pw.Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+          pw.Row(mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+            SvgImage(svg: imageSvg, width: 40, height: 40),
             pw.SizedBox(width: 10),
             buildHeader(invoice),
+            pw.SizedBox(width: 40),
+          ]),
+        ]
+        ),
+        buildInfoSection(invoice),
+        SizedBox(height: 10),
+        buildSubjects(invoice.studentPDF),
+        SizedBox(height: 10),
+        buildFooterStudent(invoice),
+      ],
+      //footer: (context) => buildFooter(invoice),
+    ));
+
+    pdf.addPage(MultiPage(
+      build: (context) => [
+        pw.Column(mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+          pw.Row(mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+            SvgImage(svg: imageSvg, width: 40, height: 40),
+            pw.SizedBox(width: 10),
+            buildHeader(invoice),
+            pw.SizedBox(width: 40),
           ]),
         ]),
         buildInfoSection(invoice),
-        SizedBox(height: 20),
+        SizedBox(height: 10),
+        buildSubjects(invoice.studentPDF),
+        SizedBox(height: 10),
+        buildFooter(invoice),
+        SizedBox(height: 10),
+        dashedHorizontalLine(),
+        SizedBox(height: 10),
+        pw.Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+          pw.Row(mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+            SvgImage(svg: imageSvg, width: 40, height: 40),
+            pw.SizedBox(width: 10),
+            buildHeader(invoice),
+            pw.SizedBox(width: 40),
+          ]),
+        ]
+        ),
+        buildInfoSection(invoice),
+        SizedBox(height: 10),
         buildSubjects(invoice.studentPDF),
         SizedBox(height: 10),
         buildFooterStudent(invoice),
@@ -55,7 +105,7 @@ class PdfInvoiceApi {
           pw.Text(
             "NATIONAL POLYTECHNIC COLLEGE SCIENCE AND TECHNOLOGY",
             style: TextStyle(
-              fontSize: 12.00,
+              fontSize: 10.00,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -71,16 +121,16 @@ class PdfInvoiceApi {
   static Widget buildInfoSection(Invoice invoice) => Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 0.7 * (PdfPageFormat.cm)),
+          SizedBox(height: 0.1 * (PdfPageFormat.cm)),
           pw.Text(
             "CERTIFICATE OF MATRICULATION",
             style: TextStyle(
-              fontSize: 12.00,
+              fontSize: 10.00,
               fontWeight: FontWeight.bold,
             ),
           ),
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            SizedBox(height: 0.7 * (PdfPageFormat.cm)),
+            SizedBox(height: 0.3 * (PdfPageFormat.cm)),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -121,18 +171,18 @@ class PdfInvoiceApi {
           Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text('Student Number: ',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10)),
               Text('Student Name: ',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-              Text('Course YearSection: ',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10)),
+              Text('Course Year: ',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10)),
             ]),
             pw.SizedBox(width: 10),
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(studentPDF.studentId.toString(),
-                  style: const TextStyle(fontSize: 12)),
-              Text(studentPDF.name, style: const TextStyle(fontSize: 12)),
-              Text(studentPDF.course, style: const TextStyle(fontSize: 12)),
+                  style: const TextStyle(fontSize: 10)),
+              Text(studentPDF.name, style: const TextStyle(fontSize: 10)),
+              Text(studentPDF.course, style: const TextStyle(fontSize: 10)),
             ]),
           ]),
         ],
@@ -144,20 +194,20 @@ class PdfInvoiceApi {
           Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text('Invoice Date: ',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10)),
               Text('Payment Method: ',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10)),
               Text('Account Balance: ',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10)),
             ]),
             pw.SizedBox(width: 10),
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(Utils.formatDate(info.date),
-                  style: const TextStyle(fontSize: 12)),
-              Text(info.number, style: const TextStyle(fontSize: 12)),
+                  style: const TextStyle(fontSize: 10)),
+              Text(info.number, style: const TextStyle(fontSize: 10)),
               Text('Php ${info.balance.toString()}',
                   style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 10,
                       fontWeight: FontWeight.bold,
                       color: PdfColors.red)),
             ]),
@@ -169,21 +219,87 @@ class PdfInvoiceApi {
   static Widget buildSubjects(StudentPDF studentPDF) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Subjects Enrolled",
-            style: TextStyle(
-              fontSize: 12.00,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
           pw.Divider(),
-          Text(
-            studentPDF.subjects,
-            style: const TextStyle(
-              fontSize: 10.00,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(width: 100),
+              Column(
+                children:[
+                  Text("Subject Code",
+                    style: TextStyle(
+                      fontSize: 10.00,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ]
+              ),
+              SizedBox(width: 90),
+              Column(
+                children:[
+                  Text(
+                    "Units",
+                    style: TextStyle(
+                      fontSize: 10.00,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(width: 100),
+            ],
           ),
           Divider(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(width: 100),
+              Column(
+                children:[
+                  Text(
+                studentPDF.subjects,
+                style: const TextStyle(
+                  fontSize: 10.00,
+                ),
+              ),
+
+                ]
+              ),
+              SizedBox(width: 90),
+              Column(
+                children:[
+                  Text(
+                    studentPDF.subjectUnits,
+                    style: const TextStyle(
+                      fontSize: 10.00,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(width: 100),
+            ],
+          ),
+          Divider(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children:[
+              Text(
+                "Total Units: ",
+                style: TextStyle(
+                  fontSize: 10.00,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(width: 10),
+              Text(
+                studentPDF.totalUnits.toString(),
+                style: const TextStyle(
+                  fontSize: 10.00,
+                ),
+              ),
+            ],
+          ),
+
         ],
       );
   static Widget buildFooter(Invoice invoice) => Column(
@@ -202,7 +318,7 @@ class PdfInvoiceApi {
               '_____________________',
               textAlign: TextAlign.right,
               style: const TextStyle(
-                fontSize: 10,
+                fontSize: 8,
               ),
             ),
           ]),
@@ -219,7 +335,7 @@ class PdfInvoiceApi {
             Text(
               "[ ACCOUNTING DEPARTMENT'S COPY ]",
               style: TextStyle(
-                fontSize: 10,
+                fontSize: 8,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -243,7 +359,7 @@ class PdfInvoiceApi {
               '_____________________',
               textAlign: TextAlign.right,
               style: const TextStyle(
-                fontSize: 10,
+                fontSize: 8,
               ),
             ),
           ]),
@@ -260,7 +376,7 @@ class PdfInvoiceApi {
             Text(
               "[ STUDENT'S COPY ]",
               style: TextStyle(
-                fontSize: 10,
+                fontSize: 8,
                 fontWeight: FontWeight.bold,
               ),
             ),

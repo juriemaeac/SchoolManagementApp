@@ -11,7 +11,9 @@ import 'package:smapp/pdf/model/invoice.dart';
 import 'package:smapp/models/faculty_model.dart';
 import 'package:smapp/screens/edit_screen/editstudent_screen.dart';
 import 'package:smapp/student_page.dart';
+import '../boxes/boxSubject.dart';
 import '../models/student_model.dart';
+import '../models/subject_model.dart';
 import 'add_screen/addtransaction_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -33,6 +35,7 @@ class _StudentScreenState extends State<StudentScreen> {
     super.initState();
     Hive.openBox<Student>(HiveBoxesStudent.student);
     Hive.openBox<Faculty>(HiveBoxesFaculty.faculty);
+    Hive.openBox<Subject>(HiveBoxesSubject.subject);
     isEnabled = true;
     studentSearchController.addListener(() {
       setState(() {
@@ -73,6 +76,62 @@ class _StudentScreenState extends State<StudentScreen> {
       isSearching = false;
       studentSearchController.clear();
     }
+  }
+
+  separateSubs(String subjects) {
+    List<String> subjectsSplit = [];
+
+    var subjectString = subjects;
+    var splitSubs = subjectString.split(',');
+    for (int i = 0; i < splitSubs.length; i++) {
+      subjectsSplit.add(splitSubs[i]);
+    }
+    var subs = subjectsSplit.join('\n');
+    return subs.toString();
+
+  }
+
+  separateUnits(String subjects) {
+    List<String> subjectsSplit = [];
+    List<int> subjectUnits = [];
+
+    var subjectString = subjects;
+    var splitSubs = subjectString.split(',');
+    for (int i = 0; i < splitSubs.length; i++) {
+      subjectsSplit.add(splitSubs[i]);
+    }
+
+    for (var subs in subjectsSplit) {
+      Box<Subject> subjectBox = Hive.box<Subject>(HiveBoxesSubject.subject);
+      for (var sub in subjectBox.values) {
+        if (sub.subjectCode == subs) {
+          subjectUnits.add(sub.subjectUnit);
+        }
+      }
+    }
+    var units = subjectUnits.join('\n');
+    return units.toString();
+  }
+
+   totalUnits(String subjects) {
+    List<String> subjectsSplit = [];
+    List<int> subjectUnits = [];
+    int totalUnits = 0;
+    var subjectString = subjects;
+    var splitSubs = subjectString.split(',');
+    for (int i = 0; i < splitSubs.length; i++) {
+      subjectsSplit.add(splitSubs[i]);
+    }
+
+    for (var subs in subjectsSplit) {
+      Box<Subject> subjectBox = Hive.box<Subject>(HiveBoxesSubject.subject);
+      for (var sub in subjectBox.values) {
+        if (sub.subjectCode == subs) {
+          totalUnits += sub.subjectUnit;
+        }
+      }
+    }
+    return totalUnits;
   }
 
   @override
@@ -490,6 +549,11 @@ class _StudentScreenState extends State<StudentScreen> {
                                             ),
                                           ),
                                           onPressed: () async {
+                                            var subs = separateSubs(
+                                                res.studentSubjects);
+                                            var units = separateUnits(
+                                                res.studentSubjects);
+                                            var total = totalUnits(res.studentSubjects);
                                             final date = DateTime.now();
                                             final invoice = Invoice(
                                               studentPDF: StudentPDF(
@@ -498,7 +562,9 @@ class _StudentScreenState extends State<StudentScreen> {
                                                     '${res.lastName}, ${res.firstName} ${res.middleName}',
                                                 course:
                                                     '${res.studentCourse} ${res.academicYear}',
-                                                subjects: res.studentSubjects,
+                                                subjects: subs,
+                                                subjectUnits: units,
+                                                totalUnits: total
                                               ),
                                               info: InvoiceInfo(
                                                 date: date,

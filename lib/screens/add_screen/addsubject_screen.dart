@@ -291,7 +291,6 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
                                   Box<Subject> subjectBox = Hive.box<Subject>(
                                       HiveBoxesSubject.subject);
                                   var checker = courseCheck;
-                                  print("Checker: $checker");
                                   //Box<Course> courseBox = Hive.box<Course>(HiveBoxesCourse.course);
                                   if (value == null ||
                                       value.trim().length == 0) {
@@ -456,7 +455,6 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
       subjectCode: subjectCode,
       subjectUnit: subjectUnit,
     ));
-    print("courseCheck: $courseCheck");
     Navigator.of(context).pop();
   }
 }

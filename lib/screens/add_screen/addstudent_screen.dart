@@ -38,9 +38,9 @@ class _AddStudentScreen extends State<AddStudentScreen> {
   late int isInstallment = 1;
   late String academicTerm;
 
-  validated(String subjects) {
+  validated(String subjects, double fees) {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
-      _onFormSubmit(subjects);
+      _onFormSubmit(subjects, fees);
     } else {
       return;
     }
@@ -646,9 +646,8 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                                   ),
                                 ),
                                 onChanged: (value) {
-                                  setState(() {
-                                    accountBalance = double.parse(value);
-                                  });
+
+                                    accountBalance = double.parse(_courseFee.text);
                                 },
                                 validator: (String? value) {
                                   if (value == null ||
@@ -679,7 +678,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                                         side: const BorderSide(
                                             color: Colors.orange)))),
                             onPressed: () {
-                              validated(_studentSubjects.text);
+                              validated(_studentSubjects.text, double.parse(_courseFee.text));
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(10),
@@ -746,8 +745,9 @@ class _AddStudentScreen extends State<AddStudentScreen> {
     );
   }
 
-  void _onFormSubmit(subjects) {
+  void _onFormSubmit(subjects, fees) {
     var subs = subjects;
+    var fee = fees;
     Box<Student> studentBox = Hive.box<Student>(HiveBoxesStudent.student);
     studentBox.add(Student(
         studentID: studentID,
@@ -758,7 +758,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
         studentSubjects: subs,
         academicYear: academicYear,
         isInstallment: isInstallment,
-        accountBalance: accountBalance,
+        accountBalance: fee,
         studentAddress: studentAddress,
         academicTerm: academicTerm));
     Navigator.of(context).pop();
@@ -810,16 +810,22 @@ class courseSubjects {
   static double getCourseFee() {
     Box<Course> courseBox = Hive.box<Course>(HiveBoxesCourse.course);
     double fee = 0.0;
-    if (subPayment == 1) {
-      for (var courses in courseBox.values) {
+    // if (subPayment == 1) {
+    //   for (var courses in courseBox.values) {
+    //     if (subCourse == courses.courseCode) {
+    //       fee = courses.courseFee;
+    //     }
+    //   }
+    //   return fee;
+    // } else {
+    //   fee = 5000.0;
+    //   return fee;
+    // }
+    for (var courses in courseBox.values) {
         if (subCourse == courses.courseCode) {
           fee = courses.courseFee;
         }
       }
       return fee;
-    } else {
-      fee = 5000.0;
-      return fee;
-    }
   }
 }
