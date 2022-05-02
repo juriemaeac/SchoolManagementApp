@@ -513,53 +513,162 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                       },
                                     ),
                                   ),
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 25, right: 25),
-                                    margin: const EdgeInsets.only(
-                                        left: 15, right: 15, top: 5, bottom: 5),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.2),
-                                          spreadRadius: 2,
-                                          blurRadius: 9,
-                                          //offset: Offset(2, 6),
-                                          // changes position of shadow
+                                  Row(
+                                    children: [
+                                      Container(
+                                        width: (MediaQuery.of(context).size.width * 0.59) / 3,
+                                        padding: const EdgeInsets.only(
+                                            left: 25, right: 25),
+                                        margin: const EdgeInsets.only(
+                                            left: 15, right: 15, top: 5, bottom: 5),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey.withOpacity(0.2),
+                                              spreadRadius: 2,
+                                              blurRadius: 9,
+                                              //offset: Offset(2, 6),
+                                              // changes position of shadow
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                    child: TextFormField(
-                                      controller: _studentCourseController,
-                                      decoration: const InputDecoration(
-                                        labelText: 'Student Course',
-                                        border: InputBorder.none,
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(15.0)),
-                                          borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 2),
+                                        child: TextFormField(
+                                          controller: _studentCourseController,
+                                          decoration: const InputDecoration(
+                                            labelText: 'Student Course',
+                                            border: InputBorder.none,
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(15.0)),
+                                              borderSide: BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 2),
+                                            ),
+                                          ),
+                                          onChanged: (value) {
+                                            //setState(() {
+                                            studentCourse = value;
+                                            //});
+                                          },
+                                          validator: (String? value) {
+                                            if (value == null ||
+                                                value.trim().length == 0) {
+                                              return "required";
+                                            } else if (courses.contains(value) !=
+                                                true) {
+                                              return "Course not found. [BSA, BSIT, BEED, BSED]";
+                                            }
+                                            return null;
+                                          },
                                         ),
                                       ),
-                                      onChanged: (value) {
-                                        //setState(() {
-                                        studentCourse = value;
-                                        //});
-                                      },
-                                      validator: (String? value) {
-                                        if (value == null ||
-                                            value.trim().length == 0) {
-                                          return "required";
-                                        } else if (courses.contains(value) !=
-                                            true) {
-                                          return "Course not found. [BSA, BSIT, BEED, BSED]";
-                                        }
-                                        return null;
-                                      },
-                                    ),
+                                      Container(
+                                        width: (MediaQuery.of(context).size.width * 0.59) / 4,
+                                        padding: const EdgeInsets.only(
+                                            left: 25, right: 25),
+                                        margin: const EdgeInsets.only(
+                                            left: 15, right: 15, top: 5, bottom: 5),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey.withOpacity(0.2),
+                                              spreadRadius: 2,
+                                              blurRadius: 9,
+                                              //offset: Offset(2, 6),
+                                              // changes position of shadow
+                                            ),
+                                          ],
+                                        ),
+                                        child: TextFormField(
+                                          controller: _academicYearController,
+                                          keyboardType: TextInputType.number,
+                                          decoration: const InputDecoration(
+                                            labelText: 'Academic Year',
+                                            border: InputBorder.none,
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(15.0)),
+                                              borderSide: BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 2),
+                                            ),
+                                          ),
+                                          onChanged: (value) {
+                                            //setState(() {
+                                            academicYear = value;
+                                            //});
+                                          },
+                                          validator: (String? value) {
+                                            if (value == null ||
+                                                value.trim().length == 0) {
+                                              return "required";
+                                            } 
+                                            else if (acadYear
+                                                    .contains(value) !=
+                                                true) {
+                                              return "Academic Year Error. [1st Year, 2nd Year...]";
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                      Container(
+                                        width: (MediaQuery.of(context).size.width * 0.59) / 4,
+                                        padding: const EdgeInsets.only(
+                                            left: 25, right: 25),
+                                        margin: const EdgeInsets.only(
+                                            left: 15, right: 15, top: 5, bottom: 5),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey.withOpacity(0.2),
+                                              spreadRadius: 2,
+                                              blurRadius: 9,
+                                              //offset: Offset(2, 6),
+                                              // changes position of shadow
+                                            ),
+                                          ],
+                                        ),
+                                        child: TextFormField(
+                                          controller: _academicTermController,
+                                          keyboardType: TextInputType.number,
+                                          decoration: const InputDecoration(
+                                            labelText: 'Academic Term',
+                                            border: InputBorder.none,
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(15.0)),
+                                              borderSide: BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 2),
+                                            ),
+                                          ),
+                                          onChanged: (value) {
+                                            //setState(() {
+                                            academicTerm = value;
+                                            //});
+                                          },
+                                          validator: (String? value) {
+                                            if (value == null ||
+                                                value.trim().length == 0) {
+                                              return "required";
+                                            } 
+                                            else if (acadTerm
+                                                    .contains(value) !=
+                                                true) {
+                                              return "Academic Term Error. [1st Sem, 2nd Sem, Summer]";
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   Container(
                                     padding: const EdgeInsets.only(
@@ -606,108 +715,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                       },
                                     ),
                                   ),
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 25, right: 25),
-                                    margin: const EdgeInsets.only(
-                                        left: 15, right: 15, top: 5, bottom: 5),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.2),
-                                          spreadRadius: 2,
-                                          blurRadius: 9,
-                                          //offset: Offset(2, 6),
-                                          // changes position of shadow
-                                        ),
-                                      ],
-                                    ),
-                                    child: TextFormField(
-                                      controller: _academicYearController,
-                                      keyboardType: TextInputType.number,
-                                      decoration: const InputDecoration(
-                                        labelText: 'Academic Year',
-                                        border: InputBorder.none,
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(15.0)),
-                                          borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 2),
-                                        ),
-                                      ),
-                                      onChanged: (value) {
-                                        //setState(() {
-                                        academicYear = value;
-                                        //});
-                                      },
-                                      validator: (String? value) {
-                                        if (value == null ||
-                                            value.trim().length == 0) {
-                                          return "required";
-                                        } 
-                                        else if (acadYear
-                                                .contains(value) !=
-                                            true) {
-                                          return "Academic Year Error. [1st Year, 2nd Year...]";
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 25, right: 25),
-                                    margin: const EdgeInsets.only(
-                                        left: 15, right: 15, top: 5, bottom: 5),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.2),
-                                          spreadRadius: 2,
-                                          blurRadius: 9,
-                                          //offset: Offset(2, 6),
-                                          // changes position of shadow
-                                        ),
-                                      ],
-                                    ),
-                                    child: TextFormField(
-                                      controller: _academicTermController,
-                                      keyboardType: TextInputType.number,
-                                      decoration: const InputDecoration(
-                                        labelText: 'Academic Term',
-                                        border: InputBorder.none,
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(15.0)),
-                                          borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 2),
-                                        ),
-                                      ),
-                                      onChanged: (value) {
-                                        //setState(() {
-                                        academicTerm = value;
-                                        //});
-                                      },
-                                      validator: (String? value) {
-                                        if (value == null ||
-                                            value.trim().length == 0) {
-                                          return "required";
-                                        } 
-                                        else if (acadTerm
-                                                .contains(value) !=
-                                            true) {
-                                          return "Academic Term Error. [1st Sem, 2nd Sem, Summer]";
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                  ),
+                                  
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
