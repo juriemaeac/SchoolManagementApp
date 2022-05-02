@@ -31,7 +31,7 @@ class _LoginScreen extends State<LoginScreen> {
             MaterialPageRoute(
               builder: (context) => const DashboardPage(),
             ));
-      } else if (username != adminUsername && password != adminPassword) {
+      } else if (username != adminUsername || password != adminPassword) {
         // add username and password in global list
         for (var faculty in facultyBox.values) {
           if (faculty.username == username && faculty.password == password) {
@@ -41,7 +41,7 @@ class _LoginScreen extends State<LoginScreen> {
                 MaterialPageRoute(
                   builder: (context) => const DashboardPage(),
                 ));
-          } else if (faculty.username != username ||
+          } else if (faculty.username != username &&
               faculty.password != password) {
             errorMessage = 'Wrong Credentials. Please try again.';
             clearInputFields();

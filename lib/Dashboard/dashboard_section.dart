@@ -88,7 +88,7 @@ class _DashBoardState extends State<DashBoard> {
                       ),
                       ProjectProgressCard(
                         color: const Color(0xff6C6CE5),
-                        projectName: 'Faculties Enlisted',
+                        projectName: 'Users Enlisted',
                         progressIndicatorColor: Colors.blue[200]!,
                         icon: Feather.briefcase,
                         count: facultyCount,

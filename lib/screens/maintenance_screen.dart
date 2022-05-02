@@ -271,7 +271,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                       if (box.values.isEmpty) {
                         return Center(
                           child: Container(
-                              padding: const EdgeInsets.only(top: 120),
+                              padding: const EdgeInsets.only(top: 50),
                               child: const Text("Course list is empty")),
                         );
                       }
@@ -432,7 +432,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                       if (box.values.isEmpty) {
                         return Center(
                           child: Container(
-                              padding: const EdgeInsets.only(top: 120),
+                              padding: const EdgeInsets.only(top: 50),
                               child: const Text("Subject list is empty")),
                         );
                       }
