@@ -41,17 +41,17 @@ class _AddCourseScreen extends State<AddCourseScreen> {
         child: Column(
           children: [
             Container(
-                height: MediaQuery.of(context).size.height/3,
-                width: MediaQuery.of(context).size.width * 0.45,
-                margin: const EdgeInsets.all(20.0),
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Image.asset(
-                  'assets/course.png',
-                  fit: BoxFit.fitWidth,
-                ),
+              height: MediaQuery.of(context).size.height / 3,
+              width: MediaQuery.of(context).size.width * 0.45,
+              margin: const EdgeInsets.all(20.0),
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Image.asset(
+                'assets/course.png',
+                fit: BoxFit.fitWidth,
+              ),
             ),
             SafeArea(
               child: Form(
@@ -105,8 +105,8 @@ class _AddCourseScreen extends State<AddCourseScreen> {
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(15.0)),
-                                  borderSide:
-                                      BorderSide(color: Colors.transparent, width: 2),
+                                  borderSide: BorderSide(
+                                      color: Colors.transparent, width: 2),
                                 ),
                               ),
                               onChanged: (value) {
@@ -158,8 +158,8 @@ class _AddCourseScreen extends State<AddCourseScreen> {
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(15.0)),
-                                  borderSide:
-                                      BorderSide(color: Colors.transparent, width: 2),
+                                  borderSide: BorderSide(
+                                      color: Colors.transparent, width: 2),
                                 ),
                               ),
                               onChanged: (value) {
@@ -211,8 +211,8 @@ class _AddCourseScreen extends State<AddCourseScreen> {
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(15.0)),
-                                  borderSide:
-                                      BorderSide(color: Colors.transparent, width: 2),
+                                  borderSide: BorderSide(
+                                      color: Colors.transparent, width: 2),
                                 ),
                               ),
                               onChanged: (value) {
@@ -252,11 +252,13 @@ class _AddCourseScreen extends State<AddCourseScreen> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(10),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: const <Widget>[
                                         Text(
-                                          'Save Course',
+                                          'Add Course',
                                           style: TextStyle(
                                             fontSize: 15,
                                             fontWeight: FontWeight.w400,
@@ -268,7 +270,6 @@ class _AddCourseScreen extends State<AddCourseScreen> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 20),
                               Container(
                                 margin: const EdgeInsets.all(10),
                                 child: ElevatedButton(
@@ -286,8 +287,10 @@ class _AddCourseScreen extends State<AddCourseScreen> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(10),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: const <Widget>[
                                         Text(
                                           'Cancel',

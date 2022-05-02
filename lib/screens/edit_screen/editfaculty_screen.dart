@@ -152,6 +152,19 @@ class _EditFacultyScreen extends State<EditFacultyScreen> {
                               ),
                             ),
                             Container(
+                              height: MediaQuery.of(context).size.height / 3,
+                              width: MediaQuery.of(context).size.width * 0.45,
+                              margin: const EdgeInsets.all(20.0),
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Image.asset(
+                                'assets/faculty.png',
+                                fit: BoxFit.fitWidth,
+                              ),
+                            ),
+                            Container(
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(15),
@@ -172,298 +185,374 @@ class _EditFacultyScreen extends State<EditFacultyScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 25, right: 25),
-                                    margin: const EdgeInsets.only(
-                                        left: 15, right: 15, top: 5, bottom: 5),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.2),
-                                          spreadRadius: 2,
-                                          blurRadius: 9,
-                                          //offset: Offset(2, 6),
-                                          // changes position of shadow
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                3.735,
+                                        padding: const EdgeInsets.only(
+                                            left: 25, right: 25),
+                                        margin: const EdgeInsets.only(
+                                            left: 15,
+                                            right: 15,
+                                            top: 5,
+                                            bottom: 5),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.2),
+                                              spreadRadius: 2,
+                                              blurRadius: 9,
+                                              //offset: Offset(2, 6),
+                                              // changes position of shadow
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                    child: TextFormField(
-                                      //enabled: false,
-                                      autofocus: true,
-                                      controller: _usernameController,
-                                      decoration: const InputDecoration(
-                                        labelText: 'Faculty Username',
-                                        border: InputBorder.none,
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(15.0)),
-                                          borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 2),
+                                        child: TextFormField(
+                                          //enabled: false,
+                                          autofocus: true,
+                                          controller: _usernameController,
+                                          decoration: const InputDecoration(
+                                            labelText: 'Faculty Username',
+                                            border: InputBorder.none,
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(15.0)),
+                                              borderSide: BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 2),
+                                            ),
+                                          ),
+                                          onChanged: (value) {
+                                            //setState(() {
+                                            username =
+                                                _usernameController.value.text;
+                                            //});
+                                          },
+                                          validator: (String? value) {
+                                            Box<Faculty> facultyBox =
+                                                Hive.box<Faculty>(
+                                                    HiveBoxesFaculty.faculty);
+                                            if (value == null ||
+                                                value.trim().isEmpty) {
+                                              return "required";
+                                            }
+                                            if (value != oldUsername) {
+                                              for (var faculty
+                                                  in facultyBox.values) {
+                                                if (faculty.username == value) {
+                                                  return "Username already exists";
+                                                }
+                                              }
+                                            }
+
+                                            return null;
+                                          },
                                         ),
                                       ),
-                                      onChanged: (value) {
-                                        //setState(() {
-                                        username =
-                                            _usernameController.value.text;
-                                        //});
-                                      },
-                                      validator: (String? value) {
-                                        Box<Faculty> facultyBox =
-                                            Hive.box<Faculty>(
-                                                HiveBoxesFaculty.faculty);
-                                        if (value == null ||
-                                            value.trim().isEmpty) {
-                                          return "required";
-                                        }
-                                        if (value != oldUsername) {
-                                          for (var faculty in facultyBox.values) {
-                                          if (faculty.username == value) {
-                                            return "Username already exists";
-                                          }
-                                        }
-                                        }
-                                        
-                                        return null;
-                                      },
-                                    ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                3.735,
+                                        padding: const EdgeInsets.only(
+                                            left: 25, right: 25),
+                                        margin: const EdgeInsets.only(
+                                            left: 15,
+                                            right: 15,
+                                            top: 5,
+                                            bottom: 5),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.2),
+                                              spreadRadius: 2,
+                                              blurRadius: 9,
+                                              //offset: Offset(2, 6),
+                                              // changes position of shadow
+                                            ),
+                                          ],
+                                        ),
+                                        child: TextFormField(
+                                          autofocus: true,
+                                          controller: _passwordController,
+                                          decoration: const InputDecoration(
+                                            labelText: 'Faculty Password',
+                                            border: InputBorder.none,
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(15.0)),
+                                              borderSide: BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 2),
+                                            ),
+                                          ),
+                                          onChanged: (value) {
+                                            //setState(() {
+                                            password =
+                                                _passwordController.value.text;
+                                            //});
+                                          },
+                                          validator: (String? value) {
+                                            if (value == null ||
+                                                value.trim().length == 0) {
+                                              return "required";
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 25, right: 25),
-                                    margin: const EdgeInsets.only(
-                                        left: 15, right: 15, top: 5, bottom: 5),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.2),
-                                          spreadRadius: 2,
-                                          blurRadius: 9,
-                                          //offset: Offset(2, 6),
-                                          // changes position of shadow
-                                        ),
-                                      ],
-                                    ),
-                                    child: TextFormField(
-                                      autofocus: true,
-                                      controller: _passwordController,
-                                      decoration: const InputDecoration(
-                                        labelText: 'Faculty Password',
-                                        border: InputBorder.none,
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(15.0)),
-                                          borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 2),
-                                        ),
-                                      ),
-                                      onChanged: (value) {
-                                        //setState(() {
-                                        password =
-                                            _passwordController.value.text;
-                                        //});
-                                      },
-                                      validator: (String? value) {
-                                        if (value == null ||
-                                            value.trim().length == 0) {
-                                          return "required";
-                                        }
-                                        return null;
-                                      },
-                                    ),
+                                  const SizedBox(
+                                    height: 10,
                                   ),
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 25, right: 25),
-                                    margin: const EdgeInsets.only(
-                                        left: 15, right: 15, top: 5, bottom: 5),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.2),
-                                          spreadRadius: 2,
-                                          blurRadius: 9,
-                                          //offset: Offset(2, 6),
-                                          // changes position of shadow
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                3.735,
+                                        padding: const EdgeInsets.only(
+                                            left: 25, right: 25),
+                                        margin: const EdgeInsets.only(
+                                            left: 15,
+                                            right: 15,
+                                            top: 5,
+                                            bottom: 5),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.2),
+                                              spreadRadius: 2,
+                                              blurRadius: 9,
+                                              //offset: Offset(2, 6),
+                                              // changes position of shadow
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                    child: TextFormField(
-                                      autofocus: true,
-                                      controller: _firstNameController,
-                                      decoration: const InputDecoration(
-                                        labelText: 'First Name',
-                                        border: InputBorder.none,
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(15.0)),
-                                          borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 2),
+                                        child: TextFormField(
+                                          autofocus: true,
+                                          controller: _firstNameController,
+                                          decoration: const InputDecoration(
+                                            labelText: 'First Name',
+                                            border: InputBorder.none,
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(15.0)),
+                                              borderSide: BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 2),
+                                            ),
+                                          ),
+                                          onChanged: (value) {
+                                            //setState(() {
+                                            firstName =
+                                                _firstNameController.value.text;
+                                            //});
+                                          },
+                                          validator: (String? value) {
+                                            if (value == null ||
+                                                value.trim().length == 0) {
+                                              return "required";
+                                            }
+                                            return null;
+                                          },
                                         ),
                                       ),
-                                      onChanged: (value) {
-                                        //setState(() {
-                                        firstName =
-                                            _firstNameController.value.text;
-                                        //});
-                                      },
-                                      validator: (String? value) {
-                                        if (value == null ||
-                                            value.trim().length == 0) {
-                                          return "required";
-                                        }
-                                        return null;
-                                      },
-                                    ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                3.735,
+                                        padding: const EdgeInsets.only(
+                                            left: 25, right: 25),
+                                        margin: const EdgeInsets.only(
+                                            left: 15,
+                                            right: 15,
+                                            top: 5,
+                                            bottom: 5),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.2),
+                                              spreadRadius: 2,
+                                              blurRadius: 9,
+                                              //offset: Offset(2, 6),
+                                              // changes position of shadow
+                                            ),
+                                          ],
+                                        ),
+                                        child: TextFormField(
+                                          autofocus: true,
+                                          controller: _middleNameController,
+                                          decoration: const InputDecoration(
+                                            labelText: 'Middle Name',
+                                            border: InputBorder.none,
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(15.0)),
+                                              borderSide: BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 2),
+                                            ),
+                                          ),
+                                          onChanged: (value) {
+                                            //setState(() {
+                                            middleName = value;
+                                            //});
+                                          },
+                                          validator: (String? value) {
+                                            if (value == null ||
+                                                value.trim().length == 0) {
+                                              return "required";
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 25, right: 25),
-                                    margin: const EdgeInsets.only(
-                                        left: 15, right: 15, top: 5, bottom: 5),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.2),
-                                          spreadRadius: 2,
-                                          blurRadius: 9,
-                                          //offset: Offset(2, 6),
-                                          // changes position of shadow
-                                        ),
-                                      ],
-                                    ),
-                                    child: TextFormField(
-                                      autofocus: true,
-                                      controller: _middleNameController,
-                                      decoration: const InputDecoration(
-                                        labelText: 'Middle Name',
-                                        border: InputBorder.none,
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(15.0)),
-                                          borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 2),
-                                        ),
-                                      ),
-                                      onChanged: (value) {
-                                        //setState(() {
-                                        middleName = value;
-                                        //});
-                                      },
-                                      validator: (String? value) {
-                                        if (value == null ||
-                                            value.trim().length == 0) {
-                                          return "required";
-                                        }
-                                        return null;
-                                      },
-                                    ),
+                                  const SizedBox(
+                                    height: 10,
                                   ),
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 25, right: 25),
-                                    margin: const EdgeInsets.only(
-                                        left: 15, right: 15, top: 5, bottom: 5),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.2),
-                                          spreadRadius: 2,
-                                          blurRadius: 9,
-                                          //offset: Offset(2, 6),
-                                          // changes position of shadow
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                3.735,
+                                        padding: const EdgeInsets.only(
+                                            left: 25, right: 25),
+                                        margin: const EdgeInsets.only(
+                                            left: 15,
+                                            right: 15,
+                                            top: 5,
+                                            bottom: 5),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.2),
+                                              spreadRadius: 2,
+                                              blurRadius: 9,
+                                              //offset: Offset(2, 6),
+                                              // changes position of shadow
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                    child: TextFormField(
-                                      controller: _lastNameController,
-                                      decoration: const InputDecoration(
-                                        labelText: 'Last Name',
-                                        border: InputBorder.none,
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(15.0)),
-                                          borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 2),
+                                        child: TextFormField(
+                                          controller: _lastNameController,
+                                          decoration: const InputDecoration(
+                                            labelText: 'Last Name',
+                                            border: InputBorder.none,
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(15.0)),
+                                              borderSide: BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 2),
+                                            ),
+                                          ),
+                                          onChanged: (value) {
+                                            //setState(() {
+                                            lastName = value;
+                                            //});
+                                          },
+                                          validator: (String? value) {
+                                            if (value == null ||
+                                                value.trim().length == 0) {
+                                              return "required";
+                                            }
+                                            return null;
+                                          },
                                         ),
                                       ),
-                                      onChanged: (value) {
-                                        //setState(() {
-                                        lastName = value;
-                                        //});
-                                      },
-                                      validator: (String? value) {
-                                        if (value == null ||
-                                            value.trim().length == 0) {
-                                          return "required";
-                                        }
-                                        return null;
-                                      },
-                                    ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                3.735,
+                                        padding: const EdgeInsets.only(
+                                            left: 25, right: 25),
+                                        margin: const EdgeInsets.only(
+                                            left: 15,
+                                            right: 15,
+                                            top: 5,
+                                            bottom: 5),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.2),
+                                              spreadRadius: 2,
+                                              blurRadius: 9,
+                                              //offset: Offset(2, 6),
+                                              // changes position of shadow
+                                            ),
+                                          ],
+                                        ),
+                                        child: TextFormField(
+                                          controller: _userFacultyController,
+                                          decoration: const InputDecoration(
+                                            labelText: 'Faculty Department',
+                                            border: InputBorder.none,
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(15.0)),
+                                              borderSide: BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 2),
+                                            ),
+                                          ),
+                                          onChanged: (value) {
+                                            //setState(() {
+                                            userFaculty = value;
+                                            //});
+                                          },
+                                          validator: (String? value) {
+                                            if (value == null ||
+                                                value.trim().length == 0) {
+                                              return "required";
+                                            }
+                                            if (departments.contains(value) !=
+                                                true) {
+                                              return "Department not found. [Cashier, Registrar, Professor]";
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 25, right: 25),
-                                    margin: const EdgeInsets.only(
-                                        left: 15, right: 15, top: 5, bottom: 5),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.2),
-                                          spreadRadius: 2,
-                                          blurRadius: 9,
-                                          //offset: Offset(2, 6),
-                                          // changes position of shadow
-                                        ),
-                                      ],
-                                    ),
-                                    child: TextFormField(
-                                      controller: _userFacultyController,
-                                      decoration: const InputDecoration(
-                                        labelText: 'Faculty Department',
-                                        border: InputBorder.none,
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(15.0)),
-                                          borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 2),
-                                        ),
-                                      ),
-                                      onChanged: (value) {
-                                        //setState(() {
-                                        userFaculty = value;
-                                        //});
-                                      },
-                                      validator: (String? value) {
-                                        if (value == null ||
-                                            value.trim().length == 0) {
-                                          return "required";
-                                        }
-                                        if (departments.contains(value) !=
-                                            true) {
-                                          return "Department not found. [Cashier, Registrar, Professor]";
-                                        }
-                                        return null;
-                                      },
-                                    ),
+                                  const SizedBox(
+                                    height: 10,
                                   ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
@@ -494,7 +583,7 @@ class _EditFacultyScreen extends State<EditFacultyScreen> {
                                                   CrossAxisAlignment.center,
                                               children: const <Widget>[
                                                 Text(
-                                                  'Save Faculty',
+                                                  'Save User',
                                                   style: TextStyle(
                                                     fontSize: 15,
                                                     fontWeight: FontWeight.w400,
@@ -506,7 +595,6 @@ class _EditFacultyScreen extends State<EditFacultyScreen> {
                                           ),
                                         ),
                                       ),
-                                      const SizedBox(width: 20),
                                       Container(
                                         margin: const EdgeInsets.all(10),
                                         child: ElevatedButton(

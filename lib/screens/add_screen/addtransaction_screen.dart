@@ -438,7 +438,6 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                           ),
                                         ),
                                       ),
-                                      const SizedBox(width: 10),
                                       Container(
                                         margin: const EdgeInsets.all(10),
                                         child: ElevatedButton(

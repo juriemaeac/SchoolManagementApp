@@ -40,8 +40,7 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
   }
 
   ifExist(String course, String subject) {
-     Box<Subject> subjectBox = Hive.box<Subject>(HiveBoxesSubject.subject);
-
+    Box<Subject> subjectBox = Hive.box<Subject>(HiveBoxesSubject.subject);
   }
 
   @override
@@ -93,14 +92,14 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
                           height: 10,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width / 4.7,
+                              width: MediaQuery.of(context).size.width / 4.8,
                               padding:
                                   const EdgeInsets.only(left: 25, right: 25),
                               margin: const EdgeInsets.only(
-                                  left: 15, right: 15, top: 5, bottom: 5),
+                                  left: 15, top: 5, bottom: 5),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
@@ -149,11 +148,10 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
                               ),
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width / 7,
+                              width: MediaQuery.of(context).size.width / 6.2,
                               padding:
                                   const EdgeInsets.only(left: 25, right: 25),
-                              margin: const EdgeInsets.only(
-                                  left: 15, right: 15, top: 5, bottom: 5),
+                              margin: const EdgeInsets.only(top: 5, bottom: 5),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
@@ -195,11 +193,11 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
                               ),
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width / 7,
+                              width: MediaQuery.of(context).size.width / 6.2,
                               padding:
                                   const EdgeInsets.only(left: 25, right: 25),
                               margin: const EdgeInsets.only(
-                                  left: 15, right: 15, top: 5, bottom: 5),
+                                  right: 15, top: 5, bottom: 5),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
@@ -251,11 +249,11 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width / 3.7,
+                              width: MediaQuery.of(context).size.width / 3.3,
                               padding:
                                   const EdgeInsets.only(left: 25, right: 25),
                               margin: const EdgeInsets.only(
-                                  left: 15, right: 15, top: 5, bottom: 5),
+                                  left: 15, right: 5, top: 5, bottom: 5),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
@@ -302,18 +300,17 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
                                         return "Subject Code already exists";
                                       }
                                     }
-                                    
                                   }
                                   return null;
                                 },
                               ),
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width / 4,
+                              width: MediaQuery.of(context).size.width / 4.3,
                               padding:
                                   const EdgeInsets.only(left: 25, right: 25),
                               margin: const EdgeInsets.only(
-                                  left: 15, right: 15, top: 5, bottom: 5),
+                                  right: 15, left: 5, top: 5, bottom: 5),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
@@ -385,7 +382,7 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
                                         CrossAxisAlignment.center,
                                     children: const <Widget>[
                                       Text(
-                                        'Save Subject',
+                                        'Add Subject',
                                         style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.w400,
@@ -397,7 +394,6 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 20),
                             Container(
                               margin: const EdgeInsets.all(10),
                               child: ElevatedButton(

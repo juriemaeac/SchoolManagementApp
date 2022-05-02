@@ -646,8 +646,8 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                                   ),
                                 ),
                                 onChanged: (value) {
-
-                                    accountBalance = double.parse(_courseFee.text);
+                                  accountBalance =
+                                      double.parse(_courseFee.text);
                                 },
                                 validator: (String? value) {
                                   if (value == null ||
@@ -678,7 +678,8 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                                         side: const BorderSide(
                                             color: Colors.orange)))),
                             onPressed: () {
-                              validated(_studentSubjects.text, double.parse(_courseFee.text));
+                              validated(_studentSubjects.text,
+                                  double.parse(_courseFee.text));
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(10),
@@ -687,7 +688,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: const <Widget>[
                                   Text(
-                                    'Save Student',
+                                    'Add Student',
                                     style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w400,
@@ -699,7 +700,6 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                             ),
                           ),
                         ),
-                        const SizedBox(width: 20),
                         Container(
                           margin: const EdgeInsets.all(10),
                           child: ElevatedButton(
@@ -822,10 +822,10 @@ class courseSubjects {
     //   return fee;
     // }
     for (var courses in courseBox.values) {
-        if (subCourse == courses.courseCode) {
-          fee = courses.courseFee;
-        }
+      if (subCourse == courses.courseCode) {
+        fee = courses.courseFee;
       }
-      return fee;
+    }
+    return fee;
   }
 }

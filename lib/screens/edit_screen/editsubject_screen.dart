@@ -186,19 +186,16 @@ class _EditSubjectScreen extends State<EditSubjectScreen> {
                                   ),
                                   Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
                                         width:
                                             MediaQuery.of(context).size.width /
-                                                4.7,
+                                                4.8,
                                         padding: const EdgeInsets.only(
                                             left: 25, right: 25),
                                         margin: const EdgeInsets.only(
-                                            left: 15,
-                                            right: 15,
-                                            top: 5,
-                                            bottom: 5),
+                                            left: 15, top: 5, bottom: 5),
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius:
@@ -252,14 +249,11 @@ class _EditSubjectScreen extends State<EditSubjectScreen> {
                                       Container(
                                         width:
                                             MediaQuery.of(context).size.width /
-                                                7,
+                                                6,
                                         padding: const EdgeInsets.only(
                                             left: 25, right: 25),
                                         margin: const EdgeInsets.only(
-                                            left: 15,
-                                            right: 15,
-                                            top: 5,
-                                            bottom: 5),
+                                            top: 5, bottom: 5),
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius:
@@ -308,14 +302,11 @@ class _EditSubjectScreen extends State<EditSubjectScreen> {
                                       Container(
                                         width:
                                             MediaQuery.of(context).size.width /
-                                                7,
+                                                6,
                                         padding: const EdgeInsets.only(
                                             left: 25, right: 25),
                                         margin: const EdgeInsets.only(
-                                            left: 15,
-                                            right: 15,
-                                            top: 5,
-                                            bottom: 5),
+                                            right: 15, top: 5, bottom: 5),
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius:
@@ -375,14 +366,11 @@ class _EditSubjectScreen extends State<EditSubjectScreen> {
                                       Container(
                                         width:
                                             MediaQuery.of(context).size.width /
-                                                3.7,
+                                                3.3,
                                         padding: const EdgeInsets.only(
                                             left: 25, right: 25),
                                         margin: const EdgeInsets.only(
-                                            left: 15,
-                                            right: 15,
-                                            top: 5,
-                                            bottom: 5),
+                                            left: 15, top: 5, bottom: 5),
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius:
@@ -446,14 +434,11 @@ class _EditSubjectScreen extends State<EditSubjectScreen> {
                                       Container(
                                         width:
                                             MediaQuery.of(context).size.width /
-                                                4,
+                                                4.1,
                                         padding: const EdgeInsets.only(
                                             left: 25, right: 25),
                                         margin: const EdgeInsets.only(
-                                            left: 15,
-                                            right: 15,
-                                            top: 5,
-                                            bottom: 5),
+                                            right: 15, top: 5, bottom: 5),
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius:

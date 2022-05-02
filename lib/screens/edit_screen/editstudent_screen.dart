@@ -203,7 +203,16 @@ class _EditStudentScreen extends State<EditStudentScreen> {
 
     String method = paymentMethod(isInstallment!) ?? "";
     List<String> courses = ['BSA', 'BSIT', 'BEED', 'BSED'];
-    List<String> academicYears = ['11','12','21','22','31','32','41','42'];
+    List<String> academicYears = [
+      '11',
+      '12',
+      '21',
+      '22',
+      '31',
+      '32',
+      '41',
+      '42'
+    ];
     List<String> acadYear = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
     List<String> acadTerm = ['1st Sem', '2nd Sem', 'Summer'];
     return Scaffold(
@@ -514,19 +523,26 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                     ),
                                   ),
                                   Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
-                                        width: (MediaQuery.of(context).size.width * 0.59) / 3,
+                                        width:
+                                            (MediaQuery.of(context).size.width *
+                                                    0.59) /
+                                                2.8,
                                         padding: const EdgeInsets.only(
                                             left: 25, right: 25),
                                         margin: const EdgeInsets.only(
-                                            left: 15, right: 15, top: 5, bottom: 5),
+                                            left: 15, top: 5, bottom: 5),
                                         decoration: BoxDecoration(
                                           color: Colors.white,
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           boxShadow: [
                                             BoxShadow(
-                                              color: Colors.grey.withOpacity(0.2),
+                                              color:
+                                                  Colors.grey.withOpacity(0.2),
                                               spreadRadius: 2,
                                               blurRadius: 9,
                                               //offset: Offset(2, 6),
@@ -556,7 +572,8 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                             if (value == null ||
                                                 value.trim().length == 0) {
                                               return "required";
-                                            } else if (courses.contains(value) !=
+                                            } else if (courses
+                                                    .contains(value) !=
                                                 true) {
                                               return "Course not found. [BSA, BSIT, BEED, BSED]";
                                             }
@@ -565,17 +582,22 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                         ),
                                       ),
                                       Container(
-                                        width: (MediaQuery.of(context).size.width * 0.59) / 4,
+                                        width:
+                                            (MediaQuery.of(context).size.width *
+                                                    0.59) /
+                                                3.8,
                                         padding: const EdgeInsets.only(
                                             left: 25, right: 25),
                                         margin: const EdgeInsets.only(
-                                            left: 15, right: 15, top: 5, bottom: 5),
+                                            top: 5, bottom: 5),
                                         decoration: BoxDecoration(
                                           color: Colors.white,
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           boxShadow: [
                                             BoxShadow(
-                                              color: Colors.grey.withOpacity(0.2),
+                                              color:
+                                                  Colors.grey.withOpacity(0.2),
                                               spreadRadius: 2,
                                               blurRadius: 9,
                                               //offset: Offset(2, 6),
@@ -606,8 +628,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                             if (value == null ||
                                                 value.trim().length == 0) {
                                               return "required";
-                                            } 
-                                            else if (acadYear
+                                            } else if (acadYear
                                                     .contains(value) !=
                                                 true) {
                                               return "Academic Year Error. [1st Year, 2nd Year...]";
@@ -617,17 +638,22 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                         ),
                                       ),
                                       Container(
-                                        width: (MediaQuery.of(context).size.width * 0.59) / 4,
+                                        width:
+                                            (MediaQuery.of(context).size.width *
+                                                    0.59) /
+                                                3.8,
                                         padding: const EdgeInsets.only(
                                             left: 25, right: 25),
                                         margin: const EdgeInsets.only(
-                                            left: 15, right: 15, top: 5, bottom: 5),
+                                            right: 15, top: 5, bottom: 5),
                                         decoration: BoxDecoration(
                                           color: Colors.white,
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           boxShadow: [
                                             BoxShadow(
-                                              color: Colors.grey.withOpacity(0.2),
+                                              color:
+                                                  Colors.grey.withOpacity(0.2),
                                               spreadRadius: 2,
                                               blurRadius: 9,
                                               //offset: Offset(2, 6),
@@ -658,8 +684,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                             if (value == null ||
                                                 value.trim().length == 0) {
                                               return "required";
-                                            } 
-                                            else if (acadTerm
+                                            } else if (acadTerm
                                                     .contains(value) !=
                                                 true) {
                                               return "Academic Term Error. [1st Sem, 2nd Sem, Summer]";
@@ -715,7 +740,6 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                       },
                                     ),
                                   ),
-                                  
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -881,7 +905,6 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                           ),
                                         ),
                                       ),
-                                      const SizedBox(width: 20),
                                       Container(
                                         margin: const EdgeInsets.all(10),
                                         child: ElevatedButton(
