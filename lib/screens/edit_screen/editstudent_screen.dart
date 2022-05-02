@@ -4,12 +4,14 @@ import 'package:hive/hive.dart';
 import 'package:smapp/CalendarSpace/addstudent_information.dart';
 import 'package:smapp/NavigationBar/navbar_student_page.dart';
 import 'package:smapp/boxes/boxStudent.dart';
+import 'package:smapp/boxes/boxSubject.dart';
 import 'package:smapp/models/student_model.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
 import 'package:smapp/student_page.dart';
 
 import '../../boxes/boxFaculty.dart';
 import '../../models/faculty_model.dart';
+import '../../models/subject_model.dart';
 
 class EditStudentScreen extends StatefulWidget {
   final Student student;
@@ -54,6 +56,63 @@ class _EditStudentScreen extends State<EditStudentScreen> {
     } else {
       return;
     }
+  }
+
+  checkSubs(String subjects, String course) {
+    List<String> subjectsSplit = [];
+    List<String> checkedSubs = [];
+    var subjectString = subjects;
+    var splitSubs = subjectString.split(',');
+
+    for (int i = 0; i < splitSubs.length; i++) {
+      if (subjectsSplit.contains(splitSubs[i]) == false) {
+        subjectsSplit.add(splitSubs[i]);
+      }
+    }
+
+    var filteredSubs = subjectsSplit.toSet().toList();
+
+    for (var subs in filteredSubs) {
+      Box<Subject> subjectBox = Hive.box<Subject>(HiveBoxesSubject.subject);
+      for (var sub in subjectBox.values) {
+        if (sub.subjectCode == subs && sub.subjectCourse == course) {
+          checkedSubs.add(sub.subjectCode);
+        }
+      }
+    }
+    var subsFinal = checkedSubs.join(',');
+    return subsFinal.toString();
+  }
+
+  subsValidator(String subjects, String course) {
+    List<String> subjectsSplit = [];
+    List<String> checkedSubs = [];
+    List<String> subjectBasis = [];
+    var subjectString = subjects;
+    var splitSubs = subjectString.split(',');
+    var redSubs = 0;
+    for (int i = 0; i < splitSubs.length; i++) {
+      if (subjectsSplit.contains(splitSubs[i]) == false) {
+        subjectsSplit.add(splitSubs[i]);
+      }
+    }
+
+    var filteredSubs = subjectsSplit.toSet().toList();
+    Box<Subject> subjectBox = Hive.box<Subject>(HiveBoxesSubject.subject);
+
+
+    for (var bSubs in subjectBox.values) {
+      if(bSubs.subjectCourse == course){
+        subjectBasis.add(bSubs.subjectCode);
+      }
+    }
+
+    for (var subs in filteredSubs) {
+      if (subjectBasis.contains(subs) == false) {
+        redSubs += 1;
+      }
+    }
+    return redSubs;
   }
 
   bool? isAdmin = false;
@@ -728,13 +787,19 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                       ),
                                       onChanged: (value) {
                                         //setState(() {
-                                        studentSubjects = value;
+                                        var subsFinal =
+                                            checkSubs(value, studentCourse!);
+                                        studentSubjects = subsFinal;
                                         //});
                                       },
                                       validator: (String? value) {
+                                        int red = subsValidator(
+                                            value!, studentCourse!);
                                         if (value == null ||
                                             value.trim().length == 0) {
                                           return "required";
+                                        } else if (red > 0) {
+                                          return "$red subjects found conflicted with records.";
                                         }
                                         return null;
                                       },
@@ -971,7 +1036,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
 
   void _onFormSubmit() {
     Box<Student> studentBox = Hive.box<Student>(HiveBoxesStudent.student);
-
+    var fSubs = checkSubs(studentSubjects!, studentCourse!);
     studentBox.putAt(
         studentIndex,
         Student(
@@ -980,7 +1045,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
             middleName: middleName ?? '',
             lastName: lastName ?? '',
             studentCourse: studentCourse ?? '',
-            studentSubjects: studentSubjects ?? '',
+            studentSubjects: fSubs ?? '',
             academicYear: academicYear ?? '',
             isInstallment: isInstallment ?? 0,
             accountBalance: accountBalance ?? 0.0,

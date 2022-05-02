@@ -73,7 +73,7 @@ class PdfInvoiceApi {
           pw.Text(
             "Main: Blk 125, Lot 22, Quirino Highway, Lagro, Quezon City",
             style: const TextStyle(
-              fontSize: 8.00,
+              fontSize: 10.00,
             ),
           ),
         ],
@@ -82,11 +82,11 @@ class PdfInvoiceApi {
   static Widget buildInfoSection(Invoice invoice) => Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 0.3 * (PdfPageFormat.cm)),
+          SizedBox(height: 0.8 * (PdfPageFormat.cm)),
           pw.Text(
             "CERTIFICATE OF MATRICULATION",
             style: TextStyle(
-              fontSize: 12.00,
+              fontSize: 14.00,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -183,9 +183,30 @@ class PdfInvoiceApi {
           SizedBox(height: 10),
           pw.Divider(),
           Row(
+            //crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(width: 100),
+              SizedBox(width: 25),
+              Column(children: [
+                Text(
+                  "No.",
+                  style: TextStyle(
+                    fontSize: 12.00,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ]),
+              SizedBox(width: 10),
+              Column(children: [
+                Text(
+                  "Course",
+                  style: TextStyle(
+                    fontSize: 12.00,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ]),
+              SizedBox(width: 30),
               Column(children: [
                 Text(
                   "Subject Code",
@@ -212,9 +233,19 @@ class PdfInvoiceApi {
           ),
           Divider(),
           Row(
+            //crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(width: 100),
+              SizedBox(width: 10),
+              // Column(children: [
+              //   Text(
+              //     studentPDF.subjects,
+              //     style: const TextStyle(
+              //       fontSize: 12.00,
+              //     ),
+              //   ),
+              // ]),
+              // SizedBox(width: 20),
               Column(children: [
                 Text(
                   studentPDF.subjects,
@@ -228,6 +259,7 @@ class PdfInvoiceApi {
                 children: [
                   Text(
                     studentPDF.subjectUnits,
+                    textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 12.00,
                     ),
@@ -244,15 +276,17 @@ class PdfInvoiceApi {
               Text(
                 "Total Units: ",
                 style: TextStyle(
-                  fontSize: 10.00,
+                  fontSize: 12.00,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(width: 10),
               Text(
                 studentPDF.totalUnits.toString(),
-                style: const TextStyle(
-                  fontSize: 10.00,
+                style: TextStyle(
+                  fontSize: 12.00,
+                  color: PdfColors.red,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ],
@@ -268,7 +302,7 @@ class PdfInvoiceApi {
               'Approved by:',
               textAlign: TextAlign.right,
               style: const TextStyle(
-                fontSize: 10,
+                fontSize: 12,
               ),
             ),
             pw.SizedBox(height: 15),
@@ -310,7 +344,7 @@ class PdfInvoiceApi {
               'Approved by:',
               textAlign: TextAlign.right,
               style: const TextStyle(
-                fontSize: 10,
+                fontSize: 12,
               ),
             ),
             pw.SizedBox(height: 15),

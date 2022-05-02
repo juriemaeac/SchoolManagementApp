@@ -78,13 +78,16 @@ class _StudentScreenState extends State<StudentScreen> {
     }
   }
 
-  separateSubs(String subjects) {
+  separateSubs(String subjects, String course) {
     List<String> subjectsSplit = [];
-
+    String fCourse = course;
     var subjectString = subjects;
     var splitSubs = subjectString.split(',');
+    int count = 0;
     for (int i = 0; i < splitSubs.length; i++) {
-      subjectsSplit.add(splitSubs[i]);
+      var sub = splitSubs[i];
+      count += 1;
+      subjectsSplit.add(" $count            $fCourse                 $sub ");
     }
     var subs = subjectsSplit.join('\n');
     return subs.toString();
@@ -549,7 +552,8 @@ class _StudentScreenState extends State<StudentScreen> {
                                           ),
                                           onPressed: () async {
                                             var subs = separateSubs(
-                                                res.studentSubjects);
+                                                res.studentSubjects,
+                                                res.studentCourse);
                                             var units = separateUnits(
                                                 res.studentSubjects,
                                                 res.studentCourse);
