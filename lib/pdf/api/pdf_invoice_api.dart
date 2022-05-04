@@ -158,7 +158,7 @@ class PdfInvoiceApi {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
               Text('Payment Method: ',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-              Text('Account Balance: ',
+              Text('Tuition Fee: ',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
             ]),
             pw.SizedBox(width: 10),

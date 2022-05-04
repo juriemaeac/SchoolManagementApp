@@ -1,3 +1,5 @@
+import 'dart:math';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:smapp/boxes/boxStudent.dart';
@@ -365,10 +367,14 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                               });
                             },
                             validator: (String? value) {
+                               Box<Course> courseBox =
+                                    Hive.box<Course>(HiveBoxesCourse.course);
+                               var count =
+        courseBox.values.where((course) => course.courseCode == value).length;
                               if (value == null || value.trim().length == 0) {
                                 return "required";
-                              } else if (courses.contains(value) != true) {
-                                return "! [BSA, BSIT, BEED, BSED]";
+                              } else if (count == 0) {
+                                return "Course not Found";
                               }
                               return null;
                             },
@@ -748,19 +754,23 @@ class _AddStudentScreen extends State<AddStudentScreen> {
   void _onFormSubmit(subjects, fees) {
     var subs = subjects;
     var fee = fees;
+    String transacDate = DateFormat("MMMM dd, yyyy").format(DateTime.now());
     Box<Student> studentBox = Hive.box<Student>(HiveBoxesStudent.student);
     studentBox.add(Student(
-        studentID: studentID,
-        firstName: firstName,
-        middleName: middleName,
-        lastName: lastName,
-        studentCourse: studentCourse,
-        studentSubjects: subs,
-        academicYear: academicYear,
-        isInstallment: isInstallment,
-        accountBalance: fee,
-        studentAddress: studentAddress,
-        academicTerm: academicTerm));
+      studentID: studentID,
+      firstName: firstName,
+      middleName: middleName,
+      lastName: lastName,
+      studentCourse: studentCourse,
+      studentSubjects: subs,
+      academicYear: academicYear,
+      isInstallment: isInstallment,
+      accountBalance: fee,
+      studentAddress: studentAddress,
+      academicTerm: academicTerm,
+      paymentCounter: 0,
+      paymentDate: transacDate,
+    ));
     Navigator.of(context).pop();
   }
 }
@@ -810,20 +820,14 @@ class courseSubjects {
   static double getCourseFee() {
     Box<Course> courseBox = Hive.box<Course>(HiveBoxesCourse.course);
     double fee = 0.0;
-    // if (subPayment == 1) {
-    //   for (var courses in courseBox.values) {
-    //     if (subCourse == courses.courseCode) {
-    //       fee = courses.courseFee;
-    //     }
-    //   }
-    //   return fee;
-    // } else {
-    //   fee = 5000.0;
-    //   return fee;
-    // }
     for (var courses in courseBox.values) {
       if (subCourse == courses.courseCode) {
-        fee = courses.courseFee;
+        if (subPayment == 1) {
+          fee = courses.courseFee;
+        } else if (subPayment == 2) {
+          fee = courses.courseFee + 1000.0;
+        }
+        ;
       }
     }
     return fee;

@@ -1,6 +1,10 @@
+import 'dart:math';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
+import 'package:smapp/boxes/boxCourse.dart';
+import 'package:smapp/models/course_model.dart';
 import 'package:smapp/models/payment_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:smapp/payment_transaction_page.dart';
@@ -27,6 +31,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
   int? searchID;
   bool? isEnabled = true;
   int? searchCount = 1;
+  int? counter = 0;
+
   @override
   void initState() {
     super.initState();
@@ -91,6 +97,103 @@ class _PaymentScreenState extends State<PaymentScreen> {
     }
   }
 
+  getCourseFee(String course, int method) {
+    final box = Hive.box<Course>(HiveBoxesCourse.course);
+    for (final crs in box.values) {
+      if (crs.courseCode == course) {
+        if (method == 1) {
+          double fee = crs.courseFee;
+          return fee;
+        } else if (method == 2) {
+          double fee = crs.courseFee + 1000.0;
+          return fee;
+        }
+      }
+    }
+  }
+
+  payBreakdown(double balance, double payment, int count, String lastDate) {
+    List<String> months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ];
+
+    var splitDate = lastDate.split(' ');
+    String initMonth = splitDate[0];
+    int initMonthIndex = months.indexOf(initMonth);
+    int initIndex = initMonthIndex;
+
+    List<String> iterableMonths = [];
+
+    if (initMonthIndex == 8) {
+      //September
+      iterableMonths = ['October', 'November', 'December', 'January'];
+    } else if (initMonthIndex == 9) {
+      //October
+      iterableMonths = ['November', 'December', 'January', 'February'];
+    } else if (initMonthIndex == 10) {
+      //November
+      iterableMonths = ['December', 'January', 'February', 'March'];
+    } else if (initMonthIndex == 11) {
+      //December
+      iterableMonths = ['January', 'February', 'March', 'April'];
+    } else {
+      iterableMonths = months;
+    }
+
+    List<String> paymentBreakdown = [];
+
+    initIndex++;
+    if (count == 1) {
+      int divisor = 4;
+      //counter = count + 1;
+      balance = balance / divisor;
+      for (int i = 0; i < 4; i++) {
+        paymentBreakdown.add(
+            "${iterableMonths[initIndex]} : ${balance.toStringAsFixed(2)}");
+        initIndex++;
+      }
+    } else if (count == 2) {
+      int divisor = 3;
+      //counter = count + 1;
+      balance = balance / divisor;
+      for (int i = 0; i < 3; i++) {
+        paymentBreakdown.add(
+            "${iterableMonths[initIndex]} : ${balance.toStringAsFixed(2)}");
+        initIndex++;
+      }
+    } else if (count == 3) {
+      int divisor = 2;
+      //counter = count + 1;
+      balance = balance / divisor;
+      for (int i = 0; i < 2; i++) {
+        paymentBreakdown.add(
+            "${iterableMonths[initIndex]} : ${balance.toStringAsFixed(2)}");
+        initIndex++;
+      }
+    } else if (count == 4) {
+      //counter = count + 1;
+      for (int i = 0; i < 1; i++) {
+        paymentBreakdown.add(
+            "${iterableMonths[initIndex]} : ${balance.toStringAsFixed(2)}");
+        initIndex++;
+      }
+    }
+
+    var payments = paymentBreakdown.join('\n');
+    return payments.toString();
+  }
+
   TextEditingController searchIDController = TextEditingController();
 
   @override
@@ -125,7 +228,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
       }
     }
 
-    var count = box.values.where((payment) => payment.studentID == studID).length;
+    var count =
+        box.values.where((payment) => payment.studentID == studID).length;
 
     if (count > 0) {
       searchID = studID;
@@ -402,13 +506,24 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                     academicTerm: 'null',
                                                     academicYear: 'null',
                                                     isInstallment: 1,
-                                                    accountBalance: 0);
+                                                    accountBalance: 0,
+                                                    paymentCounter: 0,
+                                                    paymentDate: 'null');
 
                                         Faculty cashier =
                                             getCashierInfo(res.facultyUsername);
+                                        print("Balance: ${payor.accountBalance}");
+                                        String breakdown = payBreakdown(
+                                            payor.accountBalance,
+                                            res.transactionAmount,
+                                            payor.paymentCounter,
+                                            res.transactionDate);
+                                        print('\n');
+                                        print(breakdown);
                                         final invoice = InvoicePayment(
                                           studentPDFPayment: StudentPDFPayment(
                                             studentId: res.studentID,
+
                                             name: payor.firstName +
                                                 ' ' +
                                                 payor.lastName,
@@ -416,6 +531,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                 ' ' +
                                                 payor.academicYear.toString(),
                                             subjects: 'SUBJECTS',
+                                            courseFee: getCourseFee(
+                                                payor.studentCourse,
+                                                payor
+                                                    .isInstallment),
+                                            paymentMode: payor.isInstallment,
+                                            paymentBalance:
+                                                payor.accountBalance,
                                           ),
                                           info: InvoiceInfoPayment(
                                             date: date,
@@ -453,6 +575,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                             ));
                                       },
                                     ),
+
                                     // IconButton(
                                     //   padding: const EdgeInsets.all(3.0),
                                     //   splashColor: Colors.transparent,

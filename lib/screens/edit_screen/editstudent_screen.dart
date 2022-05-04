@@ -9,7 +9,9 @@ import 'package:smapp/models/student_model.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
 import 'package:smapp/student_page.dart';
 
+import '../../boxes/boxCourse.dart';
 import '../../boxes/boxFaculty.dart';
+import '../../models/course_model.dart';
 import '../../models/faculty_model.dart';
 import '../../models/subject_model.dart';
 
@@ -39,7 +41,10 @@ class _EditStudentScreen extends State<EditStudentScreen> {
   double? accountBalance;
   String? studentAddress;
   String? academicTerm;
-
+  int? paymentCounter;
+  String? paymentDate;
+  bool? isAdmin = false;
+  
   @override
   void initState() {
     super.initState();
@@ -100,9 +105,8 @@ class _EditStudentScreen extends State<EditStudentScreen> {
     var filteredSubs = subjectsSplit.toSet().toList();
     Box<Subject> subjectBox = Hive.box<Subject>(HiveBoxesSubject.subject);
 
-
     for (var bSubs in subjectBox.values) {
-      if(bSubs.subjectCourse == course){
+      if (bSubs.subjectCourse == course) {
         subjectBasis.add(bSubs.subjectCode);
       }
     }
@@ -115,25 +119,28 @@ class _EditStudentScreen extends State<EditStudentScreen> {
     return redSubs;
   }
 
-  bool? isAdmin = false;
+  
 
-  isRegistrar() {
-    final box = Hive.box<Faculty>(HiveBoxesFaculty.faculty);
-    String username = facultyCredential.getString();
-    bool visible = false;
-    for (final faculty in box.values) {
+    isRegistrar() {
+      final box = Hive.box<Faculty>(HiveBoxesFaculty.faculty);
+      String username = facultyCredential.getString();
+      bool visible = false;
       if (username == 'admin') {
-        visible = true;
-      } else if (faculty.username == username) {
-        if (faculty.userFaculty == 'Registrar') {
           visible = true;
-        } else {
-          visible = false;
+          return visible;
+        } 
+      for (final faculty in box.values) {
+         if (faculty.username == username) {
+          if (faculty.userFaculty == 'Registrar') {
+            visible = true;
+            return visible;
+          } else {
+            visible = false;
+            return visible;
+          }
         }
       }
     }
-    return visible;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -148,6 +155,8 @@ class _EditStudentScreen extends State<EditStudentScreen> {
     accountBalance = widget.student.accountBalance;
     studentAddress = widget.student.studentAddress;
     academicTerm = widget.student.academicTerm;
+    paymentCounter = widget.student.paymentCounter;
+    paymentDate = widget.student.paymentDate;
 
     int? oldID = studentID;
     TextEditingController _studentIDController = TextEditingController()
@@ -628,13 +637,18 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                             //});
                                           },
                                           validator: (String? value) {
+                                            Box<Course> courseBox =
+                                                Hive.box<Course>(
+                                                    HiveBoxesCourse.course);
+                                            var count = courseBox.values
+                                                .where((course) =>
+                                                    course.courseCode == value)
+                                                .length;
                                             if (value == null ||
                                                 value.trim().length == 0) {
                                               return "required";
-                                            } else if (courses
-                                                    .contains(value) !=
-                                                true) {
-                                              return "Course not found. [BSA, BSIT, BEED, BSED]";
+                                            } else if (count == 0) {
+                                              return "Course not Found";
                                             }
                                             return null;
                                           },
@@ -898,7 +912,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                         ),
                                         child: TextFormField(
                                           textAlign: TextAlign.right,
-                                          enabled: isRegistrar(),
+                                          enabled: isRegistrar()??false,
                                           controller: _accountBalanceController,
                                           decoration: const InputDecoration(
                                             //hintText: '₱ 0.00',
@@ -1040,17 +1054,20 @@ class _EditStudentScreen extends State<EditStudentScreen> {
     studentBox.putAt(
         studentIndex,
         Student(
-            studentID: studentID ?? 0,
-            firstName: firstName ?? '',
-            middleName: middleName ?? '',
-            lastName: lastName ?? '',
-            studentCourse: studentCourse ?? '',
-            studentSubjects: fSubs ?? '',
-            academicYear: academicYear ?? '',
-            isInstallment: isInstallment ?? 0,
-            accountBalance: accountBalance ?? 0.0,
-            studentAddress: studentAddress ?? '',
-            academicTerm: academicTerm ?? ''));
+          studentID: studentID ?? 0,
+          firstName: firstName ?? '',
+          middleName: middleName ?? '',
+          lastName: lastName ?? '',
+          studentCourse: studentCourse ?? '',
+          studentSubjects: fSubs ?? '',
+          academicYear: academicYear ?? '',
+          isInstallment: isInstallment ?? 0,
+          accountBalance: accountBalance ?? 0.0,
+          studentAddress: studentAddress ?? '',
+          academicTerm: academicTerm ?? '',
+          paymentCounter: paymentCounter ?? 0,
+          paymentDate: paymentDate ?? '',
+        ));
     Navigator.of(context).pop();
   }
 }

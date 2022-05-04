@@ -153,36 +153,42 @@ class _StudentScreenState extends State<StudentScreen> {
       final box = Hive.box<Faculty>(HiveBoxesFaculty.faculty);
       String username = facultyCredential.getString();
       bool visible = false;
-      for (final faculty in box.values) {
-        if (username == 'admin') {
+      if (username == 'admin') {
           visible = true;
-        } else if (faculty.username == username) {
+          return visible;
+        } 
+      for (final faculty in box.values) {
+         if (faculty.username == username) {
           if (faculty.userFaculty == 'Cashier') {
             visible = true;
+            return visible;
           } else {
             visible = false;
+            return visible;
           }
         }
       }
-      return visible;
     }
 
     isRegistrar() {
       final box = Hive.box<Faculty>(HiveBoxesFaculty.faculty);
       String username = facultyCredential.getString();
       bool visible = false;
-      for (final faculty in box.values) {
-        if (username == 'admin') {
+      if (username == 'admin') {
           visible = true;
-        } else if (faculty.username == username) {
+          return visible;
+        } 
+      for (final faculty in box.values) {
+         if (faculty.username == username) {
           if (faculty.userFaculty == 'Registrar') {
             visible = true;
+            return visible;
           } else {
             visible = false;
+            return visible;
           }
         }
       }
-      return visible;
     }
 
     return Scaffold(
@@ -444,7 +450,7 @@ class _StudentScreenState extends State<StudentScreen> {
                                     Row(
                                       children: [
                                         Visibility(
-                                          visible: isRegistrar(),
+                                          visible: isRegistrar()??false,
                                           child: IconButton(
                                             padding: const EdgeInsets.all(3.0),
                                             splashColor: Colors.transparent,
@@ -475,7 +481,10 @@ class _StudentScreenState extends State<StudentScreen> {
                                                   studentAddress:
                                                       res.studentAddress,
                                                   academicTerm:
-                                                      res.academicTerm);
+                                                      res.academicTerm,
+                                                  paymentCounter:
+                                                      res.paymentCounter,
+                                                  paymentDate: res.paymentDate);
                                               studentSearchController.clear();
                                               isSearching = false;
                                               isEnabled = true;
@@ -494,7 +503,7 @@ class _StudentScreenState extends State<StudentScreen> {
                                         ),
                                         const SizedBox(width: 10),
                                         Visibility(
-                                          visible: isCashier(),
+                                          visible: isCashier()??false,
                                           child: IconButton(
                                             padding: const EdgeInsets.all(3.0),
                                             splashColor: Colors.transparent,
@@ -508,23 +517,27 @@ class _StudentScreenState extends State<StudentScreen> {
                                             ),
                                             onPressed: () {
                                               Student student = Student(
-                                                studentID: res.studentID,
-                                                firstName: res.firstName,
-                                                middleName: res.middleName,
-                                                lastName: res.lastName,
-                                                studentCourse:
-                                                    res.studentCourse,
-                                                studentSubjects:
-                                                    res.studentSubjects,
-                                                academicYear: res.academicYear,
-                                                isInstallment:
-                                                    res.isInstallment,
-                                                accountBalance:
-                                                    res.accountBalance,
-                                                studentAddress:
-                                                    res.studentAddress,
-                                                academicTerm: res.academicTerm,
-                                              );
+                                                  studentID: res.studentID,
+                                                  firstName: res.firstName,
+                                                  middleName: res.middleName,
+                                                  lastName: res.lastName,
+                                                  studentCourse:
+                                                      res.studentCourse,
+                                                  studentSubjects:
+                                                      res.studentSubjects,
+                                                  academicYear:
+                                                      res.academicYear,
+                                                  isInstallment:
+                                                      res.isInstallment,
+                                                  accountBalance:
+                                                      res.accountBalance,
+                                                  studentAddress:
+                                                      res.studentAddress,
+                                                  academicTerm:
+                                                      res.academicTerm,
+                                                  paymentCounter:
+                                                      res.paymentCounter,
+                                                  paymentDate: res.paymentDate);
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(

@@ -27,6 +27,10 @@ class Student extends HiveObject {
   late String studentAddress;
   @HiveField(11)
   late String academicTerm;
+  @HiveField(12)
+  late int paymentCounter;
+  @HiveField(13)
+  late String paymentDate;
   Student(
       {required this.studentID,
       required this.firstName,
@@ -38,5 +42,7 @@ class Student extends HiveObject {
       required this.isInstallment,
       required this.accountBalance,
       required this.studentAddress,
-      required this.academicTerm});
+      required this.academicTerm,
+      required this.paymentCounter,
+      required this.paymentDate});
 }

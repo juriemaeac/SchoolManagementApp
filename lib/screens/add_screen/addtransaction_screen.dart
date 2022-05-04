@@ -56,6 +56,8 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
   double? accountBalance;
   String? studentAddress;
   String? academicTerm;
+  int? paymentCounter;
+  String? paymentDate;
 
   String? facultyUsername;
   String? transactionDate;
@@ -83,6 +85,8 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
     isInstallment = widget.student.isInstallment;
     accountBalance = widget.student.accountBalance;
     studentAddress = widget.student.studentAddress;
+    paymentCounter = widget.student.paymentCounter;
+    paymentDate = widget.student.paymentDate;
 
     oldBalance = widget.student.accountBalance;
 
@@ -498,12 +502,17 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
 
   void _onFormSubmit(double oldBalance, double transactionAmount) {
     String? user = facultyCredential.getString();
+    print("Old counter = $paymentCounter");
+    int? updCounter = paymentCounter! + 1;
+    print("New counter = $updCounter");
 
     if (transactionAmount > oldBalance && transactionAmount >= 1.0) {
       return;
     } else {
       double? newAccountBalance = oldBalance - transactionAmount;
       String transacDate = DateFormat("MMMM dd, yyyy").format(DateTime.now());
+      
+
       Box<Payment> paymentBox = Hive.box<Payment>(HiveBoxesPayment.payment);
       paymentBox.add(Payment(
         studentID: studentID ?? 0,
@@ -512,6 +521,8 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
         facultyUsername: user,
         newAccountBalance: newAccountBalance,
       ));
+      
+      
       Box<Student> studentBox = Hive.box<Student>(HiveBoxesStudent.student);
       studentBox.putAt(
           studentIndex,
@@ -527,6 +538,8 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
             accountBalance: newAccountBalance,
             studentAddress: studentAddress ?? '',
             academicTerm: academicTerm ?? '',
+            paymentCounter: updCounter,
+            paymentDate: transacDate,
           ));
     }
     Navigator.of(context).pop();

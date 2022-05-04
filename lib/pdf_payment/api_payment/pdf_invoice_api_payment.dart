@@ -4,6 +4,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 import 'package:smapp/models/payment_model.dart';
+import 'package:smapp/models/course_model.dart';
 import 'package:smapp/pdf_payment/api_payment/pdf_api_payment.dart';
 import 'package:smapp/pdf_payment/model_payment/invoice_payment.dart';
 import 'package:smapp/pdf_payment/model_payment/studentPDF_payment.dart';
@@ -137,6 +138,23 @@ class PdfInvoiceApiPayment {
         ],
       );
 
+  static Widget buildTuitionInfo(StudentPDFPayment studentPDF) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text('Total Tuition Fee: ',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+        ]),
+        pw.SizedBox(width: 10),
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(studentPDF.courseFee.toString(),
+              style: const TextStyle(fontSize: 12)),
+        ]),
+      ]),
+    ],
+  );
+
   static Widget buildFacultyInfo(Payment payment) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -146,9 +164,6 @@ class PdfInvoiceApiPayment {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start, 
                 children: [
-                  Text('Total Tuition Fee:',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)
-                  ),
                   Text('Transaction Details',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)
                   ),
@@ -157,6 +172,7 @@ class PdfInvoiceApiPayment {
             ]),
           ),
           Divider(),
+          //BINAYARAN
           Row(children: [
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text('Date: ',
@@ -174,6 +190,8 @@ class PdfInvoiceApiPayment {
               pw.SizedBox(height: 10),
             ]),
           ]),
+
+          //NEW BALNCE
           Row(mainAxisAlignment: MainAxisAlignment.end, children: [
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text('New Balance: ',
