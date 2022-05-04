@@ -32,7 +32,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
   late int studentIndex = widget.index;
   int? studentID;
   String? firstName;
-  String? middleName;
+  String? middleName = '';
   String? lastName;
   String? studentCourse;
   String? studentSubjects;
@@ -490,9 +490,8 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                         //});
                                       },
                                       validator: (String? value) {
-                                        if (value == null ||
-                                            value.trim().length == 0) {
-                                          return "required";
+                                        if (value == null || value.trim().length == 0) {
+                                          middleName = " ";
                                         }
                                         return null;
                                       },
