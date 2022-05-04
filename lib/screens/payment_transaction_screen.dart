@@ -99,11 +99,36 @@ class _PaymentScreenState extends State<PaymentScreen> {
     super.dispose();
   }
 
-  validator(int id) {
+  // validator(int id) {
+  //   Box<Payment> box = Hive.box<Payment>(HiveBoxesPayment.payment);
+  //   var count = box.values.where((payment) => payment.studentID == id).length;
+
+  //   if (count > 0) {
+  //     searchID = id;
+  //     isEnabled = false;
+  //     isSearching = true;
+  //     searchCount = count;
+  //   } else {
+  //     isSearching = false;
+  //     searchIDController.clear();
+  //   }
+  // }
+
+  validatorSurname(String surName) {
+    final studentBox = Hive.box<Student>(HiveBoxesStudent.student);
+    int studID = 0;
     Box<Payment> box = Hive.box<Payment>(HiveBoxesPayment.payment);
-    var count = box.values.where((payment) => payment.studentID == id).length;
+
+    for (final student in studentBox.values) {
+      if (student.lastName == surName) {
+        studID = student.studentID;
+      }
+    }
+
+    var count = box.values.where((payment) => payment.studentID == studID).length;
+
     if (count > 0) {
-      searchID = id;
+      searchID = studID;
       isEnabled = false;
       isSearching = true;
       searchCount = count;
@@ -169,13 +194,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               child: TextFormField(
                                 enabled: isEnabled,
                                 controller: searchIDController,
-                                keyboardType: TextInputType.number,
+                                //keyboardType: TextInputType.number,
                                 decoration: const InputDecoration(
                                   contentPadding:
                                       EdgeInsets.symmetric(vertical: 11),
                                   floatingLabelBehavior:
                                       FloatingLabelBehavior.never,
-                                  labelText: '    Search by ID',
+                                  labelText: '    Search by Surname',
                                   border: InputBorder.none,
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius:
@@ -199,10 +224,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                           side: const BorderSide(
                                               color: Colors.orange)))),
                               onPressed: () {
-                                int idVal = int.parse(searchIDController.text);
-                                validator(idVal);
+                                // int idVal = int.parse(searchIDController.text);
+                                // validator(idVal);
+                                String surName = searchIDController.text;
+                                validatorSurname(surName);
                                 setState(() {
-                                  searchID = int.parse(searchIDController.text);
+                                  //searchID = int.parse(searchIDController.text);
                                 });
                               },
                               child: Padding(
