@@ -44,7 +44,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
   int? paymentCounter;
   String? paymentDate;
   bool? isAdmin = false;
-  
+
   @override
   void initState() {
     super.initState();
@@ -119,28 +119,26 @@ class _EditStudentScreen extends State<EditStudentScreen> {
     return redSubs;
   }
 
-  
-
-    isRegistrar() {
-      final box = Hive.box<Faculty>(HiveBoxesFaculty.faculty);
-      String username = facultyCredential.getString();
-      bool visible = false;
-      if (username == 'admin') {
+  isRegistrar() {
+    final box = Hive.box<Faculty>(HiveBoxesFaculty.faculty);
+    String username = facultyCredential.getString();
+    bool visible = false;
+    if (username == 'admin') {
+      visible = true;
+      return visible;
+    }
+    for (final faculty in box.values) {
+      if (faculty.username == username) {
+        if (faculty.userFaculty == 'Registrar') {
           visible = true;
           return visible;
-        } 
-      for (final faculty in box.values) {
-         if (faculty.username == username) {
-          if (faculty.userFaculty == 'Registrar') {
-            visible = true;
-            return visible;
-          } else {
-            visible = false;
-            return visible;
-          }
+        } else {
+          visible = false;
+          return visible;
         }
       }
     }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -680,7 +678,6 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                         ),
                                         child: TextFormField(
                                           controller: _academicYearController,
-                                          keyboardType: TextInputType.number,
                                           decoration: const InputDecoration(
                                             labelText: 'Academic Year',
                                             border: InputBorder.none,
@@ -736,7 +733,6 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                         ),
                                         child: TextFormField(
                                           controller: _academicTermController,
-                                          keyboardType: TextInputType.number,
                                           decoration: const InputDecoration(
                                             labelText: 'Academic Term',
                                             border: InputBorder.none,
@@ -912,7 +908,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                         ),
                                         child: TextFormField(
                                           textAlign: TextAlign.right,
-                                          enabled: isRegistrar()??false,
+                                          enabled: isRegistrar() ?? false,
                                           controller: _accountBalanceController,
                                           decoration: const InputDecoration(
                                             //hintText: '₱ 0.00',

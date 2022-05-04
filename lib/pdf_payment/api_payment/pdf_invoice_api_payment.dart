@@ -60,7 +60,7 @@ class PdfInvoiceApiPayment {
           pw.Text(
             "Main: Blk 125, Lot 22, Quirino Highway, Lagro, Quezon City",
             style: const TextStyle(
-              fontSize: 8.00,
+              fontSize: 10.00,
             ),
           ),
         ],
@@ -69,27 +69,65 @@ class PdfInvoiceApiPayment {
   static Widget buildInfoSection(InvoicePayment invoice) => Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 0.8 * (PdfPageFormat.cm)),
+          SizedBox(height: 0.3 * (PdfPageFormat.cm)),
           pw.Text(
             "PAYMENT RECEIPT",
             style: TextStyle(
-              fontSize: 12.00,
+              fontSize: 14.00,
               fontWeight: FontWeight.bold,
             ),
           ),
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            SizedBox(height: 0.8 * (PdfPageFormat.cm)),
+            SizedBox(height: 0.5 * (PdfPageFormat.cm)),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 buildStudentInfo(invoice.studentPDFPayment),
-                buildInvoiceInfo(invoice.info),
+                buildInvoiceInfo(invoice.info, invoice.studentPDFPayment),
               ],
             ),
           ]),
-          SizedBox(height: 0.9 * (PdfPageFormat.cm)),
-          buildFacultyInfo(invoice.payment),
+          pw.SizedBox(height: 15),
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            pw.SizedBox(height: 10),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              pw.Expanded(
+                  child: pw.Container(
+                width: PdfPageFormat.cm / 2.2,
+                //color: PdfColors.grey,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // buildTuitionInfo(invoice.studentPDFPayment),
+                      // pw.SizedBox(height: 10),
+                      Text('Transaction Details',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 12)),
+                      pw.Divider(),
+                      buildTransacInfo(invoice.payment),
+                      Divider(),
+                    ]),
+              )),
+              //pw.SizedBox(width: 115),
+              pw.Expanded(
+                  child: pw.Container(
+                //color: PdfColors.amber,
+                padding: const pw.EdgeInsets.only(left: 60),
+                width: PdfPageFormat.cm / 2.2,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Monthly Tuition Breakdown: ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 12)),
+                      Divider(),
+                      buildTuitionBreakdownInfo(invoice.studentPDFPayment),
+                      Divider(),
+                    ]),
+              )),
+            ]),
+          ]),
         ],
       );
 
@@ -138,97 +176,74 @@ class PdfInvoiceApiPayment {
         ],
       );
 
-  static Widget buildTuitionInfo(StudentPDFPayment studentPDF) => Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text('Total Tuition Fee: ',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-        ]),
-        pw.SizedBox(width: 10),
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(studentPDF.courseFee.toString(),
-              style: const TextStyle(fontSize: 12)),
-        ]),
-      ]),
-    ],
-  );
+  static Widget buildTuitionBreakdownInfo(StudentPDFPayment studentPDF) =>
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(mainAxisAlignment: pw.MainAxisAlignment.start, children: [
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(studentPDF.paymentBreakdown.toString(),
+                  style: const TextStyle(fontSize: 12)),
+            ]),
+            pw.SizedBox(width: 15),
+          ]),
+        ],
+      );
 
-  static Widget buildFacultyInfo(Payment payment) => Column(
+  static Widget buildTransacInfo(Payment payment) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             padding: const pw.EdgeInsets.all(0),
-            child: Row(children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start, 
-                children: [
-                  Text('Transaction Details',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)
-                  ),
-                ]
-              ),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              //BINAYARAN
+              Row(children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text('Date: ',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                  Text('Amount: ',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                  pw.SizedBox(height: 10),
+                ]),
+                pw.SizedBox(width: 80),
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(payment.transactionDate,
+                      style: const TextStyle(fontSize: 12)),
+                  Text('Php ${payment.transactionAmount.toString()}',
+                      style: const TextStyle(fontSize: 12)),
+                  pw.SizedBox(height: 10),
+                ]),
+              ]),
+
+              //NEW BALNCE
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text('New Balance: ',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                ]),
+                pw.SizedBox(width: 50),
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text('Php ${payment.newAccountBalance.toString()}',
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: PdfColors.red)),
+                ]),
+              ]),
             ]),
           ),
-          Divider(),
-          //BINAYARAN
-          Row(children: [
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text('Date: ',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-              Text('Amount: ',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-              pw.SizedBox(height: 10),
-            ]),
-            pw.SizedBox(width: 20),
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(payment.transactionDate,
-                  style: const TextStyle(fontSize: 12)),
-              Text('Php ${payment.transactionAmount.toString()}',
-                  style: const TextStyle(fontSize: 12)),
-              pw.SizedBox(height: 10),
-            ]),
-          ]),
 
-          //NEW BALNCE
-          Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text('New Balance: ',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-            ]),
-            pw.SizedBox(width: 20),
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text('Php ${payment.newAccountBalance.toString()}',
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: PdfColors.red)),
-            ]),
-          ]),
-          //IF INSTALLMENT
-          // Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          //     Text('Remaining Balance: ',
-          //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-          //         Text('1st Period: ',
-          //         style: const TextStyle(
-          //             fontSize: 12,)),
-          //             Text('2nd Period: ',
-          //         style: const TextStyle(
-          //             fontSize: 12,)),
-          //             Text('3rd Period: ',
-          //         style: const TextStyle(
-          //             fontSize: 12,)),
-          //             Text('4th Period: ',
-          //         style: const TextStyle(
-          //             fontSize: 12,)),
-          //   ]),
-
-          Divider(),
+          //Divider(),
         ],
       );
 
-  static Widget buildInvoiceInfo(InvoiceInfoPayment info) => Column(
+  static Widget buildInvoiceInfo(
+          InvoiceInfoPayment info, StudentPDFPayment studentPDF) =>
+      Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
@@ -237,7 +252,7 @@ class PdfInvoiceApiPayment {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
               Text('Payment Method: ',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-              Text('Cashier Name: ',
+              Text('Total Tuition Fee: ',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
             ]),
             pw.SizedBox(width: 10),
@@ -245,9 +260,13 @@ class PdfInvoiceApiPayment {
               Text(UtilsPayment.formatDate(info.date),
                   style: const TextStyle(fontSize: 12)),
               Text(info.method, style: const TextStyle(fontSize: 12)),
-              Text(info.facultyName, style: const TextStyle(fontSize: 12)),
+              Text('Php ${studentPDF.courseFee.toString()}',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: PdfColors.red,
+                    fontWeight: FontWeight.bold,
+                  )),
             ]),
-            // Row(children: [
           ]),
         ],
       );
@@ -257,6 +276,7 @@ class PdfInvoiceApiPayment {
           pw.Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
             Text(
               invoice.info.description,
+              textAlign: pw.TextAlign.justify,
               style: const TextStyle(
                 fontSize: 8,
                 color: PdfColors.red,
@@ -280,6 +300,7 @@ class PdfInvoiceApiPayment {
           pw.Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
             Text(
               invoice.info.description,
+              textAlign: pw.TextAlign.justify,
               style: const TextStyle(
                 fontSize: 8,
                 color: PdfColors.red,

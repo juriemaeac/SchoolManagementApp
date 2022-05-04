@@ -112,86 +112,92 @@ class _PaymentScreenState extends State<PaymentScreen> {
     }
   }
 
-  payBreakdown(double balance, double payment, int count, String lastDate) {
-    List<String> months = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
-    ];
+  payBreakdown(
+      double balance, double payment, int count, String lastDate, int method) {
+    if (method == 1) {
+      var payments = '- Nothing Follows -';
+      return payments;
+    } else if (method == 2) {
+      List<String> months = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+      ];
 
-    var splitDate = lastDate.split(' ');
-    String initMonth = splitDate[0];
-    int initMonthIndex = months.indexOf(initMonth);
-    int initIndex = initMonthIndex;
+      var splitDate = lastDate.split(' ');
+      String initMonth = splitDate[0];
+      int initMonthIndex = months.indexOf(initMonth);
+      int initIndex = initMonthIndex;
 
-    List<String> iterableMonths = [];
+      List<String> iterableMonths = [];
 
-    if (initMonthIndex == 8) {
-      //September
-      iterableMonths = ['October', 'November', 'December', 'January'];
-    } else if (initMonthIndex == 9) {
-      //October
-      iterableMonths = ['November', 'December', 'January', 'February'];
-    } else if (initMonthIndex == 10) {
-      //November
-      iterableMonths = ['December', 'January', 'February', 'March'];
-    } else if (initMonthIndex == 11) {
-      //December
-      iterableMonths = ['January', 'February', 'March', 'April'];
-    } else {
-      iterableMonths = months;
+      if (initMonthIndex == 8) {
+        //September
+        iterableMonths = ['October', 'November', 'December', 'January'];
+      } else if (initMonthIndex == 9) {
+        //October
+        iterableMonths = ['November', 'December', 'January', 'February'];
+      } else if (initMonthIndex == 10) {
+        //November
+        iterableMonths = ['December', 'January', 'February', 'March'];
+      } else if (initMonthIndex == 11) {
+        //December
+        iterableMonths = ['January', 'February', 'March', 'April'];
+      } else {
+        iterableMonths = months;
+      }
+
+      List<String> paymentBreakdown = [];
+
+      initIndex++;
+      if (count == 1) {
+        int divisor = 4;
+        //counter = count + 1;
+        balance = balance / divisor;
+        for (int i = 0; i < 4; i++) {
+          paymentBreakdown.add(
+              "${iterableMonths[initIndex]} : Php ${balance.toStringAsFixed(2)}");
+          initIndex++;
+        }
+      } else if (count == 2) {
+        int divisor = 3;
+        //counter = count + 1;
+        balance = balance / divisor;
+        for (int i = 0; i < 3; i++) {
+          paymentBreakdown.add(
+              "${iterableMonths[initIndex]} : Php ${balance.toStringAsFixed(2)}");
+          initIndex++;
+        }
+      } else if (count == 3) {
+        int divisor = 2;
+        //counter = count + 1;
+        balance = balance / divisor;
+        for (int i = 0; i < 2; i++) {
+          paymentBreakdown.add(
+              "${iterableMonths[initIndex]} : Php ${balance.toStringAsFixed(2)}");
+          initIndex++;
+        }
+      } else if (count == 4) {
+        //counter = count + 1;
+        for (int i = 0; i < 1; i++) {
+          paymentBreakdown.add(
+              "${iterableMonths[initIndex]} : Php ${balance.toStringAsFixed(2)}");
+          initIndex++;
+        }
+      }
+
+      var payments = paymentBreakdown.join('\n');
+      return payments.toString();
     }
-
-    List<String> paymentBreakdown = [];
-
-    initIndex++;
-    if (count == 1) {
-      int divisor = 4;
-      //counter = count + 1;
-      balance = balance / divisor;
-      for (int i = 0; i < 4; i++) {
-        paymentBreakdown.add(
-            "${iterableMonths[initIndex]} : ${balance.toStringAsFixed(2)}");
-        initIndex++;
-      }
-    } else if (count == 2) {
-      int divisor = 3;
-      //counter = count + 1;
-      balance = balance / divisor;
-      for (int i = 0; i < 3; i++) {
-        paymentBreakdown.add(
-            "${iterableMonths[initIndex]} : ${balance.toStringAsFixed(2)}");
-        initIndex++;
-      }
-    } else if (count == 3) {
-      int divisor = 2;
-      //counter = count + 1;
-      balance = balance / divisor;
-      for (int i = 0; i < 2; i++) {
-        paymentBreakdown.add(
-            "${iterableMonths[initIndex]} : ${balance.toStringAsFixed(2)}");
-        initIndex++;
-      }
-    } else if (count == 4) {
-      //counter = count + 1;
-      for (int i = 0; i < 1; i++) {
-        paymentBreakdown.add(
-            "${iterableMonths[initIndex]} : ${balance.toStringAsFixed(2)}");
-        initIndex++;
-      }
-    }
-
-    var payments = paymentBreakdown.join('\n');
-    return payments.toString();
   }
 
   TextEditingController searchIDController = TextEditingController();
@@ -512,18 +518,19 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
                                         Faculty cashier =
                                             getCashierInfo(res.facultyUsername);
-                                        print("Balance: ${payor.accountBalance}");
+                                        print(
+                                            "Balance: ${payor.accountBalance}");
                                         String breakdown = payBreakdown(
                                             payor.accountBalance,
                                             res.transactionAmount,
                                             payor.paymentCounter,
-                                            res.transactionDate);
+                                            res.transactionDate,
+                                            payor.isInstallment);
                                         print('\n');
                                         print(breakdown);
                                         final invoice = InvoicePayment(
                                           studentPDFPayment: StudentPDFPayment(
                                             studentId: res.studentID,
-
                                             name: payor.firstName +
                                                 ' ' +
                                                 payor.lastName,
@@ -533,11 +540,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                             subjects: 'SUBJECTS',
                                             courseFee: getCourseFee(
                                                 payor.studentCourse,
-                                                payor
-                                                    .isInstallment),
+                                                payor.isInstallment),
                                             paymentMode: payor.isInstallment,
                                             paymentBalance:
                                                 payor.accountBalance,
+                                            paymentBreakdown: breakdown,
                                           ),
                                           info: InvoiceInfoPayment(
                                             date: date,
@@ -545,7 +552,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                 ' ' +
                                                 cashier.lastName,
                                             description:
-                                                'IMPORTANT: Keep this copy. You will be required to present this when you ask for your examination permits and in all you dealings with the school.',
+                                                'IMPORTANT: Please note of the following schedules of payments. Kindly settle your account on or before the scheduled date. Online Permit will be sent to the teachers. Promissory Note will be issued with the same fee of 15.00. PN form will be available online thru NPCST Finance Department FB page. Students with paid down payment and settled accounts will be allowed to take the exam. Disregard this notice if payment has been made. Thank you.',
                                             method: paymentMethod(
                                                 payor.isInstallment),
                                           ),

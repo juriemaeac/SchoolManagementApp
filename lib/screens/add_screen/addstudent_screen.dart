@@ -54,17 +54,6 @@ class _AddStudentScreen extends State<AddStudentScreen> {
       ..text = courseSubjects.getCourseSubjects();
     TextEditingController _courseFee = TextEditingController()
       ..text = courseSubjects.getCourseFee().toString();
-    List<String> courses = ['BSA', 'BSIT', 'BEED', 'BSED'];
-    List<String> academicYears = [
-      '11',
-      '12',
-      '21',
-      '22',
-      '31',
-      '32',
-      '41',
-      '42'
-    ];
     List<String> acadYear = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
     List<String> acadTerm = ['1st Sem', '2nd Sem', 'Summer'];
     return Scaffold(
@@ -367,10 +356,11 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                               });
                             },
                             validator: (String? value) {
-                               Box<Course> courseBox =
-                                    Hive.box<Course>(HiveBoxesCourse.course);
-                               var count =
-        courseBox.values.where((course) => course.courseCode == value).length;
+                              Box<Course> courseBox =
+                                  Hive.box<Course>(HiveBoxesCourse.course);
+                              var count = courseBox.values
+                                  .where((course) => course.courseCode == value)
+                                  .length;
                               if (value == null || value.trim().length == 0) {
                                 return "required";
                               } else if (count == 0) {
@@ -399,7 +389,6 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                             ],
                           ),
                           child: TextFormField(
-                            keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
                               labelText: '     Academic Year',
                               border: InputBorder.none,

@@ -6,6 +6,7 @@ class StudentPDFPayment {
   final double courseFee;
   final int paymentMode;
   final double paymentBalance;
+  final String paymentBreakdown;
 
   const StudentPDFPayment({
     required this.studentId,
@@ -15,5 +16,6 @@ class StudentPDFPayment {
     required this.courseFee,
     required this.paymentMode,
     required this.paymentBalance,
+    required this.paymentBreakdown,
   });
 }
