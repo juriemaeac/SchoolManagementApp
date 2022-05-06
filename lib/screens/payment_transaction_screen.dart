@@ -135,28 +135,33 @@ class _PaymentScreenState extends State<PaymentScreen> {
       String initMonth = splitDate[0];
       int initMonthIndex = months.indexOf(initMonth);
       int initIndex = initMonthIndex;
-
+      
       List<String> iterableMonths = [];
 
       if (initMonthIndex == 8) {
         //September
         iterableMonths = ['October', 'November', 'December', 'January'];
+        initIndex = 0;
       } else if (initMonthIndex == 9) {
         //October
         iterableMonths = ['November', 'December', 'January', 'February'];
+        initIndex = 0;
       } else if (initMonthIndex == 10) {
         //November
         iterableMonths = ['December', 'January', 'February', 'March'];
+        initIndex = 0;
       } else if (initMonthIndex == 11) {
         //December
         iterableMonths = ['January', 'February', 'March', 'April'];
+        initIndex = 0;
       } else {
         iterableMonths = months;
+        initIndex++;
       }
 
       List<String> paymentBreakdown = [];
 
-      initIndex++;
+     
       if (count == 1) {
         int divisor = 4;
         //counter = count + 1;
