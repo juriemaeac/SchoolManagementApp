@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:smapp/CalendarSpace/addcoursesubject_information.dart';
 import 'package:smapp/NavigationBar/navbar_maintenance_page.dart';
 import 'package:smapp/screens/add_screen/addcourse_screen.dart';
-import 'package:smapp/screens/add_screen/addstudent_screen.dart';
 
 class AddCoursePage extends StatelessWidget {
   const AddCoursePage({Key? key}) : super(key: key);

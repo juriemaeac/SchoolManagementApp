@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
-import 'package:smapp/CalendarSpace/faculty_information_section.dart';
 import 'package:smapp/CalendarSpace/maintenance_information_section.dart';
 import 'package:smapp/Dashboard/src/ProjectStatisticsCards.dart';
-import 'package:smapp/NavigationBar/navbar_faculty_page.dart';
 import 'package:smapp/NavigationBar/navbar_maintenance_page.dart';
 import 'package:smapp/Dashboard/src/subtitle.dart';
 import 'package:smapp/boxes/boxCourse.dart';
 import 'package:smapp/boxes/boxSubject.dart';
 import 'package:smapp/models/subject_model.dart';
-import 'package:smapp/screens/faculty_screen.dart';
 import 'package:smapp/screens/maintenance_screen.dart';
 
 import 'boxes/boxFaculty.dart';

@@ -4,7 +4,6 @@ import 'package:hive/hive.dart';
 import 'package:smapp/NavigationBar/src/navbar_item.dart';
 import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/faculty_page.dart';
-import 'package:smapp/maintenance_page.dart';
 import 'package:smapp/models/student_model.dart';
 import 'package:smapp/payment_transaction_page.dart';
 import 'package:smapp/splash_screen.dart';

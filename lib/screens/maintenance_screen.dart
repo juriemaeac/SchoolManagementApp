@@ -73,7 +73,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
             width: MediaQuery.of(context).size.width * 0.56,
             child: Row(
               children: [
-                Container(
+                SizedBox(
                   height: MediaQuery.of(context).size.height * 0.045,
                   width: (MediaQuery.of(context).size.width * 0.56) / 2.19,
                   child: Column(
@@ -102,7 +102,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.0485,
                 ),
-                Container(
+                SizedBox(
                   height: MediaQuery.of(context).size.height * 0.045,
                   width: (MediaQuery.of(context).size.width * 0.56) / 2.19,
                   child: Column(
@@ -175,7 +175,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                                     ),
                                   ),
                                   const SizedBox(width: 10),
-                                  Container(
+                                  SizedBox(
                                     width: 65,
                                     child: ElevatedButton(
                                       style: ButtonStyle(
@@ -261,7 +261,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context).size.height * 0.45,
                 width: (MediaQuery.of(context).size.width * 0.59) / 2.07,
                 child: ValueListenableBuilder(
@@ -422,7 +422,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                       );
                     }),
               ),
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context).size.height * 0.45,
                 width: (MediaQuery.of(context).size.width * 0.59) / 2.07,
                 child: ValueListenableBuilder(
@@ -438,7 +438,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                       }
                       return SingleChildScrollView(
                         scrollDirection: Axis.vertical,
-                        child: Container(
+                        child: SizedBox(
                           height: MediaQuery.of(context).size.height * 0.45,
                           child: ListView.builder(
                             shrinkWrap: true,

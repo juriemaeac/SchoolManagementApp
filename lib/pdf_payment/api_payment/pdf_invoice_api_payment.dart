@@ -4,7 +4,6 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 import 'package:smapp/models/payment_model.dart';
-import 'package:smapp/models/course_model.dart';
 import 'package:smapp/pdf_payment/api_payment/pdf_api_payment.dart';
 import 'package:smapp/pdf_payment/model_payment/invoice_payment.dart';
 import 'package:smapp/pdf_payment/model_payment/studentPDF_payment.dart';

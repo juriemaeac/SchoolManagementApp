@@ -268,17 +268,6 @@ class _EditStudentScreen extends State<EditStudentScreen> {
     }
 
     String method = paymentMethod(isInstallment!) ?? "";
-    List<String> courses = ['BSA', 'BSIT', 'BEED', 'BSED'];
-    List<String> academicYears = [
-      '11',
-      '12',
-      '21',
-      '22',
-      '31',
-      '32',
-      '41',
-      '42'
-    ];
     List<String> acadYear = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
     List<String> acadTerm = ['1st Sem', '2nd Sem', 'Summer'];
     return Scaffold(

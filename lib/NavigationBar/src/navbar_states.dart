@@ -9,7 +9,6 @@ import 'package:smapp/models/student_model.dart';
 import 'package:smapp/payment_transaction_page.dart';
 import 'package:smapp/splash_screen.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
-import 'package:smapp/dashboard_page.dart';
 import 'package:smapp/student_page.dart';
 
 class NavBar extends StatefulWidget {

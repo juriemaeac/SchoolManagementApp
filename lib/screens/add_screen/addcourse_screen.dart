@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:smapp/boxes/boxCourse.dart';
-import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/models/course_model.dart';
-import 'package:smapp/models/student_model.dart';
 
 class AddCourseScreen extends StatefulWidget {
   const AddCourseScreen({Key? key}) : super(key: key);

@@ -5,7 +5,6 @@ import 'package:smapp/CalendarSpace/student_information_section.dart';
 import 'package:smapp/Dashboard/src/ProjectStatisticsCards.dart';
 import 'package:smapp/Dashboard/src/subtitle.dart';
 import 'package:smapp/NavigationBar/navbar_student_page.dart';
-import 'package:smapp/Dashboard/src/subtitle.dart';
 import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/screens/student_screen.dart';
 

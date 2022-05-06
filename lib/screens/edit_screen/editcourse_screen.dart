@@ -2,15 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:smapp/CalendarSpace/addcoursesubject_information.dart';
-import 'package:smapp/CalendarSpace/addfaculty_information.dart';
-import 'package:smapp/NavigationBar/navbar_faculty_page.dart';
 import 'package:smapp/NavigationBar/navbar_maintenance_page.dart';
 import 'package:smapp/boxes/boxCourse.dart';
-import 'package:smapp/boxes/boxFaculty.dart';
 import 'package:smapp/models/course_model.dart';
-import 'package:smapp/models/faculty_model.dart';
-
-import '../../faculty_page.dart';
 
 class EditCourseScreen extends StatefulWidget {
   final Course course;

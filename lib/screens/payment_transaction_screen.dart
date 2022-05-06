@@ -1,5 +1,3 @@
-import 'dart:math';
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
