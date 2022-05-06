@@ -26,7 +26,7 @@ class _EditFacultyScreen extends State<EditFacultyScreen> {
   String? username;
   String? password;
   String? firstName;
-  String? middleName;
+  String? middleName = " ";
   String? lastName;
   String? userFaculty;
   bool? isAdmin;
@@ -305,7 +305,7 @@ class _EditFacultyScreen extends State<EditFacultyScreen> {
                                           },
                                           validator: (String? value) {
                                             if (value == null ||
-                                                value.trim().length == 0) {
+                                                value.trim().isEmpty) {
                                               return "required";
                                             }
                                             return null;
@@ -369,7 +369,7 @@ class _EditFacultyScreen extends State<EditFacultyScreen> {
                                           },
                                           validator: (String? value) {
                                             if (value == null ||
-                                                value.trim().length == 0) {
+                                                value.trim().isEmpty) {
                                               return "required";
                                             }
                                             return null;
@@ -423,8 +423,8 @@ class _EditFacultyScreen extends State<EditFacultyScreen> {
                                           },
                                           validator: (String? value) {
                                             if (value == null ||
-                                                value.trim().length == 0) {
-                                              return "required";
+                                                value.trim().isEmpty) {
+                                              middleName = " ";
                                             }
                                             return null;
                                           },
@@ -485,7 +485,7 @@ class _EditFacultyScreen extends State<EditFacultyScreen> {
                                           },
                                           validator: (String? value) {
                                             if (value == null ||
-                                                value.trim().length == 0) {
+                                                value.trim().isEmpty) {
                                               return "required";
                                             }
                                             return null;
@@ -538,7 +538,7 @@ class _EditFacultyScreen extends State<EditFacultyScreen> {
                                           },
                                           validator: (String? value) {
                                             if (value == null ||
-                                                value.trim().length == 0) {
+                                                value.trim().isEmpty) {
                                               return "required";
                                             }
                                             if (departments.contains(value) !=

@@ -11,6 +11,9 @@ import 'package:smapp/authentication/right_login_screen.dart';
 import 'package:smapp/dashboard_page.dart';
 import 'package:smapp/student_page.dart';
 
+import '../boxes/boxFaculty.dart';
+import '../models/faculty_model.dart';
+
 class NavBarFaculty extends StatefulWidget {
   const NavBarFaculty({Key? key}) : super(key: key);
 
@@ -31,6 +34,7 @@ class _NavBarFacultyState extends State<NavBarFaculty> {
   }
 
   bool? isAdmin = false;
+  bool? isUserRegistrar = false;
   @override
   void initState() {
     super.initState();
@@ -38,6 +42,28 @@ class _NavBarFacultyState extends State<NavBarFaculty> {
     var user = facultyCredential.getString();
     if (user == 'admin') {
       isAdmin = true;
+    }
+    isUserRegistrar = isRegistrar();
+  }
+
+  isRegistrar() {
+    final box = Hive.box<Faculty>(HiveBoxesFaculty.faculty);
+    String username = facultyCredential.getString();
+    bool visible = false;
+    if (username == 'admin') {
+      visible = true;
+      return visible;
+    }
+    for (final faculty in box.values) {
+      if (faculty.username == username) {
+        if (faculty.userFaculty == 'Registrar') {
+          visible = true;
+          return visible;
+        } else {
+          visible = false;
+          return visible;
+        }
+      }
     }
   }
 
@@ -110,20 +136,23 @@ class _NavBarFacultyState extends State<NavBarFaculty> {
               );
             },
           ),
-          NavBarItem(
-            icon: Feather.archive,
-            active: selected[4],
-            touched: () {
-              setState(() {
-                select(4);
-              });
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const MaintenancePage(),
-                ),
-              );
-            },
+          Visibility(
+            visible: isUserRegistrar ?? false,
+            child: NavBarItem(
+              icon: Feather.archive,
+              active: selected[4],
+              touched: () {
+                setState(() {
+                  select(4);
+                });
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MaintenancePage(),
+                  ),
+                );
+              },
+            ),
           ),
           const SizedBox(height: 50),
           NavBarItem(

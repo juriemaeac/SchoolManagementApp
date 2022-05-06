@@ -64,7 +64,7 @@ class _DashBoardState extends State<DashBoard> {
                 ),
               ),
             ),
-            Tabs(),
+            const Tabs(),
             Container(
               margin: const EdgeInsets.only(top: 15.0),
               height: 200.0,

@@ -8,7 +8,6 @@ import 'package:smapp/boxes/boxSubject.dart';
 import 'package:smapp/models/course_model.dart';
 import 'package:smapp/models/subject_model.dart';
 
-
 class EditSubjectScreen extends StatefulWidget {
   final Subject subject;
   final int index;
@@ -232,7 +231,7 @@ class _EditSubjectScreen extends State<EditSubjectScreen> {
                                                     course.courseCode == value)
                                                 .length;
                                             if (value == null ||
-                                                value.trim().length == 0) {
+                                                value.trim().isEmpty) {
                                               return "required";
                                             } else if (count == 0) {
                                               return "Course Code not found";
@@ -283,7 +282,7 @@ class _EditSubjectScreen extends State<EditSubjectScreen> {
                                           },
                                           validator: (String? value) {
                                             if (value == null ||
-                                                value.trim().length == 0) {
+                                                value.trim().isEmpty) {
                                               return "required";
                                             } else if (acadYear
                                                     .contains(value) !=
@@ -338,7 +337,7 @@ class _EditSubjectScreen extends State<EditSubjectScreen> {
                                           },
                                           validator: (String? value) {
                                             if (value == null ||
-                                                value.trim().length == 0) {
+                                                value.trim().isEmpty) {
                                               return "required";
                                             } else if (acadTerm
                                                     .contains(value) !=
@@ -404,11 +403,8 @@ class _EditSubjectScreen extends State<EditSubjectScreen> {
                                             Box<Subject> subjectBox =
                                                 Hive.box<Subject>(
                                                     HiveBoxesSubject.subject);
-                                            Box<Course> courseBox =
-                                                Hive.box<Course>(
-                                                    HiveBoxesCourse.course);
                                             if (value == null ||
-                                                value.trim().length == 0) {
+                                                value.trim().isEmpty) {
                                               return "required";
                                             } else if (currentSubjectCode !=
                                                 value) {
@@ -471,7 +467,7 @@ class _EditSubjectScreen extends State<EditSubjectScreen> {
                                           },
                                           validator: (String? value) {
                                             if (value == null ||
-                                                value.trim().length == 0) {
+                                                value.trim().isEmpty) {
                                               return "required";
                                             }
                                             return null;

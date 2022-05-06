@@ -162,7 +162,7 @@ class _AddFacultyScreen extends State<AddFacultyScreen> {
                                                 Hive.box<Faculty>(
                                                     HiveBoxesFaculty.faculty);
                                             if (value == null ||
-                                                value.trim().length == 0) {
+                                                value.trim().isEmpty) {
                                               return "required";
                                             }
                                             for (var faculty
@@ -222,7 +222,7 @@ class _AddFacultyScreen extends State<AddFacultyScreen> {
                                           },
                                           validator: (String? value) {
                                             if (value == null ||
-                                                value.trim().length == 0) {
+                                                value.trim().isEmpty) {
                                               return "required";
                                             }
                                             return null;
@@ -285,7 +285,7 @@ class _AddFacultyScreen extends State<AddFacultyScreen> {
                                           },
                                           validator: (String? value) {
                                             if (value == null ||
-                                                value.trim().length == 0) {
+                                                value.trim().isEmpty) {
                                               return "required";
                                             }
                                             return null;
@@ -338,8 +338,8 @@ class _AddFacultyScreen extends State<AddFacultyScreen> {
                                           },
                                           validator: (String? value) {
                                             if (value == null ||
-                                                value.trim().length == 0) {
-                                              return "required";
+                                                value.trim().isEmpty) {
+                                              middleName = " ";
                                             }
                                             return null;
                                           },
@@ -400,7 +400,7 @@ class _AddFacultyScreen extends State<AddFacultyScreen> {
                                           },
                                           validator: (String? value) {
                                             if (value == null ||
-                                                value.trim().length == 0) {
+                                                value.trim().isEmpty) {
                                               return "required";
                                             }
                                             return null;
@@ -453,7 +453,7 @@ class _AddFacultyScreen extends State<AddFacultyScreen> {
                                           },
                                           validator: (String? value) {
                                             if (value == null ||
-                                                value.trim().length == 0) {
+                                                value.trim().isEmpty) {
                                               return "required";
                                             }
                                             if (departments.contains(value) !=

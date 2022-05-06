@@ -117,7 +117,6 @@ class _StudentScreenState extends State<StudentScreen> {
 
   totalUnits(String subjects, String course) {
     List<String> subjectsSplit = [];
-    List<int> subjectUnits = [];
     int totalUnits = 0;
     var subjectString = subjects;
     var splitSubs = subjectString.split(',');
@@ -154,11 +153,11 @@ class _StudentScreenState extends State<StudentScreen> {
       String username = facultyCredential.getString();
       bool visible = false;
       if (username == 'admin') {
-          visible = true;
-          return visible;
-        } 
+        visible = true;
+        return visible;
+      }
       for (final faculty in box.values) {
-         if (faculty.username == username) {
+        if (faculty.username == username) {
           if (faculty.userFaculty == 'Cashier') {
             visible = true;
             return visible;
@@ -175,11 +174,11 @@ class _StudentScreenState extends State<StudentScreen> {
       String username = facultyCredential.getString();
       bool visible = false;
       if (username == 'admin') {
-          visible = true;
-          return visible;
-        } 
+        visible = true;
+        return visible;
+      }
       for (final faculty in box.values) {
-         if (faculty.username == username) {
+        if (faculty.username == username) {
           if (faculty.userFaculty == 'Registrar') {
             visible = true;
             return visible;
@@ -450,7 +449,7 @@ class _StudentScreenState extends State<StudentScreen> {
                                     Row(
                                       children: [
                                         Visibility(
-                                          visible: isRegistrar()??false,
+                                          visible: isRegistrar() ?? false,
                                           child: IconButton(
                                             padding: const EdgeInsets.all(3.0),
                                             splashColor: Colors.transparent,
@@ -503,7 +502,7 @@ class _StudentScreenState extends State<StudentScreen> {
                                         ),
                                         const SizedBox(width: 10),
                                         Visibility(
-                                          visible: isCashier()??false,
+                                          visible: isCashier() ?? false,
                                           child: IconButton(
                                             padding: const EdgeInsets.all(3.0),
                                             splashColor: Colors.transparent,

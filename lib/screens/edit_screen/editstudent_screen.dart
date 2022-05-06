@@ -91,7 +91,6 @@ class _EditStudentScreen extends State<EditStudentScreen> {
 
   subsValidator(String subjects, String course) {
     List<String> subjectsSplit = [];
-    List<String> checkedSubs = [];
     List<String> subjectBasis = [];
     var subjectString = subjects;
     var splitSubs = subjectString.split(',');
@@ -434,7 +433,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                       },
                                       validator: (String? value) {
                                         if (value == null ||
-                                            value.trim().length == 0) {
+                                            value.trim().isEmpty) {
                                           return "required";
                                         }
                                         return null;
@@ -479,7 +478,8 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                         //});
                                       },
                                       validator: (String? value) {
-                                        if (value == null || value.trim().length == 0) {
+                                        if (value == null ||
+                                            value.trim().isEmpty) {
                                           middleName = " ";
                                         }
                                         return null;
@@ -524,7 +524,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                       },
                                       validator: (String? value) {
                                         if (value == null ||
-                                            value.trim().length == 0) {
+                                            value.trim().isEmpty) {
                                           return "required";
                                         }
                                         return null;
@@ -569,7 +569,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                       },
                                       validator: (String? value) {
                                         if (value == null ||
-                                            value.trim().length == 0) {
+                                            value.trim().isEmpty) {
                                           return "required";
                                         }
                                         return null;
@@ -631,7 +631,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                                     course.courseCode == value)
                                                 .length;
                                             if (value == null ||
-                                                value.trim().length == 0) {
+                                                value.trim().isEmpty) {
                                               return "required";
                                             } else if (count == 0) {
                                               return "Course not Found";
@@ -684,7 +684,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                           },
                                           validator: (String? value) {
                                             if (value == null ||
-                                                value.trim().length == 0) {
+                                                value.trim().isEmpty) {
                                               return "required";
                                             } else if (acadYear
                                                     .contains(value) !=
@@ -739,7 +739,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                           },
                                           validator: (String? value) {
                                             if (value == null ||
-                                                value.trim().length == 0) {
+                                                value.trim().isEmpty) {
                                               return "required";
                                             } else if (acadTerm
                                                     .contains(value) !=
@@ -794,7 +794,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                         int red = subsValidator(
                                             value!, studentCourse!);
                                         if (value == null ||
-                                            value.trim().length == 0) {
+                                            value.trim().isEmpty) {
                                           return "required";
                                         } else if (red > 0) {
                                           return "$red subjects found conflicted with records.";
@@ -858,7 +858,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                           },
                                           validator: (String? value) {
                                             if (value == null ||
-                                                value.trim().length == 0) {
+                                                value.trim().isEmpty) {
                                               return "required";
                                             }
                                             return null;
@@ -918,7 +918,7 @@ class _EditStudentScreen extends State<EditStudentScreen> {
                                           },
                                           validator: (String? value) {
                                             if (value == null ||
-                                                value.trim().length == 0) {
+                                                value.trim().isEmpty) {
                                               return "required";
                                             }
                                             return null;

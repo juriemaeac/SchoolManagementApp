@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:hive/hive.dart';
 import 'package:smapp/NavigationBar/src/navbar_item.dart';
+import 'package:smapp/boxes/boxFaculty.dart';
 import 'package:smapp/boxes/boxStudent.dart';
 import 'package:smapp/faculty_page.dart';
 import 'package:smapp/maintenance_page.dart';
+import 'package:smapp/models/faculty_model.dart';
 import 'package:smapp/models/student_model.dart';
 import 'package:smapp/splash_screen.dart';
 import 'package:smapp/authentication/right_login_screen.dart';
@@ -31,6 +33,7 @@ class _NavBarPaymentState extends State<NavBarPayment> {
   }
 
   bool? isAdmin = false;
+  bool? isUserRegistrar = false;
   @override
   void initState() {
     super.initState();
@@ -38,6 +41,28 @@ class _NavBarPaymentState extends State<NavBarPayment> {
     var user = facultyCredential.getString();
     if (user == 'admin') {
       isAdmin = true;
+    }
+    isUserRegistrar = isRegistrar();
+  }
+
+  isRegistrar() {
+    final box = Hive.box<Faculty>(HiveBoxesFaculty.faculty);
+    String username = facultyCredential.getString();
+    bool visible = false;
+    if (username == 'admin') {
+      visible = true;
+      return visible;
+    }
+    for (final faculty in box.values) {
+      if (faculty.username == username) {
+        if (faculty.userFaculty == 'Registrar') {
+          visible = true;
+          return visible;
+        } else {
+          visible = false;
+          return visible;
+        }
+      }
     }
   }
 
@@ -104,20 +129,23 @@ class _NavBarPaymentState extends State<NavBarPayment> {
               });
             },
           ),
-          NavBarItem(
-            icon: Feather.archive,
-            active: selected[4],
-            touched: () {
-              setState(() {
-                select(4);
-              });
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const MaintenancePage(),
-                ),
-              );
-            },
+          Visibility(
+            visible: isUserRegistrar ?? false,
+            child: NavBarItem(
+              icon: Feather.archive,
+              active: selected[4],
+              touched: () {
+                setState(() {
+                  select(4);
+                });
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MaintenancePage(),
+                  ),
+                );
+              },
+            ),
           ),
           const SizedBox(height: 50),
           NavBarItem(

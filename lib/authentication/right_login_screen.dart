@@ -128,7 +128,7 @@ class _LoginScreen extends State<LoginScreen> {
                         });
                       },
                       validator: (String? value) {
-                        if (value == null || value.trim().length == 0) {
+                        if (value == null || value.trim().isEmpty) {
                           return "Required!";
                         }
                         return null;
@@ -184,7 +184,7 @@ class _LoginScreen extends State<LoginScreen> {
                         });
                       },
                       validator: (String? value) {
-                        if (value == null || value.trim().length == 0) {
+                        if (value == null || value.trim().isEmpty) {
                           return "Required!";
                         }
                         return null;

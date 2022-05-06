@@ -37,10 +37,6 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
     }
   }
 
-  ifExist(String course, String subject) {
-    Box<Subject> subjectBox = Hive.box<Subject>(HiveBoxesSubject.subject);
-  }
-
   @override
   Widget build(BuildContext context) {
     List<String> acadYear = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
@@ -134,8 +130,7 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
                                       .where((course) =>
                                           course.courseCode == value)
                                       .length;
-                                  if (value == null ||
-                                      value.trim().length == 0) {
+                                  if (value == null || value.trim().isEmpty) {
                                     return "required";
                                   } else if (count == 0) {
                                     return "Course Code not found";
@@ -180,8 +175,7 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
                                   });
                                 },
                                 validator: (String? value) {
-                                  if (value == null ||
-                                      value.trim().length == 0) {
+                                  if (value == null || value.trim().isEmpty) {
                                     return "required";
                                   } else if (acadYear.contains(value) != true) {
                                     return "! [1st Year, 2nd Year...]";
@@ -228,8 +222,7 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
                                   });
                                 },
                                 validator: (String? value) {
-                                  if (value == null ||
-                                      value.trim().length == 0) {
+                                  if (value == null || value.trim().isEmpty) {
                                     return "required";
                                   } else if (acadTerm.contains(value) != true) {
                                     return "! [1st Sem, 2nd Sem, Summer]";
@@ -288,8 +281,7 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
                                       HiveBoxesSubject.subject);
                                   var checker = courseCheck;
                                   //Box<Course> courseBox = Hive.box<Course>(HiveBoxesCourse.course);
-                                  if (value == null ||
-                                      value.trim().length == 0) {
+                                  if (value == null || value.trim().isEmpty) {
                                     return "required";
                                   }
                                   for (var subject in subjectBox.values) {
@@ -341,8 +333,7 @@ class _AddSubjectScreen extends State<AddSubjectScreen> {
                                   });
                                 },
                                 validator: (String? value) {
-                                  if (value == null ||
-                                      value.trim().length == 0) {
+                                  if (value == null || value.trim().isEmpty) {
                                     return "required";
                                   }
                                   return null;

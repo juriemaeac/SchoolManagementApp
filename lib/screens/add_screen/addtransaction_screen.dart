@@ -287,7 +287,7 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                       },
                                       validator: (String? value) {
                                         if (value == null ||
-                                            value.trim().length == 0) {
+                                            value.trim().isEmpty) {
                                           return "required";
                                         }
                                         return null;
@@ -375,7 +375,7 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                       validator: (String? value) {
                                         if (isInstallment == 1) {
                                           if (value == null ||
-                                              value.trim().length == 0) {
+                                              value.trim().isEmpty) {
                                             return "required";
                                           } else if (double.parse(value) <= 0 ||
                                               double.parse(value) >
@@ -388,7 +388,7 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                                           return null;
                                         } else if (isInstallment == 2) {
                                           if (value == null ||
-                                              value.trim().length == 0) {
+                                              value.trim().isEmpty) {
                                             return "required";
                                           } else if (double.parse(value) <= 0 ||
                                               double.parse(value) >
@@ -502,16 +502,13 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
 
   void _onFormSubmit(double oldBalance, double transactionAmount) {
     String? user = facultyCredential.getString();
-    print("Old counter = $paymentCounter");
     int? updCounter = paymentCounter! + 1;
-    print("New counter = $updCounter");
 
     if (transactionAmount > oldBalance && transactionAmount >= 1.0) {
       return;
     } else {
       double? newAccountBalance = oldBalance - transactionAmount;
       String transacDate = DateFormat("MMMM dd, yyyy").format(DateTime.now());
-      
 
       Box<Payment> paymentBox = Hive.box<Payment>(HiveBoxesPayment.payment);
       paymentBox.add(Payment(
@@ -521,8 +518,7 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
         facultyUsername: user,
         newAccountBalance: newAccountBalance,
       ));
-      
-      
+
       Box<Student> studentBox = Hive.box<Student>(HiveBoxesStudent.student);
       studentBox.putAt(
           studentIndex,

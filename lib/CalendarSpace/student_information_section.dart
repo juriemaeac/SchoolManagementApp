@@ -1,10 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:smapp/CalendarSpace/src/calendar_section.dart';
 import 'package:smapp/CalendarSpace/src/profile_section.dart';
 import 'package:smapp/CalendarSpace/src/student_buttons.dart';
+import 'package:smapp/authentication/right_login_screen.dart';
+import 'package:smapp/boxes/boxFaculty.dart';
+import 'package:smapp/models/faculty_model.dart';
+import '../boxes/boxStudent.dart';
+import '../models/student_model.dart';
 
-class StudentInfo extends StatelessWidget {
+class StudentInfo extends StatefulWidget {
   const StudentInfo({Key? key}) : super(key: key);
+
+  @override
+  State<StudentInfo> createState() => _StudentInfoState();
+}
+
+class _StudentInfoState extends State<StudentInfo> {
+  bool? isAdmin = false;
+  bool? isUserRegistrar = false;
+  @override
+  void initState() {
+    super.initState();
+    Hive.openBox<Student>(HiveBoxesStudent.student);
+    var user = facultyCredential.getString();
+    if (user == 'admin') {
+      isAdmin = true;
+    }
+    isUserRegistrar = isRegistrar();
+  }
+
+  isRegistrar() {
+    final box = Hive.box<Faculty>(HiveBoxesFaculty.faculty);
+    String username = facultyCredential.getString();
+    bool visible = false;
+    if (username == 'admin') {
+      visible = true;
+      return visible;
+    }
+    for (final faculty in box.values) {
+      if (faculty.username == username) {
+        if (faculty.userFaculty == 'Registrar') {
+          visible = true;
+          return visible;
+        } else {
+          visible = false;
+          return visible;
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +88,9 @@ class StudentInfo extends StatelessWidget {
               ),
             ),
             const CalendarSection(), //Month Year
-            const StudentButtons(),
+            Visibility(
+                visible: isUserRegistrar ?? false,
+                child: const StudentButtons()),
           ],
         ),
       ),

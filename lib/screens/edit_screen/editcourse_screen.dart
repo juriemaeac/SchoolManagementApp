@@ -192,7 +192,7 @@ class _EditCourseScreen extends State<EditCourseScreen> {
                                             Hive.box<Course>(
                                                 HiveBoxesCourse.course);
                                         if (value == null ||
-                                            value.trim().length == 0) {
+                                            value.trim().isEmpty) {
                                           return "required";
                                         }
                                         if (currentCourseCode != value) {
@@ -251,7 +251,7 @@ class _EditCourseScreen extends State<EditCourseScreen> {
                                             Hive.box<Course>(
                                                 HiveBoxesCourse.course);
                                         if (value == null ||
-                                            value.trim().length == 0) {
+                                            value.trim().isEmpty) {
                                           return "required";
                                         }
                                         if (currentCourseName != value) {
@@ -308,7 +308,7 @@ class _EditCourseScreen extends State<EditCourseScreen> {
                                       },
                                       validator: (String? value) {
                                         if (value == null ||
-                                            value.trim().length == 0) {
+                                            value.trim().isEmpty) {
                                           return "required";
                                         }
                                         return null;

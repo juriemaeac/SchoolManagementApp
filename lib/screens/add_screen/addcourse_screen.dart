@@ -115,7 +115,7 @@ class _AddCourseScreen extends State<AddCourseScreen> {
                               validator: (String? value) {
                                 Box<Course> courseBox =
                                     Hive.box<Course>(HiveBoxesCourse.course);
-                                if (value == null || value.trim().length == 0) {
+                                if (value == null || value.trim().isEmpty) {
                                   return "required";
                                 }
                                 for (var course in courseBox.values) {
@@ -168,7 +168,7 @@ class _AddCourseScreen extends State<AddCourseScreen> {
                               validator: (String? value) {
                                 Box<Course> courseBox =
                                     Hive.box<Course>(HiveBoxesCourse.course);
-                                if (value == null || value.trim().length == 0) {
+                                if (value == null || value.trim().isEmpty) {
                                   return "required";
                                 }
                                 for (var course in courseBox.values) {
@@ -219,7 +219,7 @@ class _AddCourseScreen extends State<AddCourseScreen> {
                                 });
                               },
                               validator: (String? value) {
-                                if (value == null || value.trim().length == 0) {
+                                if (value == null || value.trim().isEmpty) {
                                   return "required";
                                 }
                                 return null;

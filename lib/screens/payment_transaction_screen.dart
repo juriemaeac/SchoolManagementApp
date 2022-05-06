@@ -112,94 +112,98 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   payBreakdown(
       double balance, double payment, int count, String lastDate, int method) {
-    if (method == 1) {
-      var payments = '- Nothing Follows -';
+    if (balance == 0.0) {
+      var payments = '- Fully Paid -';
       return payments;
-    } else if (method == 2) {
-      List<String> months = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'
-      ];
+    } else {
+      if (method == 1) {
+        var payments = '- Nothing Follows -';
+        return payments;
+      } else if (method == 2) {
+        List<String> months = [
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December'
+        ];
 
-      var splitDate = lastDate.split(' ');
-      String initMonth = splitDate[0];
-      int initMonthIndex = months.indexOf(initMonth);
-      int initIndex = initMonthIndex;
-      
-      List<String> iterableMonths = [];
+        var splitDate = lastDate.split(' ');
+        String initMonth = splitDate[0];
+        int initMonthIndex = months.indexOf(initMonth);
+        int initIndex = initMonthIndex;
 
-      if (initMonthIndex == 8) {
-        //September
-        iterableMonths = ['October', 'November', 'December', 'January'];
-        initIndex = 0;
-      } else if (initMonthIndex == 9) {
-        //October
-        iterableMonths = ['November', 'December', 'January', 'February'];
-        initIndex = 0;
-      } else if (initMonthIndex == 10) {
-        //November
-        iterableMonths = ['December', 'January', 'February', 'March'];
-        initIndex = 0;
-      } else if (initMonthIndex == 11) {
-        //December
-        iterableMonths = ['January', 'February', 'March', 'April'];
-        initIndex = 0;
-      } else {
-        iterableMonths = months;
-        initIndex++;
+        List<String> iterableMonths = [];
+
+        if (initMonthIndex == 8) {
+          //September
+          iterableMonths = ['October', 'November', 'December', 'January'];
+          initIndex = 0;
+        } else if (initMonthIndex == 9) {
+          //October
+          iterableMonths = ['November', 'December', 'January', 'February'];
+          initIndex = 0;
+        } else if (initMonthIndex == 10) {
+          //November
+          iterableMonths = ['December', 'January', 'February', 'March'];
+          initIndex = 0;
+        } else if (initMonthIndex == 11) {
+          //December
+          iterableMonths = ['January', 'February', 'March', 'April'];
+          initIndex = 0;
+        } else {
+          iterableMonths = months;
+          initIndex++;
+        }
+
+        List<String> paymentBreakdown = [];
+
+        if (count == 1) {
+          int divisor = 4;
+          //counter = count + 1;
+          balance = balance / divisor;
+          for (int i = 0; i < 4; i++) {
+            paymentBreakdown.add(
+                "${iterableMonths[initIndex]} : Php ${balance.toStringAsFixed(2)}");
+            initIndex++;
+          }
+        } else if (count == 2) {
+          int divisor = 3;
+          //counter = count + 1;
+          balance = balance / divisor;
+          for (int i = 0; i < 3; i++) {
+            paymentBreakdown.add(
+                "${iterableMonths[initIndex]} : Php ${balance.toStringAsFixed(2)}");
+            initIndex++;
+          }
+        } else if (count == 3) {
+          int divisor = 2;
+          //counter = count + 1;
+          balance = balance / divisor;
+          for (int i = 0; i < 2; i++) {
+            paymentBreakdown.add(
+                "${iterableMonths[initIndex]} : Php ${balance.toStringAsFixed(2)}");
+            initIndex++;
+          }
+        } else if (count == 4) {
+          //counter = count + 1;
+          for (int i = 0; i < 1; i++) {
+            paymentBreakdown.add(
+                "${iterableMonths[initIndex]} : Php ${balance.toStringAsFixed(2)}");
+            initIndex++;
+          }
+        }
+
+        var payments = paymentBreakdown.join('\n');
+        return payments.toString();
       }
-
-      List<String> paymentBreakdown = [];
-
-     
-      if (count == 1) {
-        int divisor = 4;
-        //counter = count + 1;
-        balance = balance / divisor;
-        for (int i = 0; i < 4; i++) {
-          paymentBreakdown.add(
-              "${iterableMonths[initIndex]} : Php ${balance.toStringAsFixed(2)}");
-          initIndex++;
-        }
-      } else if (count == 2) {
-        int divisor = 3;
-        //counter = count + 1;
-        balance = balance / divisor;
-        for (int i = 0; i < 3; i++) {
-          paymentBreakdown.add(
-              "${iterableMonths[initIndex]} : Php ${balance.toStringAsFixed(2)}");
-          initIndex++;
-        }
-      } else if (count == 3) {
-        int divisor = 2;
-        //counter = count + 1;
-        balance = balance / divisor;
-        for (int i = 0; i < 2; i++) {
-          paymentBreakdown.add(
-              "${iterableMonths[initIndex]} : Php ${balance.toStringAsFixed(2)}");
-          initIndex++;
-        }
-      } else if (count == 4) {
-        //counter = count + 1;
-        for (int i = 0; i < 1; i++) {
-          paymentBreakdown.add(
-              "${iterableMonths[initIndex]} : Php ${balance.toStringAsFixed(2)}");
-          initIndex++;
-        }
-      }
-
-      var payments = paymentBreakdown.join('\n');
-      return payments.toString();
     }
   }
 
@@ -521,16 +525,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
                                         Faculty cashier =
                                             getCashierInfo(res.facultyUsername);
-                                        print(
-                                            "Balance: ${payor.accountBalance}");
                                         String breakdown = payBreakdown(
                                             payor.accountBalance,
                                             res.transactionAmount,
                                             payor.paymentCounter,
                                             res.transactionDate,
                                             payor.isInstallment);
-                                        print('\n');
-                                        print(breakdown);
                                         final invoice = InvoicePayment(
                                           studentPDFPayment: StudentPDFPayment(
                                             studentId: res.studentID,

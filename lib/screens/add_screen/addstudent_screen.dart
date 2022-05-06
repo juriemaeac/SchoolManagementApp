@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -121,7 +120,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                         validator: (String? value) {
                           Box<Student> studentBox =
                               Hive.box<Student>(HiveBoxesStudent.student);
-                          if (value == null || value.trim().length == 0) {
+                          if (value == null || value.trim().isEmpty) {
                             return "required";
                           }
                           for (var student in studentBox.values) {
@@ -172,7 +171,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                           });
                         },
                         validator: (String? value) {
-                          if (value == null || value.trim().length == 0) {
+                          if (value == null || value.trim().isEmpty) {
                             return "required";
                           }
                           return null;
@@ -218,7 +217,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                           });
                         },
                         validator: (String? value) {
-                          if (value == null || value.trim().length == 0) {
+                          if (value == null || value.trim().isEmpty) {
                             middleName = " ";
                           }
                           return null;
@@ -263,7 +262,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                           });
                         },
                         validator: (String? value) {
-                          if (value == null || value.trim().length == 0) {
+                          if (value == null || value.trim().isEmpty) {
                             return "required";
                           }
                           return null;
@@ -306,7 +305,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                           });
                         },
                         validator: (String? value) {
-                          if (value == null || value.trim().length == 0) {
+                          if (value == null || value.trim().isEmpty) {
                             return "required";
                           }
                           return null;
@@ -361,7 +360,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                               var count = courseBox.values
                                   .where((course) => course.courseCode == value)
                                   .length;
-                              if (value == null || value.trim().length == 0) {
+                              if (value == null || value.trim().isEmpty) {
                                 return "required";
                               } else if (count == 0) {
                                 return "Course not Found";
@@ -406,7 +405,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                               });
                             },
                             validator: (String? value) {
-                              if (value == null || value.trim().length == 0) {
+                              if (value == null || value.trim().isEmpty) {
                                 return "required";
                               } else if (acadYear.contains(value) != true) {
                                 return "! [1st Year, 2nd Year...]";
@@ -452,7 +451,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                               });
                             },
                             validator: (String? value) {
-                              if (value == null || value.trim().length == 0) {
+                              if (value == null || value.trim().isEmpty) {
                                 return "required";
                               } else if (acadTerm.contains(value) != true) {
                                 return "! [1st Sem, 2nd Sem, Summer]";
@@ -501,7 +500,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                           });
                         },
                         validator: (String? value) {
-                          if (value == null || value.trim().length == 0) {
+                          if (value == null || value.trim().isEmpty) {
                             return "required";
                           }
                           return null;
@@ -645,8 +644,7 @@ class _AddStudentScreen extends State<AddStudentScreen> {
                                       double.parse(_courseFee.text);
                                 },
                                 validator: (String? value) {
-                                  if (value == null ||
-                                      value.trim().length == 0) {
+                                  if (value == null || value.trim().isEmpty) {
                                     return "required";
                                   }
                                   return null;
@@ -816,7 +814,6 @@ class courseSubjects {
         } else if (subPayment == 2) {
           fee = courses.courseFee + 1000.0;
         }
-        ;
       }
     }
     return fee;
